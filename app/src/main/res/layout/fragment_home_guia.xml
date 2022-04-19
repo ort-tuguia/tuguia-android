@@ -25,6 +25,21 @@
 
 
     <TextView
+        android:id="@+id/textViewHola"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hola..."
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textViewVolverGuia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+    <TextView
         android:id="@+id/textViewVolverGuia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

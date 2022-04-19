@@ -13,6 +13,7 @@ class home_turista : Fragment() {
 
     lateinit var textViewVolver: TextView
     lateinit var view1 : View
+    lateinit var textHola : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +22,10 @@ class home_turista : Fragment() {
         // Inflate the layout for this fragment
         view1 = inflater.inflate(R.layout.fragment_home_turista, container, false)
         textViewVolver = view1.findViewById(R.id.textViewVolverRegistro)
+        textHola = view1.findViewById(R.id.textViewHola)
+
+        var nombreDeUsuario = requireArguments().getString("usuario")
+        textHola.text = "Hola... ${nombreDeUsuario.toString()}"
 
         return view1
     }
