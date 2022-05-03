@@ -16,15 +16,11 @@
             app:popUpToInclusive="true"/>
 
         <action
-            android:id="@+id/action_login_to_home_guia"
-            app:destination="@id/home_guia"
-            app:popUpTo="@id/action_login_to_home_guia"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_login_to_containerFragmentGuia"
+            app:destination="@id/containerFragmentGuia" />
         <action
             android:id="@+id/action_login_to_home_turista"
-            app:destination="@id/home_turista"
-            app:popUpTo="@id/action_login_to_home_turista"
-            app:popUpToInclusive="true"/>
+            app:destination="@id/home_turista" />
     </fragment>
     <fragment
         android:id="@+id/register"
@@ -36,14 +32,9 @@
             app:destination="@id/login" />
     </fragment>
     <fragment
-        android:id="@+id/home_guia"
-        android:name="ort.tp3_login.home_guia"
-        android:label="fragment_home_guia"
-        tools:layout="@layout/fragment_home_guia" >
-        <action
-            android:id="@+id/action_home_guia_to_login"
-            app:destination="@id/login" />
-    </fragment>
+        android:id="@+id/containerFragmentGuia"
+        android:name="ort.tp3_login.containerFragmentGuia"
+        android:label="containerFragmentGuia" />
     <fragment
         android:id="@+id/home_turista"
         android:name="ort.tp3_login.home_turista"

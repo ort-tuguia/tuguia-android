@@ -25,19 +25,19 @@ class home_guia : Fragment() {
 
         textHola = view1.findViewById(R.id.textViewHola)
 
-        var nombreDeUsuario = requireArguments().getString("usuario")
-        textHola.text = "Hola... ${nombreDeUsuario.toString()}"
+        //var nombreDeUsuario = requireArguments().getString("usuario")
+        //textHola.text = "Hola... ${nombreDeUsuario.toString()}"
         return view1
     }
 
-    override fun onStart() {
-        super.onStart()
+    //override fun onStart() {
+        //super.onStart()
 
-        textViewVolver.setOnClickListener {
-            val action1 = home_guiaDirections.actionHomeGuiaToLogin()
-            view1.findNavController().navigate(action1)
-        }
-    }
+        //textViewVolver.setOnClickListener {
+            //val action1 = home_guiaDirections.actionHomeGuiaToLogin()
+            //view1.findNavController().navigate(action1)
+        //}
+    //}
 
 
 

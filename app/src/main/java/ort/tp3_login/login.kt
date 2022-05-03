@@ -61,7 +61,7 @@ class login : Fragment() {
     private fun navigatorConArgs(args : String) {
         val bundle: Bundle = bundleOf("usuario" to args)
         if(radioButton.isChecked){
-            val action1 = R.id.action_login_to_home_guia
+            val action1 = R.id.action_login_to_containerFragmentGuia
             view1.findNavController().navigate(action1,bundle)
         }else{
             val action2 = R.id.action_login_to_home_turista
