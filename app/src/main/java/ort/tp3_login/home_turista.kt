@@ -24,8 +24,8 @@ class home_turista : Fragment() {
         textViewVolver = view1.findViewById(R.id.textViewVolverRegistro)
         textHola = view1.findViewById(R.id.textViewHola)
 
-        var nombreDeUsuario = requireArguments().getString("usuario")
-        textHola.text = "Hola... ${nombreDeUsuario.toString()}"
+        //var nombreDeUsuario = requireArguments().getString("usuario")
+        //textHola.text = "Hola... ${nombreDeUsuario.toString()}"
 
         return view1
     }

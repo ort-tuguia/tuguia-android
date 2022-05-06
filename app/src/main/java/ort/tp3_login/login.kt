@@ -2,6 +2,7 @@ package ort.tp3_login
 
 import android.app.Activity
 import android.app.Application
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -64,8 +65,8 @@ class login : Fragment() {
             val action1 = R.id.action_login_to_containerFragmentGuia
             view1.findNavController().navigate(action1,bundle)
         }else{
-            val action2 = R.id.action_login_to_home_turista
-            view1.findNavController().navigate(action2,bundle)
+           val intent = Intent(context, activity_turista::class.java)
+            startActivity(intent)
         }
     }
 
