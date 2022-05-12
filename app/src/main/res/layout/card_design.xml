@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/teal_700">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/perfilPicCard"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:paddingTop="2dp"
+                    android:src="@drawable/profile"></de.hdodenhof.circleimageview.CircleImageView>
+
+                <TextView
+                    android:id="@+id/nombreGuiaCard"
+                    android:layout_width="157dp"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/teal_700"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="Username"></TextView>
+
+                <TextView
+                    android:id="@+id/fechaCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="25/05/2022" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageCard"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/recycler_city"></ImageView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tituloCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="50dp"
+                    android:text="Free walking tour"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/valoracionCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:text="5.0" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

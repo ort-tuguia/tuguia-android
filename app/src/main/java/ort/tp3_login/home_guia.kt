@@ -10,9 +10,9 @@ import androidx.navigation.findNavController
 
 
 class home_guia : Fragment() {
-    lateinit var textViewVolver : TextView
+
     lateinit var view1 : View
-    lateinit var textHola : TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,9 +21,9 @@ class home_guia : Fragment() {
         // Inflate the layout for this fragment
 
         view1 = inflater.inflate(R.layout.fragment_home_guia, container, false)
-        textViewVolver = view1.findViewById(R.id.textViewVolverGuia)
 
-        textHola = view1.findViewById(R.id.textViewHola)
+
+
 
         //var nombreDeUsuario = requireArguments().getString("usuario")
         //textHola.text = "Hola... ${nombreDeUsuario.toString()}"
