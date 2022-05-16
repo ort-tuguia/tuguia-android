@@ -14,9 +14,13 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:paddingTop="50dp"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:src="@drawable/profile"></de.hdodenhof.circleimageview.CircleImageView>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -25,13 +29,14 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
+                android:paddingLeft="20dp"
                 android:src="@drawable/icon_profile"></ImageView>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingLeft="20dp"
                 android:text="Tom Maenhout"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
@@ -45,13 +50,14 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
+                android:paddingLeft="20dp"
                 android:src="@drawable/icon_email"></ImageView>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingLeft="20dp"
                 android:text="tom.maenhout@gmail.com"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
