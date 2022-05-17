@@ -1,4 +1,4 @@
-package ort.tp3_login
+package ort.tp3_login.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.findNavController
+import ort.tp3_login.R
 
 class register : Fragment() {
 

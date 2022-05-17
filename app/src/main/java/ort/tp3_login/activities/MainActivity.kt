@@ -1,7 +1,8 @@
-package ort.tp3_login
+package ort.tp3_login.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ort.tp3_login.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

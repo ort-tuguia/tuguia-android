@@ -52,6 +52,21 @@
         <entry key="..\:/Users/tomma/proyects/tuguia-android/app/src/main/res/layout/fragment_perfil_turista.xml" value="0.25" />
         <entry key="..\:/Users/tomma/proyects/tuguia-android/app/src/main/res/layout/nav_header.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/tomma/proyects/tuguia-android/app/src/main/res/menu/menu_drawable_turista.xml" value="0.11228070175438597" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/activity_turista.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/card_design.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_add_servicio.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_container_guia.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_favoritos_turista.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_home_admin.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_home_guia.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_home_turista.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_mapa_turista.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_perfil_turista.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_register.xml" value="0.1" />
+        <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/nav_header.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -1,4 +1,4 @@
-package ort.tp3_login
+package ort.tp3_login.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import ort.tp3_login.R
+import ort.tp3_login.adapters.ViewPagerAdapter
 
 
 class containerFragmentGuia : Fragment() {

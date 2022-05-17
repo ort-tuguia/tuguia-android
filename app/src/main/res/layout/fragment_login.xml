@@ -8,7 +8,7 @@
 
     android:background="@drawable/gradient"
     android:backgroundTint="@null"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
 
     <ImageView

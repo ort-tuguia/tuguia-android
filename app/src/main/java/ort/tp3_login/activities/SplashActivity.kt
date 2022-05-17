@@ -1,9 +1,10 @@
-package ort.tp3_login
+package ort.tp3_login.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import ort.tp3_login.R
 
 class SplashActivity : AppCompatActivity() {
 
@@ -19,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(
             {
-                startActivity(Intent(this,MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
             , SPLASH_TIME_OUT)

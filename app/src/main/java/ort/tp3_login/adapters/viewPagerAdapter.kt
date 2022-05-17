@@ -1,8 +1,10 @@
-package ort.tp3_login
+package ort.tp3_login.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import ort.tp3_login.fragments.addServicio
+import ort.tp3_login.fragments.home_guia
 
 class ViewPagerAdapter (fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {
