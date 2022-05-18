@@ -24,4 +24,8 @@
         android:name="ort.tp3_login.fragments.perfil_turista"
         android:label="fragment_perfil_turista"
         tools:layout="@layout/fragment_perfil_turista" />
+    <fragment
+        android:id="@+id/reservaTurista"
+        android:name="ort.tp3_login.fragments.ReservaTurista"
+        android:label="ReservaTurista" />
 </navigation>
