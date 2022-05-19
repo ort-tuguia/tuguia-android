@@ -27,5 +27,6 @@
     <fragment
         android:id="@+id/reservaTurista"
         android:name="ort.tp3_login.fragments.ReservaTurista"
-        android:label="ReservaTurista" />
+        android:label="ReservaTurista"
+        tools:layout="@layout/fragment_reserva_turista"/>
 </navigation>

@@ -10,7 +10,7 @@
         android:title="Perfil"
         android:icon="@drawable/icon_profile"/>
     <item
-        android:id="@+id/reservas_turista"
+        android:id="@+id/reservaTurista"
         android:title="Reservas"
         android:icon="@drawable/icon_reservas"/>
     <item
