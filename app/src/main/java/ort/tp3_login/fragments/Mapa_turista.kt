@@ -83,6 +83,7 @@ class mapa_turista : Fragment() {
         mapFragment?.getMapAsync(callback)
     }
 
+    @Deprecated("Deprecated in Java")
     @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(
         requestCode: Int,

@@ -1,7 +1,10 @@
 package ort.tp3_login.activities
 
 import android.os.Bundle
+import android.os.PersistableBundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -9,6 +12,9 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_turista.*
 import ort.tp3_login.R
+import ort.tp3_login.entities.ServicioCard
+import ort.tp3_login.viewModels.ViewModelHomeTurista
+import java.util.*
 
 
 class activity_turista : AppCompatActivity() {
@@ -46,6 +52,13 @@ class activity_turista : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController,drawer_layout_id)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        val model : ViewModelHomeTurista by viewModels()
+
+
     }
 
     /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
