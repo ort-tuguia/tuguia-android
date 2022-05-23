@@ -1,12 +1,15 @@
 package ort.tp3_login.viewModels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
 import ort.tp3_login.entities.ServicioCard
 
+
 class ViewModelHomeTurista : ViewModel() {
     val lista = MutableLiveData<MutableList<ServicioCard>>()
+
 
     init {
         lista.value = ArrayList<ServicioCard>()
@@ -15,6 +18,7 @@ class ViewModelHomeTurista : ViewModel() {
 
     fun initializar () {
         // fetch data de la API
+
         lista.value?.add(
             ServicioCard("Tom Maenhout",
                 "24/10/2022",
