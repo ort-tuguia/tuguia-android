@@ -8,7 +8,7 @@ import ort.tp3_login.entities.ServicioCard
 
 
 class ViewModelHomeTurista : ViewModel() {
-    val lista = MutableLiveData<MutableList<ServicioCard>>()
+    var lista = MutableLiveData<MutableList<ServicioCard>>()
 
 
     init {
