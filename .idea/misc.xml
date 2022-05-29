@@ -69,6 +69,8 @@
         <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_reserva_turista.xml" value="0.1234375" />
         <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/nav_header.xml" value="0.1" />
         <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/menu/menu_drawable_turista.xml" value="0.17552083333333332" />
+        <entry key="app/src/main/res/layout/fragment_home_turista.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
       </map>
     </option>
   </component>
