@@ -120,6 +120,9 @@ class activity_turista : AppCompatActivity() {
         })
     }
 
+
+
+
     /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_drawable_turista,menu)
         return true
