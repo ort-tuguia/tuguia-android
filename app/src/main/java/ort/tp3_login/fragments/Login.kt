@@ -1,38 +1,40 @@
 package ort.tp3_login.fragments
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.*
+import okhttp3.internal.wait
 import ort.tp3_login.R
 import ort.tp3_login.activities.activity_turista
+import ort.tp3_login.dataclasses.Login
 import ort.tp3_login.dataclasses.ServicioService
-import ort.tp3_login.dataclasses.Servicios
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
+import ort.tp3_login.viewModels.ViewModelHomeTurista
 import retrofit2.Response
 
 
 class login : Fragment() {
 
-    lateinit var view1 : View
-    lateinit var buttonLogin : Button
-    lateinit var textRegister : TextView
-    lateinit var radioButton : RadioButton
-    lateinit var usuario : EditText
-    lateinit var password : EditText
+    lateinit var view1: View
+    lateinit var buttonLogin: Button
+    lateinit var textRegister: TextView
+    lateinit var radioButton: RadioButton
+    lateinit var usuario: EditText
+    lateinit var password: EditText
+    var viewModel: ViewModelHomeTurista? = ViewModelHomeTurista()
 
 
     override fun onCreateView(
@@ -57,16 +59,26 @@ class login : Fragment() {
         super.onStart()
 
         buttonLogin.setOnClickListener {
+
+            /* ASI ESTABA ANTES ---->
+            var user = usuario.text.toString()
+            var pass = password.text.toString()
+            val usuarioFetch = fetchLogin(user, pass)
+
+             */
             var user = usuario.text.toString()
             var pass = password.text.toString()
 
-            val usuarioFetch = fetchLogin(user, pass)
-
-            if (!(TextUtils.isEmpty(user) && TextUtils.isEmpty(pass)) && usuarioFetch != null){
+            fun fetcher() = runBlocking(CoroutineName("fetcher")) {
+                fetchLogin(user, pass)
+            }
+            fetcher()
+            if (!(TextUtils.isEmpty(user) && TextUtils.isEmpty(pass)) && viewModel?.user != null) {
                 //depende el rol del usuario devuelto redirigir a HomeTurista o HomeGuia
-                navigatorConArgs(usuarioFetch)
-            }else{
-                Snackbar.make(view1, "Usuario o contraseña incorrectos.",Snackbar.LENGTH_SHORT).show()
+                navigatorConArgs(viewModel?.user!!)
+            } else {
+                Snackbar.make(view1, "Usuario o contraseña incorrectos.", Snackbar.LENGTH_SHORT)
+                    .show()
             }
 
 
@@ -78,24 +90,37 @@ class login : Fragment() {
         }
     }
 
-    private fun navigatorConArgs(args : UsuarioLogin) {
-        when (args.rol) {
+    private fun navigatorConArgs(args: UsuarioLogin) {
+        when (args.role) {
             // 0 -> ir a pantalla admin
-            1 -> {
+            "TOURIST" -> {
                 val intent = Intent(context, activity_turista::class.java)
                 startActivity(intent)
             }
-            2 -> {
+            "GUIDE" -> {
                 val action1 = R.id.action_login_to_containerFragmentGuia
                 view1.findNavController().navigate(action1)
             }
             else -> {
-                Snackbar.make(view1, "Usuario o contraseña incorrectos.",Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view1, "Usuario o contraseña incorrectos.", Snackbar.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
-    private fun fetchLogin(user: String, pass: String): UsuarioLogin? {
+    private suspend fun fetchLogin(user: String, pass: String) {
+        val retService: ServicioService = RetrofitInstance
+            .getRetrofitInstance()
+            .create(ServicioService::class.java)
+        val login = Login(user, pass)
+        val response = retService.getLogin(login)
+        viewModel?.user = response.body()
+    }
+
+
+    /*
+    Asi estaba antes --->
+        private fun fetchLogin(user: String, pass: String): UsuarioLogin? {
         val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
             .create(ServicioService::class.java)
@@ -120,4 +145,5 @@ class login : Fragment() {
     }
 
 
+     */
 }
