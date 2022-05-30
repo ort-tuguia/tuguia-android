@@ -4,18 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.entities.ServicioCard
 
 
 class ViewModelHomeTurista : ViewModel() {
     var lista = MutableLiveData<MutableList<ServicioCard>>()
+   // var user : MutableLiveData<UsuarioLogin>? = null
+   var user: UsuarioLogin? = null
 
-
-    init {
-        lista.value = ArrayList<ServicioCard>()
-        initializar()
-    }
-
+//    init {
+//        lista.value = ArrayList<ServicioCard>()
+//        initializar()
+//    }
+//    fun setUser(){
+//        user = MutableLiveData()
+//    }
     fun initializar () {
         // fetch data de la API
 
