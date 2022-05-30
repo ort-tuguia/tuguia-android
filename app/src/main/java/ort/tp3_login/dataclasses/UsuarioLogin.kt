@@ -5,6 +5,6 @@ package ort.tp3_login.dataclasses
         val firstName: String,
         val lastName: String,
         val email: String,
-        val rol: Int, //TODO
+        val role: String, //TODO
     )
 
