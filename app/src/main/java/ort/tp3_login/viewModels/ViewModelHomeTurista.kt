@@ -10,16 +10,14 @@ import ort.tp3_login.entities.ServicioCard
 
 class ViewModelHomeTurista : ViewModel() {
     var lista = MutableLiveData<MutableList<ServicioCard>>()
-   // var user : MutableLiveData<UsuarioLogin>? = null
+
    var user: UsuarioLogin? = null
 
-//    init {
-//        lista.value = ArrayList<ServicioCard>()
-//        initializar()
-//    }
-//    fun setUser(){
-//        user = MutableLiveData()
-//    }
+   init {
+        lista.value = ArrayList<ServicioCard>()
+        initializar()
+   }
+
     fun initializar () {
         // fetch data de la API
 

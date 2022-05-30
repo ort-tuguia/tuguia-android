@@ -16,6 +16,7 @@ import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_login.*
 import ort.tp3_login.R
 import ort.tp3_login.adapters.ServicioAdapter
 import ort.tp3_login.dataclasses.CategoriaItem
@@ -46,7 +47,7 @@ class home_turista : Fragment() {
     lateinit var TextViewCategories: TextView
     lateinit var buscarButton: Button
     lateinit var selectedCategorie: BooleanArray
-    lateinit var categorieListInt : ArrayList<Int>
+    //lateinit var categorieListInt : ArrayList<Int>
     lateinit var resultCategorie: MutableListIterator<CategoriaItem>
 
     private fun fetchCategories(){
@@ -84,6 +85,10 @@ class home_turista : Fragment() {
         recyclerView = view1.findViewById(R.id.recyclerViewHomeTurista)
 
         fetchCategories()
+        //selectedCategorie = BooleanArray(categorieListInt.size)
+
+
+
 
 
         return view1
