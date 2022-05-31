@@ -1,22 +1,25 @@
 package ort.tp3_login.fragments
 
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import kotlinx.android.synthetic.main.fragment_registro_turista.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
 import ort.tp3_login.R
-import ort.tp3_login.dataclasses.Login
 import ort.tp3_login.dataclasses.ServicioService
-import ort.tp3_login.dataclasses.UsuarioLogin
+import ort.tp3_login.dataclasses.UsuarioRegister
 import ort.tp3_login.services.RetrofitInstance
+
 
 class RegistroTurista : Fragment() {
 
@@ -27,10 +30,9 @@ class RegistroTurista : Fragment() {
     lateinit var lastName: EditText
     lateinit var email: EditText
     lateinit var password: EditText
-    var isGuide: Boolean = false
 
     lateinit var buttonRegistrar : Button
-    lateinit var usuarioLogin: UsuarioLogin
+    lateinit var usuarioRegister: UsuarioRegister
 
 
     override fun onCreateView(
@@ -52,33 +54,47 @@ class RegistroTurista : Fragment() {
     override fun onStart() {
         super.onStart()
         buttonRegistrar.setOnClickListener {
-            fetcher()
-            //     val action = registerDirections.actionRegisterToLogin()
-            //     view?.findNavController()?.navigate(action)
-            //
+            usuarioRegister = UsuarioRegister(
+                username.text.toString(),
+                firstName.text.toString(),
+                lastName.text.toString(),
+                email.text.toString(),
+                password.text.toString(),
+                false
+            )
+            var statusCode: Boolean = fetcher()
+
+            if(statusCode){
+
+                Snackbar.make(view1, "Se creo el usuario ", Snackbar.LENGTH_LONG)
+                    .setBackgroundTint(Color.parseColor("#42D727"))
+                    .show()
+                val action = RegistroTuristaDirections.actionRegistroTuristaToLogin()
+                view1.findNavController().navigate(action)
+            }
         }
-
-
-
-
             textViewVolver.setOnClickListener {
                   val action = RegistroTuristaDirections.actionRegistroTuristaToRegistroEligir()
                  view1.findNavController().navigate(action)
             }
               }
-    private suspend fun register(usuarioLogin: UsuarioLogin) : Boolean {
+    private suspend fun register() : Boolean {
         val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
             .create(ServicioService::class.java)
-        val response = retService.postRegister(usuarioLogin)
-
+        val response = retService.postRegister(usuarioRegister)
         if(response.isSuccessful){
             return true
         }
+        val jObjError = JSONObject(response.errorBody()!!.string())
+        Log.d("Error", jObjError.getString("errors"))
+        Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(Color.parseColor("#D72F27"))
+            .show()
         return false
     }
     fun fetcher() = runBlocking(CoroutineName("fetcher")) {
-        register(usuarioLogin)
+        register()
     }
 
 
