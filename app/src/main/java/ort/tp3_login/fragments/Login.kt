@@ -47,7 +47,6 @@ class login : Fragment() {
 
         buttonLogin = view1.findViewById(R.id.buttonLogin)
         textRegister = view1.findViewById(R.id.textviewRegistrar)
-        radioButton = view1.findViewById(R.id.radioButton)
         usuario = view1.findViewById(R.id.editTextPersonName)
         password = view1.findViewById(R.id.editTextTextPassword)
 
@@ -85,7 +84,7 @@ class login : Fragment() {
         }
 
         textRegister.setOnClickListener {
-            val action3 = loginDirections.actionLoginToRegister()
+            val action3 = loginDirections.actionLoginToRegistroEligir()
             view1.findNavController().navigate(action3)
         }
     }

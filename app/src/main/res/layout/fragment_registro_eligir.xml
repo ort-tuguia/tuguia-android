@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/gradient"
+    android:orientation="vertical"
+    tools:context=".fragments.RegistroEligir">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:text="@string/hello_blank_fragment">
+
+        <Button
+            android:id="@+id/buttonToGuia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_shape"
+            android:text="Soy Guia"
+            android:textColor="@color/white"></Button>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:text="@string/hello_blank_fragment">
+
+        <Button
+            android:id="@+id/buttonToTurista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_shape"
+            android:paddingLeft="2dp"
+            android:text="Soy Turista"
+            android:textColor="@color/white"></Button>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            ></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/textViewVolverRegistro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:clickable="true"
+                android:text="Volver"
+                android:textStyle="italic"
+                android:textColor="#009688"
+                android:textColorHighlight="#009688"
+                android:textSize="16sp"
+              />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

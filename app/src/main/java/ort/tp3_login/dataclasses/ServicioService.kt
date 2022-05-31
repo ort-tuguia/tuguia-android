@@ -28,5 +28,8 @@ interface ServicioService {
     suspend fun getLogin(@Body login: Login)
     : Response<UsuarioLogin>
 
+    @POST("users/register")
+    suspend fun postRegister (@Body usuarioLogin: UsuarioLogin)
+    : Response<UsuarioLogin>
 
 }
