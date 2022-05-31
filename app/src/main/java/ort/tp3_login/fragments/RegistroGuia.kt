@@ -30,6 +30,7 @@ class RegistroGuia : Fragment() {
     lateinit var lastName: EditText
     lateinit var email: EditText
     lateinit var password: EditText
+    lateinit var matricula: EditText
     lateinit var buttonRegistrar : Button
     lateinit var usuarioRegister: UsuarioRegister
 
@@ -45,6 +46,8 @@ class RegistroGuia : Fragment() {
         username = view1.findViewById(R.id.editTextTextPersonName4)
         password = view1.findViewById(R.id.editTextTextPassword)
         buttonRegistrar = view1.findViewById(R.id.buttonRegistrar)
+        matricula = view1.findViewById(R.id.editTextNumeroMatricula)
+
         return view1
     }
 
@@ -58,6 +61,7 @@ class RegistroGuia : Fragment() {
                 email.text.toString(),
                 password.text.toString(),
                 true
+            //TODO Agregar matricula cuando este lista en backend
             )
             var statusCode: Boolean = fetcher()
 
