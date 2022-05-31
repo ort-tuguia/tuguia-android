@@ -23,15 +23,15 @@ import ort.tp3_login.services.RetrofitInstance
 
 class RegistroTurista : Fragment() {
 
-    lateinit var view1 : View
-    lateinit var textViewVolver : TextView
+    lateinit var view1: View
+    lateinit var textViewVolver: TextView
     lateinit var firstName: EditText
     lateinit var username: EditText
     lateinit var lastName: EditText
     lateinit var email: EditText
     lateinit var password: EditText
 
-    lateinit var buttonRegistrar : Button
+    lateinit var buttonRegistrar: Button
     lateinit var usuarioRegister: UsuarioRegister
 
 
@@ -64,7 +64,7 @@ class RegistroTurista : Fragment() {
             )
             var statusCode: Boolean = fetcher()
 
-            if(statusCode){
+            if (statusCode) {
 
                 Snackbar.make(view1, "Se creo el usuario ", Snackbar.LENGTH_LONG)
                     .setBackgroundTint(Color.parseColor("#42D727"))
@@ -73,17 +73,18 @@ class RegistroTurista : Fragment() {
                 view1.findNavController().navigate(action)
             }
         }
-            textViewVolver.setOnClickListener {
-                  val action = RegistroTuristaDirections.actionRegistroTuristaToRegistroEligir()
-                 view1.findNavController().navigate(action)
-            }
-              }
-    private suspend fun register() : Boolean {
+        textViewVolver.setOnClickListener {
+            val action = RegistroTuristaDirections.actionRegistroTuristaToRegistroEligir()
+            view1.findNavController().navigate(action)
+        }
+    }
+
+    private suspend fun register(): Boolean {
         val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
             .create(ServicioService::class.java)
         val response = retService.postRegister(usuarioRegister)
-        if(response.isSuccessful){
+        if (response.isSuccessful) {
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())
@@ -93,6 +94,7 @@ class RegistroTurista : Fragment() {
             .show()
         return false
     }
+
     fun fetcher() = runBlocking(CoroutineName("fetcher")) {
         register()
     }
