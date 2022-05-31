@@ -1,10 +1,10 @@
 package ort.tp3_login.dataclasses
 
     data class UsuarioLogin(
-        val username: String,
-        val firstName: String,
-        val lastName: String,
-        val email: String,
-        val role: String, //TODO
+        var username: String,
+        var firstName: String,
+        var lastName: String,
+        var email: String,
+        var role: String,
     )
 
