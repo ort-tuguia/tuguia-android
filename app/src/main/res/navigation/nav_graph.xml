@@ -43,6 +43,10 @@
             app:destination="@id/registroEligir"
             app:popUpTo="@id/registroEligir"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registroGuia_to_login"
+            app:destination="@id/login"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/registroEligir"
@@ -70,5 +74,8 @@
             app:destination="@id/registroEligir"
             app:popUpTo="@id/registroEligir"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registroTurista_to_login"
+            app:destination="@id/login" />
     </fragment>
 </navigation>
