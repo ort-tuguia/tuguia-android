@@ -1,5 +1,6 @@
 package ort.tp3_login.viewModels
 
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +11,10 @@ import ort.tp3_login.entities.ServicioCard
 
 class ViewModelHomeTurista : ViewModel() {
     var lista = MutableLiveData<MutableList<ServicioCard>>()
+    var user = MutableLiveData<UsuarioLogin>()
 
-   var user: UsuarioLogin? = null
 
-   init {
+    init {
         lista.value = ArrayList<ServicioCard>()
         initializar()
    }
