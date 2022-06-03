@@ -32,7 +32,7 @@ class home_turista : Fragment() {
 
     //Vista
     lateinit var view1 : View
-    var gson : Gson = Gson()
+
     //ViewModel
     private  val viewModel: ViewModelHomeTurista by activityViewModels()
 
@@ -49,7 +49,8 @@ class home_turista : Fragment() {
     //lateinit var categorieListInt : ArrayList<Int>
     lateinit var resultCategorie: MutableListIterator<CategoriaItem>
 
-    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+
+
 
     private fun fetchCategories(){
         val retService : ServicioService = RetrofitInstance
