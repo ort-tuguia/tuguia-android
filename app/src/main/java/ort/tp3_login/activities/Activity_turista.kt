@@ -2,6 +2,7 @@ package ort.tp3_login.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -24,6 +25,8 @@ import ort.tp3_login.dataclasses.ServicioService
 import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.gson.Gson
+import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 import retrofit2.Response
@@ -36,6 +39,7 @@ class activity_turista : AppCompatActivity() {
 
     val DEFAULT_MAX_KM : Double = 10.0
     val DEFAULT_MAX_RESULTS : Int = 50
+    var gson : Gson = Gson()
 
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -49,6 +53,7 @@ class activity_turista : AppCompatActivity() {
 
         Log.d("dentro el metodo","onCreate de Home_turista")
         val viewModel : ViewModelHomeTurista by viewModels()
+        viewModel.user.value= gson.fromJson(intent.getStringExtra("user"),UsuarioLogin::class.java)
         setmylocation ()
         fetchActivities ()
         //navController = Navigation.findNavController(this,R.id.nav_host_fragment)
