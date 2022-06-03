@@ -5,22 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import ort.tp3_login.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
 class perfil_turista : Fragment() {
     // TODO: Rename and change types of parameters
-
+    lateinit var v: View
+    lateinit var textUserName: TextView
+    lateinit var textUserEmail: TextView
+    private  val viewModel: ViewModelHomeTurista by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
@@ -29,8 +29,10 @@ class perfil_turista : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_perfil_turista, container, false)
+        v=inflater.inflate(R.layout.fragment_perfil_turista, container, false)
+        v.findViewById<TextView>(R.id.user_name).text = viewModel.user.value?.firstName + " " + viewModel.user.value?.lastName
+        v.findViewById<TextView>(R.id.user_email).text = viewModel.user.value?.email
+        return  v
     }
 
 
