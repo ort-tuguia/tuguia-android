@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -25,6 +27,7 @@ import ort.tp3_login.dataclasses.ServicioService
 import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
@@ -59,6 +62,10 @@ class activity_turista : AppCompatActivity() {
         //navController = Navigation.findNavController(this,R.id.nav_host_fragment)
         val nav_host_fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = nav_host_fragment.navController
+
+        nav_view.getHeaderView(0).findViewById<TextView>(R.id.user_name).text = viewModel.user.value!!.firstName + " " + viewModel.user.value!!.lastName
+        nav_view.getHeaderView(0).findViewById<TextView>(R.id.user_email).text = viewModel.user.value!!.email
+
 
         nav_view.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this,navController,drawer_layout_id)
