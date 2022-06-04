@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import ort.tp3_login.R
+import ort.tp3_login.activities.ActivityGuia
 import ort.tp3_login.activities.activity_turista
 import ort.tp3_login.dataclasses.Login
 import ort.tp3_login.dataclasses.ServicioService
@@ -63,7 +64,7 @@ class login : Fragment() {
                 fetchLogin(user, pass)
             }
             fetcher()
-            if (!(TextUtils.isEmpty(user) && TextUtils.isEmpty(pass)) && viewModel?.user != null) {
+            if (!(TextUtils.isEmpty(user) && TextUtils.isEmpty(pass)) && viewModel.user.value != null) {
                 //depende el rol del usuario devuelto redirigir a HomeTurista o HomeGuia
                 navigatorConArgs(viewModel.user.value!!)
             } else {
@@ -84,7 +85,6 @@ class login : Fragment() {
         when (args.role) {
             // 0 -> ir a pantalla admin
             "TOURIST" -> {
-                val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
                 var gson : Gson = Gson()
                 var json: String = gson.toJson(args)
                 val intent = Intent(context, activity_turista::class.java).apply {
@@ -93,8 +93,12 @@ class login : Fragment() {
                 startActivity(intent)
             }
             "GUIDE" -> {
-                val action1 = R.id.action_login_to_containerFragmentGuia
-                view1.findNavController().navigate(action1)
+                var gson : Gson = Gson()
+                var json: String = gson.toJson(args)
+                val intent= Intent(context,ActivityGuia::class.java).apply {
+                    putExtra("user", json)
+                }
+                startActivity(intent)
             }
             else -> {
                 Snackbar.make(view1, "Usuario o contraseña incorrectos.", Snackbar.LENGTH_SHORT)
