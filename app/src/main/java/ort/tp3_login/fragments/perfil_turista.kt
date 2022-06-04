@@ -12,10 +12,7 @@ import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
 class perfil_turista : Fragment() {
-    // TODO: Rename and change types of parameters
     lateinit var v: View
-    lateinit var textUserName: TextView
-    lateinit var textUserEmail: TextView
     private  val viewModel: ViewModelHomeTurista by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
