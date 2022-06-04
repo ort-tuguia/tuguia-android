@@ -11,19 +11,15 @@
         android:label="login" >
 
         <action
-            android:id="@+id/action_login_to_containerFragmentGuia"
-            app:destination="@id/containerFragmentGuia" />
-        <action
             android:id="@+id/action_login_to_home_turista"
             app:destination="@id/home_turista" />
         <action
             android:id="@+id/action_login_to_registroEligir"
             app:destination="@id/registroEligir" />
+        <action
+            android:id="@+id/action_login_to_activityGuia"
+            app:destination="@id/activityGuia" />
     </fragment>
-    <fragment
-        android:id="@+id/containerFragmentGuia"
-        android:name="ort.tp3_login.fragments.containerFragmentGuia"
-        android:label="containerFragmentGuia" />
     <fragment
         android:id="@+id/home_turista"
         android:name="ort.tp3_login.fragments.home_turista"
@@ -78,4 +74,9 @@
             android:id="@+id/action_registroTurista_to_login"
             app:destination="@id/login" />
     </fragment>
+    <activity
+        android:id="@+id/activityGuia"
+        android:name="ort.tp3_login.activities.ActivityGuia"
+        android:label="activity_guia"
+        tools:layout="@layout/activity_guia" />
 </navigation>
