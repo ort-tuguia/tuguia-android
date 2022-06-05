@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -141,7 +142,8 @@ class home_turista : Fragment() {
 
     // funcion que vamos a usar para ir a la pantalla de detalles
     private fun onItemClick(position: Int) : Boolean {
-        Snackbar.make(view1,"vamos a detalle de $position", Snackbar.LENGTH_SHORT).show()
+        view1.findNavController().navigate(R.id.action_home_turista_to_detalleActividad)
+        //Snackbar.make(view1,"vamos a detalle de $position", Snackbar.LENGTH_SHORT).show()
         return true
     }
 

@@ -13,7 +13,11 @@
     <fragment
         android:id="@+id/home_turista"
         android:name="ort.tp3_login.fragments.home_turista"
-        android:label="Home" />
+        android:label="Home" >
+        <action
+            android:id="@+id/action_home_turista_to_detalleActividad"
+            app:destination="@id/detalleActividad" />
+    </fragment>
     <fragment
         android:id="@+id/mapa_turista"
         android:name="ort.tp3_login.fragments.mapa_turista"
@@ -29,4 +33,9 @@
         android:name="ort.tp3_login.fragments.ReservaTurista"
         android:label="Reservas"
         tools:layout="@layout/fragment_reserva_turista" />
+    <fragment
+        android:id="@+id/detalleActividad"
+        android:name="ort.tp3_login.fragments.DetalleActividad"
+        android:label="Detalle"
+        tools:layout="@layout/fragment_detalle_actividad" />
 </navigation>
