@@ -20,8 +20,22 @@ class ViewModelHomeTurista : ViewModel() {
        // initializar()
    }
 
-    fun initializar () {
+
+    fun loadActivities () {
         // fetch data de la API
+        actividades.value?.forEach() {
+            lista.value?.add(
+                ServicioCard(it.guideUsername,
+                    it.createdAt,
+                    it.name,
+                    R.drawable.profile,
+                    5,
+                    R.drawable.recycler_city,
+                    "city trip")
+            )
+        }
+/*
+
 
         lista.value?.add(
             ServicioCard("Tom Maenhout",
@@ -41,7 +55,7 @@ class ViewModelHomeTurista : ViewModel() {
                 4,
                 R.drawable.recycler_iguazu,
                 "naturaleza")
-        )
+        )*/
     }
 
     // calcular distancia entre dos coordinatos
