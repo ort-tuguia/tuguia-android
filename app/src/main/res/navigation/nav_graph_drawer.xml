@@ -37,5 +37,14 @@
         android:id="@+id/detalleActividad"
         android:name="ort.tp3_login.fragments.DetalleActividad"
         android:label="Detalle"
-        tools:layout="@layout/fragment_detalle_actividad" />
+        tools:layout="@layout/fragment_detalle_actividad" >
+        <action
+            android:id="@+id/action_detalleActividad_to_reviews"
+            app:destination="@id/reviews" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviews"
+        android:name="ort.tp3_login.fragments.Reviews"
+        android:label="Valoración"
+        tools:layout="@layout/fragment_reviews" />
 </navigation>

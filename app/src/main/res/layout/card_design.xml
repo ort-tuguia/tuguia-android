@@ -41,15 +41,6 @@
                     android:paddingLeft="10dp"
                     android:text="Username"></TextView>
 
-                <TextView
-                    android:id="@+id/fechaCard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="right|center_vertical"
-                    android:paddingRight="10dp"
-                    android:text="25/05/2022" />
-
             </LinearLayout>
 
             <ImageView

@@ -14,20 +14,20 @@ class ServicioViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         this.view = v
     }
 
-    fun setNames (titulo: String, nombreGuia: String, imageView: Int, valoracion: Int, perfilpic: Int,fecha: String) {
+    fun setNames (titulo: String, nombreGuia: String, imageView: Int, valoracion: Int, perfilpic: Int) {
         var textViewTitulo : TextView = view.findViewById(R.id.tituloCard)
         var textViewNombreGuia : TextView = view.findViewById(R.id.nombreGuiaCard)
         var imagenView : ImageView = view.findViewById(R.id.imageCard)
         var textViewValoracion : TextView = view.findViewById(R.id.valoracionCard)
         var perfilPic : CircleImageView = view.findViewById(R.id.perfilPicCard)
-        var fechaTextView : TextView = view.findViewById(R.id.fechaCard)
+
 
         textViewTitulo.text = titulo
         textViewNombreGuia.text = nombreGuia
         imagenView.setImageResource(imageView)
         textViewValoracion.text = valoracion.toString()
         perfilPic.setImageResource(perfilpic)
-        fechaTextView.text = fecha
+
     }
 
     fun getCardLayout () : CardView {

@@ -4,75 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.DetalleActividad"
-    android:orientation="vertical">
+    android:background="@drawable/gradient"
+    android:orientation="vertical"
+    tools:context=".fragments.DetalleActividad">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:paddingTop="5dp">
+
         <TextView
             android:id="@+id/textviewTitle"
-            android:paddingLeft="60dp"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
+            android:paddingLeft="60dp"
             android:text="Title"
-            android:textSize="23dp" />
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
         <TextView
             android:id="@+id/textviewValoracion"
+            android:clickable="true"
             android:layout_width="match_parent"
-            android:layout_weight="5"
             android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:background="@color/teal_700"
             android:gravity="center"
             android:text="5.0"
-            android:textSize="23dp" />
+            android:textColor="@color/white"
+            android:textSize="30dp" />
 
     </LinearLayout>
-
 
 
     <TextView
         android:id="@+id/textviewDescription"
         android:layout_width="match_parent"
-        android:maxLines="20"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:text="Mauris dictum accumsan ante, id tempus tellus commodo eget. Nunc tincidunt nisl nec ipsum mollis, ut posuere quam euismod. Sed nec maximus metus, vel porttitor magna. Suspendisse velit massa, pretium in molestie in, interdum at est. Phasellus ornare, sapien vitae pharetra tempor, ligula nisi suscipit tellus, eu pretium orci enim in justo. Proin sit amet orci ex. Sed non nibh in erat blandit laoreet. Ut tempus accumsan lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium ligula metus, non vulputate neque dictum id. Praesent turpis nisi, venenatis at nulla sed, tristique convallis nisi. Fusce mi sapien, ornare non consectetur in, porttitor sed ex. Nunc sed enim finibus,rcu ac sapien ultricies, a euismod justo lobortis. Maecenas rutrum, nunc sed ultricies fermentum, purus nibh vestibulum tortor, nec suscipit lorem nibh at nisl. Morbi sollicitudin, libero nec cursus facilisis, sem neque dignissim sapien, sit amet feugiat justo ex vitae massa. Nunc molestie placerat elit. Nulla vitae pretium sem. Fusce hendrerit nulla tempus lectus molestie, sit amet vulputate nunc egestas." />
+        android:maxLines="20"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Mauris dictum accumsan ante, id tempus tellus commodo eget. Nunc tincidunt nisl nec ipsum mollis, ut posuere quam euismod. Sed nec maximus metus, vel porttitor magna. Suspendisse velit massa, pretium in molestie in, interdum at est. Phasellus ornare, sapien vitae pharetra tempor, ligula nisi suscipit tellus, eu pretium orci enim in justo. Proin sit amet orci ex. Sed non nibh in erat blandit laoreet. Ut tempus accumsan lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium ligula metus, non vulputate neque dictum id. Praesent turpis nisi, venenatis at nulla sed, tristique convallis nisi. Fusce mi sapien, ornare non consectetur in, porttitor sed ex. Nunc sed enim finibus,rcu ac sapien ultricies, a euismod justo lobortis. Maecenas rutrum, nunc sed ultricies fermentum, purus nibh vestibulum tortor, nec suscipit lorem nibh at nisl. Morbi sollicitudin, libero nec cursus facilisis, sem neque dignissim sapien, sit amet feugiat justo ex vitae massa. Nunc molestie placerat elit. Nulla vitae pretium sem. Fusce hendrerit nulla tempus lectus molestie, sit amet vulputate nunc egestas."
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+
     <TextView
         android:id="@+id/textviewContacto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Contacto"
-        android:textSize="23dp" />
+        android:textColor="@color/white"
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/textviewNombreGuia"
         android:layout_width="match_parent"
-        android:paddingLeft="10dp"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:paddingLeft="10dp"
         android:text="Nombre Guia"
+        android:textColor="@color/black"
         android:textSize="15dp" />
+
     <TextView
         android:id="@+id/textviewEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
         android:gravity="left"
+        android:paddingLeft="10dp"
         android:text="Email"
+        android:textColor="@color/black"
         android:textSize="15dp" />
+
     <TextView
         android:id="@+id/textviewTelefono"
         android:layout_width="match_parent"
-        android:paddingLeft="10dp"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:paddingLeft="10dp"
         android:text="Telefono"
+        android:textColor="@color/black"
         android:textSize="15dp" />
 
     <LinearLayout

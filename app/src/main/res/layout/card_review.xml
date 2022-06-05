@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_package_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/teal_700"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textviewValoracion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="5.0" />
+
+                <TextView
+                    android:id="@+id/textviewFecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="25/05/2022" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textviewReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:gravity="center"
+                android:lines="10"
+                android:text="Curabitur faucibus, tellus eget commodo gravida, lectus magna pretium velit, sit amet gravida nunc nisl vitae nisl. Duis diam sem, commodo et ex eu, viverra finibus dui. Morbi nec ante erat. Duis id sodales nulla. Sed eleifend egestas libero, a mollis ex pellentesque gravida. Cras lectus erat, tempor vel interdum non, hendrerit et quam. Nulla ut sagittis elit. Donec vestibulum massa eu diam semper, id pharetra tortor aliquet. Vivamus semper enim vitae vestibulum blandit. Proin eu urna tortor. In viverra vel orci in fermentum. Sed rutrum nisi a dolor elementum pretium. Vestibulum nec libero sit amet massa blandit malesuada. Morbi sollicitudin erat eros, sed sollicitudin quam cursus nec. Suspendisse nec ultricies augue." />
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
