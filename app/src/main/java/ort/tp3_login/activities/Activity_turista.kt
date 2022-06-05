@@ -26,6 +26,8 @@ import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.runBlocking
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
@@ -34,38 +36,41 @@ import retrofit2.Response
 
 class activity_turista : AppCompatActivity() {
 
-    private lateinit var navController : NavController
+    private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    val DEFAULT_MAX_KM : Double = 25.0
-    val DEFAULT_MAX_RESULTS : Int = 50
-    var gson : Gson = Gson()
+    val DEFAULT_MAX_KM: Double = 25.0
+    val DEFAULT_MAX_RESULTS: Int = 50
+    var gson: Gson = Gson()
 
-    val viewModel : ViewModelHomeTurista by viewModels()
+    val viewModel: ViewModelHomeTurista by viewModels()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    var myLongitude : Double = 0.0
-    var myLatitude : Double = 0.0
+    var myLongitude: Double = 0.0
+    var myLatitude: Double = 0.0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_turista)
 
-        Log.d("dentro el metodo","onCreate de Home_turista")
+        Log.d("dentro el metodo", "onCreate de Home_turista")
 
-        viewModel.user.value= gson.fromJson(intent.getStringExtra("user"),UsuarioLogin::class.java)
-        setmylocation ()
-        fetchActivities ()
+        viewModel.user.value =
+            gson.fromJson(intent.getStringExtra("user"), UsuarioLogin::class.java)
+        setmylocation()
         //navController = Navigation.findNavController(this,R.id.nav_host_fragment)
-        val nav_host_fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val nav_host_fragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = nav_host_fragment.navController
 
-        nav_view.getHeaderView(0).findViewById<TextView>(R.id.user_name).text = viewModel.user.value!!.firstName + " " + viewModel.user.value!!.lastName
-        nav_view.getHeaderView(0).findViewById<TextView>(R.id.user_email).text = viewModel.user.value!!.email
+        nav_view.getHeaderView(0).findViewById<TextView>(R.id.user_name).text =
+            viewModel.user.value!!.firstName + " " + viewModel.user.value!!.lastName
+        nav_view.getHeaderView(0).findViewById<TextView>(R.id.user_email).text =
+            viewModel.user.value!!.email
 
 
         nav_view.setupWithNavController(navController)
-        NavigationUI.setupActionBarWithNavController(this,navController,drawer_layout_id)
+        NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_id)
 
         /*appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(),
@@ -85,23 +90,33 @@ class activity_turista : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController,drawer_layout_id)
+        return NavigationUI.navigateUp(navController, drawer_layout_id)
     }
 
 
     @SuppressLint("MissingPermission")
     private fun setmylocation() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             fusedLocationClient.lastLocation
-                .addOnSuccessListener { location : Location? ->
+                .addOnSuccessListener { location: Location? ->
                     myLatitude = location!!.latitude
                     myLongitude = location!!.longitude
-                    Log.d("longitude",myLongitude.toString())
-                    Log.d("latitude",myLatitude.toString())
+                    Log.d("longitude", myLongitude.toString())
+                    Log.d("latitude", myLatitude.toString())
+                }.addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        fetchActivities()
+                    } else {
+                        Log.d("latitude", "No funco")
+                    }
                 }
-        }else{
+        } else {
             ActivityCompat.requestPermissions(
                 this as Activity,
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
@@ -111,39 +126,36 @@ class activity_turista : AppCompatActivity() {
     }
 
     private fun fetchActivities() {
-        val retService : ServicioService = RetrofitInstance
+        val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
             .create(ServicioService::class.java)
-        val responseLiveData : LiveData<Response<Servicios>> = liveData{
-            val response = retService.searchServicios(myLatitude,myLongitude,DEFAULT_MAX_KM,DEFAULT_MAX_RESULTS)
+        val responseLiveData: LiveData<Response<Servicios>> = liveData {
+            val response = retService.searchServicios(
+                myLatitude,
+                myLongitude,
+                DEFAULT_MAX_KM,
+                DEFAULT_MAX_RESULTS
+            )
             Log.d("response", response.toString())
             emit(response)
         }
-        responseLiveData.observe(this,Observer{
+        responseLiveData.observe(this, Observer {
             val serviciosList = it.body()
             if (serviciosList != null) {
-                viewModel.actividades.value= serviciosList
-                Log.d("serviciosList",serviciosList.toString())
-                    Log.d("serviciosList", viewModel.actividades.value.toString())
-            }else{
-                Log.d("serviciosList","es null")
+                viewModel.actividades.value = serviciosList
+                Log.d("serviciosList", serviciosList.toString())
+                Log.d("serviciosList", viewModel.actividades.value.toString())
+            } else {
+                Log.d("serviciosList", "es null")
             }
         })
     }
-
-
 
 
     /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_drawable_turista,menu)
         return true
     }*/
-
-
-
-
-
-
 
 
 }
