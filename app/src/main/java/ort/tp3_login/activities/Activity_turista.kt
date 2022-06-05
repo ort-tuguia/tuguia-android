@@ -31,6 +31,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import okhttp3.internal.wait
+import org.json.JSONObject
+import ort.tp3_login.dataclasses.ServiciosSearch
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
@@ -61,7 +63,9 @@ class activity_turista : AppCompatActivity() {
         viewModel.user.value =
             gson.fromJson(intent.getStringExtra("user"), UsuarioLogin::class.java)
         setmylocation()
+        viewModel.token = intent.getStringExtra("token").toString()
 
+        Log.d("token --> dentro el metodo", viewModel.token)
         //navController = Navigation.findNavController(this,R.id.nav_host_fragment)
         val nav_host_fragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -135,13 +139,17 @@ class activity_turista : AppCompatActivity() {
             .getRetrofitInstance()
             .create(ServicioService::class.java)
         val responseLiveData: LiveData<Response<Servicios>> = liveData {
-            val response = retService.searchServicios(
+            val servicioSearch : ServiciosSearch = ServiciosSearch(
                 myLatitude,
                 myLongitude,
                 DEFAULT_MAX_KM,
-                DEFAULT_MAX_RESULTS
+                DEFAULT_MAX_RESULTS,
+                listOf()
             )
-            Log.d("response", response.toString())
+            Log.d("response -->ServiciosSearch", servicioSearch.toString())
+            Log.d("response -->token", viewModel.token)
+            val response = retService.searchServicios(servicioSearch, viewModel.token)
+
             emit(response)
         }
         responseLiveData.observe(this, Observer<Response<Servicios>?> {
