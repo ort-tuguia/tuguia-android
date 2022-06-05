@@ -2,12 +2,10 @@ package ort.tp3_login.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +25,6 @@ import ort.tp3_login.dataclasses.ServicioService
 import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
@@ -40,11 +37,11 @@ class activity_turista : AppCompatActivity() {
     private lateinit var navController : NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    val DEFAULT_MAX_KM : Double = 10.0
+    val DEFAULT_MAX_KM : Double = 25.0
     val DEFAULT_MAX_RESULTS : Int = 50
     var gson : Gson = Gson()
 
-
+    val viewModel : ViewModelHomeTurista by viewModels()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var myLongitude : Double = 0.0
     var myLatitude : Double = 0.0
@@ -55,7 +52,7 @@ class activity_turista : AppCompatActivity() {
         setContentView(R.layout.activity_turista)
 
         Log.d("dentro el metodo","onCreate de Home_turista")
-        val viewModel : ViewModelHomeTurista by viewModels()
+
         viewModel.user.value= gson.fromJson(intent.getStringExtra("user"),UsuarioLogin::class.java)
         setmylocation ()
         fetchActivities ()
@@ -123,9 +120,11 @@ class activity_turista : AppCompatActivity() {
             emit(response)
         }
         responseLiveData.observe(this,Observer{
-            val serviciosList = it.body()?.listIterator()
+            val serviciosList = it.body()
             if (serviciosList != null) {
-                    Log.d("serviciosList", serviciosList.toString())
+                viewModel.actividades.value= serviciosList
+                Log.d("serviciosList",serviciosList.toString())
+                    Log.d("serviciosList", viewModel.actividades.value.toString())
             }else{
                 Log.d("serviciosList","es null")
             }
