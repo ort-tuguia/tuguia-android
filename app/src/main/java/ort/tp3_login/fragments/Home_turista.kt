@@ -65,7 +65,7 @@ class home_turista : Fragment() {
             .getRetrofitInstance()
             .create(ServicioService::class.java)
         val responseLiveData : LiveData<Response<Categorias>> = liveData{
-            val response = retService.getCategories()
+            val response = retService.getCategories(viewModel.token)
             Log.d("Categorias", response.body().toString())
             emit(response)
         }
