@@ -1,14 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.favoritos_turista">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:background="@color/teal_700"
+    android:backgroundTint="@null"
+    android:orientation="vertical"
+    tools:context=".activities.MainActivity">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHomeTurista"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@drawable/gradient"
+        tools:listitem="@layout/card_design">
 
-</FrameLayout>
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

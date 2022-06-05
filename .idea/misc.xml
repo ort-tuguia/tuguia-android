@@ -80,6 +80,9 @@
         <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/fragment_reserva_turista.xml" value="0.1234375" />
         <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/layout/nav_header.xml" value="0.1" />
         <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/menu/menu_drawable_turista.xml" value="0.17552083333333332" />
+        <entry key="app/src/main/res/layout/fragment_favoritos_turista.xml" value="0.11197916666666667" />
+        <entry key="app/src/main/res/layout/fragment_home_guia.xml" value="0.1671195652173913" />
+        <entry key="app/src/main/res/layout/fragment_home_turista.xml" value="0.19679718017578127" />
       </map>
     </option>
   </component>
