@@ -27,7 +27,10 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
+import okhttp3.internal.wait
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
@@ -58,6 +61,7 @@ class activity_turista : AppCompatActivity() {
         viewModel.user.value =
             gson.fromJson(intent.getStringExtra("user"), UsuarioLogin::class.java)
         setmylocation()
+
         //navController = Navigation.findNavController(this,R.id.nav_host_fragment)
         val nav_host_fragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -112,6 +116,7 @@ class activity_turista : AppCompatActivity() {
                 }.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         fetchActivities()
+
                     } else {
                         Log.d("latitude", "No funco")
                     }
@@ -139,16 +144,21 @@ class activity_turista : AppCompatActivity() {
             Log.d("response", response.toString())
             emit(response)
         }
-        responseLiveData.observe(this, Observer {
+        responseLiveData.observe(this, Observer<Response<Servicios>?> {
             val serviciosList = it.body()
             if (serviciosList != null) {
                 viewModel.actividades.value = serviciosList
+
                 Log.d("serviciosList", serviciosList.toString())
-                Log.d("serviciosList", viewModel.actividades.value.toString())
+                Log.d("serviciosList --> Viewmodel", viewModel.actividades.value.toString())
             } else {
                 Log.d("serviciosList", "es null")
             }
         })
+
+
+    //TODO Implementar viewModel.loadActivities()
+
     }
 
 
