@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,7 @@ import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
-
+private const val AuthHeader = "Authorization"
 class login : Fragment() {
 
     lateinit var view1: View
@@ -32,6 +33,7 @@ class login : Fragment() {
     lateinit var usuario: EditText
     lateinit var password: EditText
     private  val viewModel: ViewModelHomeTurista by activityViewModels()
+    lateinit var token: String
 
 
 
@@ -89,6 +91,7 @@ class login : Fragment() {
                 var json: String = gson.toJson(args)
                 val intent = Intent(context, activity_turista::class.java).apply {
                     putExtra("user", json)
+                    putExtra("token", token)
                 }
                 startActivity(intent)
             }
@@ -97,6 +100,7 @@ class login : Fragment() {
                 var json: String = gson.toJson(args)
                 val intent= Intent(context,ActivityGuia::class.java).apply {
                     putExtra("user", json)
+                    putExtra("token", token)
                 }
                 startActivity(intent)
             }
@@ -113,6 +117,11 @@ class login : Fragment() {
             .create(ServicioService::class.java)
         val login = Login(user, pass)
         val response = retService.getLogin(login)
+
+        response.headers()[AuthHeader]?.let {
+            token = it
+        }
+        Log.d("token", token)
         viewModel.user.value = response.body()
     }
 
