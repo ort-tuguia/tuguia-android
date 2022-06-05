@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.ServicioItem
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.entities.ServicioCard
 
@@ -12,11 +13,11 @@ import ort.tp3_login.entities.ServicioCard
 class ViewModelHomeTurista : ViewModel() {
     var lista = MutableLiveData<MutableList<ServicioCard>>()
     var user = MutableLiveData<UsuarioLogin>()
-
+    var actividades = MutableLiveData<MutableList<ServicioItem>>()
 
     init {
         lista.value = ArrayList<ServicioCard>()
-        initializar()
+       // initializar()
    }
 
     fun initializar () {
