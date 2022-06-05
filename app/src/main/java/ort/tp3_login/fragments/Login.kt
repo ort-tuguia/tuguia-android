@@ -121,7 +121,7 @@ class login : Fragment() {
         response.headers()[AuthHeader]?.let {
             token = it
         }
-        Log.d("token", token)
+      
         viewModel.user.value = response.body()
     }
 
