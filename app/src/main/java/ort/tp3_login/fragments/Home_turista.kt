@@ -96,6 +96,7 @@ class home_turista : Fragment() {
         TextViewCategories = view1.findViewById(R.id.textViewCategories)
         //buscarButton = view1.findViewById(R.id.buscarButton)
         recyclerView = view1.findViewById(R.id.recyclerViewHomeTurista)
+
         fetchCategories()
 
         TextViewCategories.setOnClickListener {
@@ -110,6 +111,7 @@ class home_turista : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.lista.observe(viewLifecycleOwner, Observer{result ->
 
             cardsTuristaLista = result
@@ -136,6 +138,7 @@ class home_turista : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        viewModel.loadActivities()
         Log.d("usuario en Home turista", viewModel.user.value.toString())
 
     }
