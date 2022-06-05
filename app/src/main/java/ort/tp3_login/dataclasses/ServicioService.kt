@@ -21,6 +21,7 @@ interface ServicioService {
              @Query("maxResults"
         )maxResults :Int) : Response<Servicios>
 
+
     @GET("categories")
     suspend fun getCategories(): Response<Categorias>
 
