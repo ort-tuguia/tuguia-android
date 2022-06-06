@@ -17,7 +17,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [addServicio.newInstance] factory method to
  * create an instance of this fragment.
  */
-class addServicio : Fragment() {
+class AgregarServicio : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,7 +35,7 @@ class addServicio : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_servicio, container, false)
+        return inflater.inflate(R.layout.fragment_agregar_servicio, container, false)
     }
 
     companion object {
@@ -50,7 +50,7 @@ class addServicio : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            addServicio().apply {
+            AgregarServicio().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
