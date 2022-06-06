@@ -3,7 +3,7 @@ package ort.tp3_login.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import ort.tp3_login.fragments.addServicio
+import ort.tp3_login.fragments.AgregarServicio
 import ort.tp3_login.fragments.home_guia
 
 class ViewPagerAdapter (fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
@@ -14,7 +14,7 @@ class ViewPagerAdapter (fragmentActivity: FragmentActivity) : FragmentStateAdapt
     override fun createFragment(position: Int): Fragment {
         return when (position){
             0 -> home_guia()
-            1 -> addServicio()
+            1 -> AgregarServicio()
 
             else -> home_guia()
         }

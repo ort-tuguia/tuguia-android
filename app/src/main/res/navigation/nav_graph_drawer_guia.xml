@@ -18,5 +18,13 @@
     <fragment
         android:id="@+id/home_guia"
         android:name="ort.tp3_login.fragments.home_guia"
-        android:label="Home" />
+        android:label="Home" >
+        <action
+            android:id="@+id/action_home_guia_to_agregarServicio"
+            app:destination="@id/agregarServicio" />
+    </fragment>
+    <fragment
+        android:id="@+id/agregarServicio"
+        android:name="ort.tp3_login.fragments.AgregarServicio"
+        android:label="AgregarServicio" />
 </navigation>
