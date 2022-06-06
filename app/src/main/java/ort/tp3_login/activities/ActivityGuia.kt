@@ -27,6 +27,9 @@ class ActivityGuia : AppCompatActivity() {
         setContentView(R.layout.activity_guia)
         viewModel.user.value= gson.fromJson(intent.getStringExtra("user"), UsuarioLogin::class.java)
 
+        viewModel.user.value = gson.fromJson(intent.getStringExtra("user"), UsuarioLogin::class.java)
+        viewModel.token = intent.getStringExtra("token").toString()
+
         val nav_host_fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_guia) as NavHostFragment
         navController = nav_host_fragment.navController
 

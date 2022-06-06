@@ -13,5 +13,9 @@
         android:id="@+id/reserva_guia"
         android:title="Reservas"
         android:icon="@drawable/icon_reservas"/>
+    <item
+        android:id="@+id/login2"
+        android:icon="@drawable/logout"
+        android:title="Salir" />
 
 </menu>

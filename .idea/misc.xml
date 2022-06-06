@@ -89,6 +89,8 @@
         <entry key="app/src/main/res/layout/fragment_registro_guia.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_reserva_turista.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_reservas_guia.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_drawable_guia.xml" value="0.1388888888888889" />
+        <entry key="app/src/main/res/menu/menu_drawable_turista.xml" value="0.1388888888888889" />
       </map>
     </option>
   </component>

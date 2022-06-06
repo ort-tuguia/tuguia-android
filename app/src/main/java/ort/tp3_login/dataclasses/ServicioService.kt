@@ -10,7 +10,6 @@ interface ServicioService {
     @POST("activities/search")
     suspend fun searchServicios(@Body serviciosSearch: ServiciosSearch , @Header("Authorization") token: String) : Response<Servicios>
 
-
     @GET("categories")
     suspend fun getCategories( @Header("Authorization") token: String): Response<Categorias>
 
@@ -21,5 +20,10 @@ interface ServicioService {
     @POST("users/register")
     suspend fun postRegister (@Body usuarioRegister: UsuarioRegister)
     : Response<UsuarioLogin>
+
+    @POST("activities")
+    suspend fun postCrearServicio (@Body x: CrearServicio, @Header("Authorization") token: String)
+            : Response<ServicioItem>
+
 
 }
