@@ -6,5 +6,8 @@ package ort.tp3_login.dataclasses
         var lastName: String,
         var email: String,
         var role: String,
+        var phones : List<Phone>,
+        var guideIdentification: String,
+        var favCategories : List<CategoriaItem>
     )
 
