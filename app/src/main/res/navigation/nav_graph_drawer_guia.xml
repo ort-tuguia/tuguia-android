@@ -31,8 +31,4 @@
             android:id="@+id/action_agregarServicio_to_home_guia"
             app:destination="@id/home_guia" />
     </fragment>
-    <fragment
-        android:id="@+id/login2"
-        android:name="ort.tp3_login.fragments.login"
-        android:label="login" />
 </navigation>
