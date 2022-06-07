@@ -12,6 +12,8 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageViewTurista"
+            android:clickable="true"
             android:paddingTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="250dp"
