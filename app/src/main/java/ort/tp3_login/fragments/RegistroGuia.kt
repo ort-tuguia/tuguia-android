@@ -60,6 +60,7 @@ class RegistroGuia : Fragment() {
                 lastName.text.toString(),
                 email.text.toString(),
                 password.text.toString(),
+                matricula.text.toString(),
                 true
             //TODO Agregar matricula cuando este lista en backend
             )
