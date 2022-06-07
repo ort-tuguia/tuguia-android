@@ -2,6 +2,7 @@ package ort.tp3_login.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -79,6 +80,14 @@ class activity_turista : AppCompatActivity() {
 
         nav_view.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_id)
+
+        nav_view.menu.findItem(R.id.logout).setOnMenuItemClickListener { menuItem ->
+            Log.d("menuItem", menuItem.toString())
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+            true
+        }
 
         /*appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(),
