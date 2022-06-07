@@ -47,8 +47,4 @@
         android:name="ort.tp3_login.fragments.Reviews"
         android:label="Valoración"
         tools:layout="@layout/fragment_reviews" />
-    <fragment
-        android:id="@+id/login3"
-        android:name="ort.tp3_login.fragments.login"
-        android:label="login" />
 </navigation>
