@@ -60,6 +60,7 @@ class RegistroTurista : Fragment() {
                 lastName.text.toString(),
                 email.text.toString(),
                 password.text.toString(),
+                "",
                 false
             )
             var statusCode: Boolean = fetcher()
