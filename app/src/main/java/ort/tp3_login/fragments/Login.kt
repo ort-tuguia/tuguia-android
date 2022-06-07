@@ -94,6 +94,8 @@ class login : Fragment() {
                     putExtra("token", token)
                 }
                 startActivity(intent)
+                this.activity?.finish()
+
             }
             "GUIDE" -> {
                 var gson : Gson = Gson()
@@ -103,6 +105,7 @@ class login : Fragment() {
                     putExtra("token", token)
                 }
                 startActivity(intent)
+                this.activity?.finish()
             }
             else -> {
                 Snackbar.make(view1, "Usuario o contraseña incorrectos.", Snackbar.LENGTH_SHORT)
