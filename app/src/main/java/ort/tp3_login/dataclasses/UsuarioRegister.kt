@@ -8,5 +8,6 @@ data class UsuarioRegister(
     var lastName: String,
     var email: String,
     var password: String,
+    var guideIdentification: String,
     var isGuide: Boolean
 )
