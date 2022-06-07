@@ -13,11 +13,11 @@ interface ServicioService {
     @GET("categories")
     suspend fun getCategories( @Header("Authorization") token: String): Response<Categorias>
 
-    @POST("users/login")
+    @POST("user/login")
     suspend fun getLogin(@Body login: Login)
     : Response<UsuarioLogin>
 
-    @POST("users/register")
+    @POST("user/register")
     suspend fun postRegister (@Body usuarioRegister: UsuarioRegister)
     : Response<UsuarioLogin>
 
