@@ -1,5 +1,6 @@
 package ort.tp3_login.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -38,7 +39,13 @@ class ActivityGuia : AppCompatActivity() {
 
         nav_view_guia.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this,navController,drawer_layout_id_guia)
-
+        nav_view_guia.menu.findItem(R.id.logout_guia).setOnMenuItemClickListener { menuItem ->
+            Log.d("menuItem", menuItem.toString())
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+            true
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
