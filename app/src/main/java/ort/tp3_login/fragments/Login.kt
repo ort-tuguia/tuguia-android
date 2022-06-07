@@ -126,6 +126,7 @@ class login : Fragment() {
         }
       
         viewModel.user.value = response.body()
+
     }
 
 
