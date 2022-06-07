@@ -21,12 +21,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_home_guia.view.*
 import kotlinx.android.synthetic.main.fragment_home_turista.*
 import ort.tp3_login.R
 import ort.tp3_login.adapters.ServicioAdapter
-import ort.tp3_login.dataclasses.CategoriaItem
-import ort.tp3_login.dataclasses.Categorias
-import ort.tp3_login.dataclasses.ServicioService
+import ort.tp3_login.dataclasses.*
 import ort.tp3_login.entities.ServicioCard
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
@@ -37,7 +36,7 @@ class home_turista : Fragment() {
 
     //Vista
     lateinit var view1 : View
-
+    val DEFAULT_MAX_RESULTS: Int = 50
     //ViewModel
     private  val viewModel: ViewModelHomeTurista by activityViewModels()
 
@@ -55,7 +54,7 @@ class home_turista : Fragment() {
     lateinit var resultCategorie: MutableListIterator<CategoriaItem>
     var categoriesNombre : ArrayList<String> = ArrayList<String>()
     lateinit var dialog : AlertDialog
-
+    lateinit var maxKm : TextView
     var categoriesParaBackend : ArrayList<String> = ArrayList<String>()
     var categoriesAux : MutableMap<String,CategoriaItem> = HashMap()
 
@@ -96,13 +95,21 @@ class home_turista : Fragment() {
         TextViewCategories = view1.findViewById(R.id.textViewCategories)
         //buscarButton = view1.findViewById(R.id.buscarButton)
         recyclerView = view1.findViewById(R.id.recyclerViewHomeTurista)
-
+        maxKm = view1.findViewById(R.id.editTextTextRadio)
+        buscarButton = view1.findViewById(R.id.button12)
         fetchCategories()
 
         TextViewCategories.setOnClickListener {
             createDialog()
         }
 
+
+        buscarButton.setOnClickListener {
+            fetchActivities()
+
+
+            Log.d("response","Click Click")
+         }
 
 
 
@@ -177,8 +184,6 @@ class home_turista : Fragment() {
                 if (sparseBooleanArray.get(index, false)) {
                     categoriesAux[s]?.let { categoriesParaBackend.add(it.id) }
                     Log.d("Categoria --> IF ID" , categoriesParaBackend[counter].toString())
-
-                    //textViewSelect.append("\n$s")
                     counter += 1
                 }
             }
@@ -213,10 +218,59 @@ class home_turista : Fragment() {
                 }
 
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                    .isEnabled = checkedItems >=2
+                    .isEnabled = checkedItems >=1
             }
 
     }
+
+    private fun fetchActivities() {
+        val retService: ServicioService = RetrofitInstance
+            .getRetrofitInstance()
+            .create(ServicioService::class.java)
+        val responseLiveData: LiveData<Response<Servicios>> = liveData {
+            val servicioSearch : ServiciosSearch = ServiciosSearch(
+                viewModel.myLatitude,
+                viewModel.myLongitude,
+                maxKm.text.toString().toDouble(),
+                DEFAULT_MAX_RESULTS,
+                categoriesParaBackend
+            )
+
+            Log.d("response -->ServiciosSearch", servicioSearch.toString())
+            Log.d("response -->token", viewModel.token)
+            val response = retService.searchServicios(servicioSearch, viewModel.token)
+
+            emit(response)
+        }
+
+
+
+        responseLiveData.observe(viewLifecycleOwner,Observer {
+            val serviciosList = it.body()
+            if (serviciosList != null) {
+                Log.d("response -->Servicios", serviciosList.toString())
+                viewModel.actividades.value = serviciosList
+            }
+        })
+
+//        responseLiveData.observe( Observer<Response<Servicios>?> {
+//            val serviciosList = it.body()
+//            if (serviciosList != null) {
+//                viewModel.actividades.value = serviciosList
+//
+//                Log.d("serviciosList", serviciosList.toString())
+//                Log.d("serviciosList --> Viewmodel", viewModel.actividades.value.toString())
+//            } else {
+//                Log.d("serviciosList", "es null")
+//            }
+//        })
+
+
+        //TODO Implementar viewModel.loadActivities()
+
+    }
+
+
 }
 
 

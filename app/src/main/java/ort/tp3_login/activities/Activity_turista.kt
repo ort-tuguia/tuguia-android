@@ -146,6 +146,8 @@ class activity_turista : AppCompatActivity() {
                 DEFAULT_MAX_RESULTS,
                 listOf()
             )
+            viewModel.myLatitude = myLatitude
+            viewModel.myLongitude = myLongitude
             Log.d("response -->ServiciosSearch", servicioSearch.toString())
             Log.d("response -->token", viewModel.token)
             val response = retService.searchServicios(servicioSearch, viewModel.token)

@@ -15,6 +15,8 @@ class ViewModelHomeTurista : ViewModel() {
     var user = MutableLiveData<UsuarioLogin>()
     var actividades = MutableLiveData<MutableList<ServicioItem>>()
     var token :String = ""
+    var myLatitude : Double = 0.0
+    var myLongitude : Double = 0.0
     init {
         lista.value = ArrayList<ServicioCard>()
        // initializar()
