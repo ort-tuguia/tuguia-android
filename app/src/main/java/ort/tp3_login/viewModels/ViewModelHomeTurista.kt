@@ -19,6 +19,7 @@ class ViewModelHomeTurista : ViewModel() {
     var myLatitude : Double = 0.0
     var myLongitude : Double = 0.0
     lateinit var categorias: MutableListIterator<CategoriaItem>
+    var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
 
     init {
         lista.value = ArrayList<ServicioCard>()
