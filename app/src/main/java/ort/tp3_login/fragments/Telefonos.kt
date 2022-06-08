@@ -20,19 +20,20 @@ import ort.tp3_login.dataclasses.Phone
 import ort.tp3_login.dataclasses.ServicioService
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelGuia
+import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
 class Telefonos : Fragment() {
 
     lateinit var v: View
 
-    private val viewModel: ViewModelGuia by activityViewModels()
+    private  val viewModel: ViewModelHomeTurista by activityViewModels()
 
     lateinit var telefono: EditText
     lateinit var descripcion: EditText
     lateinit var buttonGuardar: Button
 
-    lateinit var objTelefono: Phone
+     var objTelefono: ArrayList<Phone> = ArrayList()
 
 
     override fun onCreateView(
@@ -49,11 +50,20 @@ class Telefonos : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        objTelefono = Phone (
-            telefono.text.toString(),
-            descripcion.text.toString()
-                )
+
+        //TODO traer del viewmodel los telefonos del usuario
+
         buttonGuardar.setOnClickListener{
+
+            if(!viewModel.user.value?.phones?.isEmpty()!!){
+                viewModel.user.value?.phones?.forEach{
+                    objTelefono.add(it)
+                }
+            }
+            objTelefono.add(Phone (
+                telefono.text.toString(),
+                descripcion.text.toString()
+            ))
             var statusCode: Boolean = fetcher()
 
             if (statusCode) {
@@ -61,8 +71,7 @@ class Telefonos : Fragment() {
                 Snackbar.make(v, "Se actualizo el telefono", Snackbar.LENGTH_LONG)
                     .setBackgroundTint(Color.parseColor("#42D727"))
                     .show()
-                val action = RegistroGuiaDirections.actionRegistroGuiaToLogin()
-                v.findNavController().navigate(action)
+                v.findNavController().navigate(R.id.action_telefonos_to_guiaEdit)
             }
         }
     }
