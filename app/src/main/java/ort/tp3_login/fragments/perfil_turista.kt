@@ -64,7 +64,9 @@ class perfil_turista : Fragment() {
         botonCategorias = v.findViewById(R.id.buttonCategorias)
         circleImageView = v.findViewById(R.id.circleImageViewTurista)
         resultCategorie = viewModel.categorias
-
+        botonCategorias.setOnClickListener{
+            createDialog()
+        }
 
         return  v
     }
@@ -80,19 +82,24 @@ class perfil_turista : Fragment() {
             v.findNavController().navigate(R.id.action_perfil_turista_to_turistaEdit)
         }
 
-        botonCategorias.setOnClickListener{
-            createDialog()
-        }
+
     }
 
     private fun createDialog(){
+
+        //TODO Ver porque no carga al cambio de pantalla
+        //TODO Guardar favoritos seleccionados en backend
         val builder = AlertDialog.Builder(context)
-        resultCategorie.forEach { categoria ->
-            categoriesNombre.add(categoria.name)
-            categoriesAux[categoria.name]= categoria
+        if(categoriesNombre.isEmpty()) {
+            resultCategorie.forEach { categoria ->
+                categoriesNombre.add(categoria.name)
+                categoriesAux[categoria.name] = categoria
+            }
         }
-        if (selectedCategorie.isEmpty()){
-            repeat(categoriesNombre.count()) {selectedCategorie.add(false)}
+        if (viewModel.selectedCategorie.isEmpty()){
+            repeat(categoriesNombre.count()) {
+                viewModel.selectedCategorie.add(false)
+            }
         }
         val categoriasArray: Array<String> = categoriesNombre.toTypedArray()
 
@@ -100,7 +107,7 @@ class perfil_turista : Fragment() {
         builder.setTitle("Seleccione categorias")
         builder.setMultiChoiceItems(
             categoriasArray,
-            selectedCategorie.toBooleanArray()
+            viewModel.selectedCategorie.toBooleanArray()
         ) { dialog, which, isChecked ->}
         builder.setPositiveButton("Submit"){dialog,which->
             val alertDialog = dialog as AlertDialog
@@ -122,7 +129,7 @@ class perfil_turista : Fragment() {
             }
         }
         builder.setNeutralButton("Cancel"){dialog,which->
-            /*textViewSelect.text = ""*/
+
         }
         builder.setCancelable(false)
 
@@ -139,9 +146,9 @@ class perfil_turista : Fragment() {
                 categoriasArray.forEachIndexed { index, s ->
                     if (sparseBooleanArray.get(index,false)){
                         checkedItems +=1
-                        selectedCategorie[index] = true
+                        viewModel.selectedCategorie[index] = true
                     }else{
-                        selectedCategorie[index] = false
+                        viewModel.selectedCategorie[index] = false
                     }
                 }
 
