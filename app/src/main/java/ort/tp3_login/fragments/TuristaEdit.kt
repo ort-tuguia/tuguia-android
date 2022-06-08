@@ -50,7 +50,7 @@ class TuristaEdit : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        v = inflater.inflate(R.layout.fragment_guia_edit, container, false)
+        v = inflater.inflate(R.layout.fragment_turista_edit, container, false)
         nombre = v.findViewById(R.id.name)
         apellido = v.findViewById(R.id.lastName)
         email = v.findViewById(R.id.mail)
@@ -69,7 +69,7 @@ class TuristaEdit : Fragment() {
     override fun onStart() {
         super.onStart()
         botonTelefono.setOnClickListener {
-            v.findNavController().navigate(R.id.action_turistaEdit_to_telefonos2)
+            v.findNavController().navigate(R.id.action_turistaEdit_to_telefonosTurista)
         }
 
         circleImageView.setOnClickListener{
