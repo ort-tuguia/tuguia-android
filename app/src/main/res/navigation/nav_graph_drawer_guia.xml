@@ -9,7 +9,11 @@
         android:id="@+id/perfil_guia"
         android:name="ort.tp3_login.fragments.PerfilGuia"
         android:label="Perfil"
-        tools:layout="@layout/fragment_perfil_guia" />
+        tools:layout="@layout/fragment_perfil_guia" >
+        <action
+            android:id="@+id/action_perfil_guia_to_guiaEdit"
+            app:destination="@id/guiaEdit" />
+    </fragment>
     <fragment
         android:id="@+id/reserva_guia"
         android:name="ort.tp3_login.fragments.ReservasGuia"
@@ -30,5 +34,25 @@
         <action
             android:id="@+id/action_agregarServicio_to_home_guia"
             app:destination="@id/home_guia" />
+    </fragment>
+    <fragment
+        android:id="@+id/guiaEdit"
+        android:name="ort.tp3_login.fragments.GuiaEdit"
+        android:label="fragment_guia_edit"
+        tools:layout="@layout/fragment_guia_edit" >
+        <action
+            android:id="@+id/action_guiaEdit_to_perfil_guia"
+            app:destination="@id/perfil_guia" />
+        <action
+            android:id="@+id/action_guiaEdit_to_telefonos"
+            app:destination="@id/telefonos" />
+    </fragment>
+    <fragment
+        android:id="@+id/telefonos"
+        android:name="ort.tp3_login.fragments.Telefonos"
+        android:label="Telefonos" >
+        <action
+            android:id="@+id/action_telefonos_to_guiaEdit"
+            app:destination="@id/guiaEdit" />
     </fragment>
 </navigation>

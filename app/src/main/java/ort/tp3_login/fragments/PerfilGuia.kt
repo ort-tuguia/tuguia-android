@@ -7,11 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import de.hdodenhof.circleimageview.CircleImageView
 import ort.tp3_login.R
+import ort.tp3_login.viewModels.ViewModelGuia
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
@@ -22,7 +25,9 @@ class PerfilGuia : Fragment() {
     }
     lateinit var circleImageView: CircleImageView
     lateinit var v: View
-    private  val viewModel: ViewModelHomeTurista by activityViewModels()
+    private  val viewModel: ViewModelGuia by activityViewModels()
+
+    lateinit var botonEdit: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +44,14 @@ class PerfilGuia : Fragment() {
         v.findViewById<TextView>(R.id.user_name).text = viewModel.user.value?.firstName + " " + viewModel.user.value?.lastName
         v.findViewById<TextView>(R.id.user_email).text = viewModel.user.value?.email
         circleImageView = v.findViewById(R.id.circleImageViewGuia)
+        botonEdit = v.findViewById(R.id.button)
         return  v
     }
     override fun onStart() {
         super.onStart()
+        botonEdit.setOnClickListener {
+            v.findNavController().navigate(R.id.action_perfil_guia_to_guiaEdit)
+        }
 
         circleImageView.setOnClickListener{
             pickImageGallery()
