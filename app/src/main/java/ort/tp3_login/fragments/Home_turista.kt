@@ -37,6 +37,7 @@ class home_turista : Fragment() {
     //Vista
     lateinit var view1 : View
     val DEFAULT_MAX_RESULTS: Int = 50
+    val DEFAULT_MAX_KM: Double = 25.0
     //ViewModel
     private val viewModel: ViewModelHomeTurista by activityViewModels()
 
@@ -101,7 +102,6 @@ class home_turista : Fragment() {
         fetchCategories()
 
         TextViewCategories.setOnClickListener {
-            resultCategorie = viewModel.categorias
             createDialog()
         }
 
@@ -161,12 +161,17 @@ class home_turista : Fragment() {
 
     private fun createDialog(){
         val builder = AlertDialog.Builder(context)
-        resultCategorie.forEach { categoria ->
-            categoriesNombre.add(categoria.name)
-            categoriesAux[categoria.name]= categoria
+        if(categoriesNombre.isEmpty()) {
+            resultCategorie.forEach { categoria ->
+                categoriesNombre.add(categoria.name)
+                categoriesAux[categoria.name] = categoria
+            }
         }
-        if (selectedCategorie.isEmpty()){
-            repeat(categoriesNombre.count()) {selectedCategorie.add(false)}
+
+        if (viewModel.selectedCategorie.isEmpty()){
+            repeat(categoriesNombre.count()) {
+                viewModel.selectedCategorie.add(false)
+                }
         }
         val categoriasArray: Array<String> = categoriesNombre.toTypedArray()
 
@@ -174,14 +179,14 @@ class home_turista : Fragment() {
         builder.setTitle("Seleccione categorias")
         builder.setMultiChoiceItems(
             categoriasArray,
-            selectedCategorie.toBooleanArray()
+            viewModel.selectedCategorie.toBooleanArray()
         ) { dialog, which, isChecked ->}
         builder.setPositiveButton("Submit"){dialog,which->
             val alertDialog = dialog as AlertDialog
             val sparseBooleanArray = alertDialog.listView.checkedItemPositions
             var counter = 0
 
-            textViewSelect.text = ""
+
             categoriasArray.forEachIndexed { index, s ->
                 if (sparseBooleanArray.get(index, false)) {
                     categoriesAux[s]?.let { categoriesParaBackend.add(it.id) }
@@ -196,7 +201,7 @@ class home_turista : Fragment() {
            }
         }
             builder.setNeutralButton("Cancel"){dialog,which->
-                textViewSelect.text = ""
+
             }
             builder.setCancelable(false)
 
@@ -213,9 +218,9 @@ class home_turista : Fragment() {
                 categoriasArray.forEachIndexed { index, s ->
                     if (sparseBooleanArray.get(index,false)){
                         checkedItems +=1
-                        selectedCategorie[index] = true
+                        viewModel.selectedCategorie[index] = true
                     }else{
-                        selectedCategorie[index] = false
+                        viewModel.selectedCategorie[index] = false
                     }
                 }
 
@@ -230,6 +235,9 @@ class home_turista : Fragment() {
             .getRetrofitInstance()
             .create(ServicioService::class.java)
         val responseLiveData: LiveData<Response<Servicios>> = liveData {
+            if(maxKm.text.toString().isEmpty()){
+                maxKm.setText(DEFAULT_MAX_KM.toString())
+            }
             val servicioSearch : ServiciosSearch = ServiciosSearch(
                 viewModel.myLatitude,
                 viewModel.myLongitude,
@@ -252,6 +260,7 @@ class home_turista : Fragment() {
             if (serviciosList != null) {
                 Log.d("response -->Servicios", serviciosList.toString())
                 viewModel.actividades.value = serviciosList
+
             }
         })
 
