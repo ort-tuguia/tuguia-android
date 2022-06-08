@@ -44,7 +44,7 @@ class PerfilGuia : Fragment() {
         v.findViewById<TextView>(R.id.user_name).text = viewModel.user.value?.firstName + " " + viewModel.user.value?.lastName
         v.findViewById<TextView>(R.id.user_email).text = viewModel.user.value?.email
         circleImageView = v.findViewById(R.id.circleImageViewGuia)
-        botonEdit = v.findViewById(R.id.button)
+        botonEdit = v.findViewById(R.id.botonEdit)
         return  v
     }
     override fun onStart() {

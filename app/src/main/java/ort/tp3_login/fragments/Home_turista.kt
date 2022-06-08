@@ -49,8 +49,8 @@ class home_turista : Fragment() {
     //Buscar
     lateinit var TextViewCategories: TextView
     lateinit var buscarButton: Button
-     var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
-     var categorieListInt : ArrayList<Int> = ArrayList<Int>()
+    var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
+    var categorieListInt : ArrayList<Int> = ArrayList<Int>()
     lateinit var resultCategorie: MutableListIterator<CategoriaItem>
     var categoriesNombre : ArrayList<String> = ArrayList<String>()
     lateinit var dialog : AlertDialog
@@ -72,7 +72,8 @@ class home_turista : Fragment() {
             val categoriasList = it.body()?.listIterator()
             if (categoriasList != null) {
                 //Log.d("categoriasList", categoriasList.toString())
-                resultCategorie = categoriasList
+                viewModel.categorias = categoriasList
+                resultCategorie = viewModel.categorias
 
 
             }else{
@@ -100,6 +101,7 @@ class home_turista : Fragment() {
         fetchCategories()
 
         TextViewCategories.setOnClickListener {
+            resultCategorie = viewModel.categorias
             createDialog()
         }
 

@@ -1,17 +1,24 @@
 package ort.tp3_login.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_home_turista.*
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.CategoriaItem
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
@@ -27,6 +34,18 @@ class perfil_turista : Fragment() {
     lateinit var v: View
     private  val viewModel: ViewModelHomeTurista by activityViewModels()
 
+    lateinit var botonCategorias: Button
+    lateinit var botonEdit: Button
+
+    var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
+    var categorieListInt : ArrayList<Int> = ArrayList<Int>()
+    lateinit var resultCategorie: MutableListIterator<CategoriaItem>
+    var categoriesNombre : ArrayList<String> = ArrayList<String>()
+    lateinit var dialog : AlertDialog
+    lateinit var maxKm : TextView
+    var categoriesParaBackend : ArrayList<String> = ArrayList<String>()
+    var categoriesAux : MutableMap<String, CategoriaItem> = HashMap()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -41,8 +60,10 @@ class perfil_turista : Fragment() {
         v=inflater.inflate(R.layout.fragment_perfil_turista, container, false)
         v.findViewById<TextView>(R.id.user_name).text = viewModel.user.value?.firstName + " " + viewModel.user.value?.lastName
         v.findViewById<TextView>(R.id.user_email).text = viewModel.user.value?.email
+        botonEdit = v.findViewById(R.id.botonEdit)
+        botonCategorias = v.findViewById(R.id.buttonCategorias)
         circleImageView = v.findViewById(R.id.circleImageViewTurista)
-
+        resultCategorie = viewModel.categorias
 
 
         return  v
@@ -54,6 +75,80 @@ class perfil_turista : Fragment() {
         circleImageView.setOnClickListener{
             pickImageGallery()
         }
+
+        botonEdit.setOnClickListener{
+            v.findNavController().navigate(R.id.action_perfil_turista_to_turistaEdit)
+        }
+
+        botonCategorias.setOnClickListener{
+            createDialog()
+        }
+    }
+
+    private fun createDialog(){
+        val builder = AlertDialog.Builder(context)
+        resultCategorie.forEach { categoria ->
+            categoriesNombre.add(categoria.name)
+            categoriesAux[categoria.name]= categoria
+        }
+        if (selectedCategorie.isEmpty()){
+            repeat(categoriesNombre.count()) {selectedCategorie.add(false)}
+        }
+        val categoriasArray: Array<String> = categoriesNombre.toTypedArray()
+
+
+        builder.setTitle("Seleccione categorias")
+        builder.setMultiChoiceItems(
+            categoriasArray,
+            selectedCategorie.toBooleanArray()
+        ) { dialog, which, isChecked ->}
+        builder.setPositiveButton("Submit"){dialog,which->
+            val alertDialog = dialog as AlertDialog
+            val sparseBooleanArray = alertDialog.listView.checkedItemPositions
+            var counter = 0
+
+            /*textViewSelect.text = ""*/
+            categoriasArray.forEachIndexed { index, s ->
+                if (sparseBooleanArray.get(index, false)) {
+                    categoriesAux[s]?.let { categoriesParaBackend.add(it.id) }
+                    Log.d("Categoria --> IF ID" , categoriesParaBackend[counter].toString())
+                    counter += 1
+                }
+            }
+
+            if (counter > 0) {
+
+
+            }
+        }
+        builder.setNeutralButton("Cancel"){dialog,which->
+            /*textViewSelect.text = ""*/
+        }
+        builder.setCancelable(false)
+
+        val dialog = builder.create()
+        dialog.show()
+
+        if((selectedCategorie.filter { it }).size < 2){
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+        }
+        dialog.listView.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                val sparseBooleanArray = dialog.listView.checkedItemPositions
+                var checkedItems = 0
+                categoriasArray.forEachIndexed { index, s ->
+                    if (sparseBooleanArray.get(index,false)){
+                        checkedItems +=1
+                        selectedCategorie[index] = true
+                    }else{
+                        selectedCategorie[index] = false
+                    }
+                }
+
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    .isEnabled = checkedItems >=1
+            }
+
     }
 
     private fun pickImageGallery () {
