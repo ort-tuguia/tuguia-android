@@ -82,13 +82,17 @@
         <entry key="..\:/Users/tomma/tuguia/tuguia-android/app/src/main/res/menu/menu_drawable_turista.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/layout/fragment_agregar_servicio.xml" value="0.1671195652173913" />
         <entry key="app/src/main/res/layout/fragment_favoritos_turista.xml" value="0.11197916666666667" />
+        <entry key="app/src/main/res/layout/fragment_guia_edit.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home_guia.xml" value="0.1671195652173913" />
         <entry key="app/src/main/res/layout/fragment_home_turista.xml" value="0.19679718017578127" />
         <entry key="app/src/main/res/layout/fragment_perfil_guia.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_perfil_turista.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_registro_eligir.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_registro_guia.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_reserva_turista.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_reservas_guia.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_telefonos.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_telefonos2.xml" value="0.1793478260869565" />
         <entry key="app/src/main/res/menu/menu_drawable_guia.xml" value="0.1388888888888889" />
         <entry key="app/src/main/res/menu/menu_drawable_turista.xml" value="0.1388888888888889" />
       </map>

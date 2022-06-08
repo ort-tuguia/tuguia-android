@@ -16,11 +16,12 @@ import kotlinx.android.synthetic.main.activity_turista.*
 import kotlinx.android.synthetic.main.activity_turista.drawer_layout_id
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.UsuarioLogin
+import ort.tp3_login.viewModels.ViewModelGuia
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 class ActivityGuia : AppCompatActivity() {
     private lateinit var navController : NavController
-    val viewModel : ViewModelHomeTurista by viewModels()
+    val viewModel : ViewModelGuia by viewModels()
     var gson : Gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {

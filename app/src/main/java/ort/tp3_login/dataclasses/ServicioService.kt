@@ -25,5 +25,13 @@ interface ServicioService {
     suspend fun postCrearServicio (@Body x: CrearServicio, @Header("Authorization") token: String)
             : Response<ServicioItem>
 
+    @PUT("user/phones")
+    suspend fun putPhone (@Body phone: Phone, @Header("Authorization") token: String)
+            : Response<UsuarioLogin>
+
+    @PUT("user")
+    suspend fun putUsuario (@Body usuario: UsuarioEdit, @Header("Authorization") token: String)
+            : Response<UsuarioLogin>
+
 
 }

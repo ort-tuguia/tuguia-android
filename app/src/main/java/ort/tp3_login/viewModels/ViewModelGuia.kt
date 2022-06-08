@@ -4,7 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.dataclasses.UsuarioLogin
 
-class viewModelGuia: ViewModel() {
+class ViewModelGuia: ViewModel() {
     var user = MutableLiveData<UsuarioLogin>()
+    var token :String = ""
+
+
 
 }

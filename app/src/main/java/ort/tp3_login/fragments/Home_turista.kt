@@ -38,7 +38,7 @@ class home_turista : Fragment() {
     lateinit var view1 : View
     val DEFAULT_MAX_RESULTS: Int = 50
     //ViewModel
-    private  val viewModel: ViewModelHomeTurista by activityViewModels()
+    private val viewModel: ViewModelHomeTurista by activityViewModels()
 
     //RecyclerView
     lateinit var recyclerView: RecyclerView
