@@ -181,7 +181,7 @@ class home_turista : Fragment() {
             categoriasArray,
             viewModel.selectedCategorie.toBooleanArray()
         ) { dialog, which, isChecked ->}
-        builder.setPositiveButton("Submit"){dialog,which->
+        builder.setPositiveButton("Enviar"){dialog,which->
             val alertDialog = dialog as AlertDialog
             val sparseBooleanArray = alertDialog.listView.checkedItemPositions
             var counter = 0
@@ -200,7 +200,7 @@ class home_turista : Fragment() {
 
            }
         }
-            builder.setNeutralButton("Cancel"){dialog,which->
+            builder.setNeutralButton("Cancelar"){dialog,which->
 
             }
             builder.setCancelable(false)
