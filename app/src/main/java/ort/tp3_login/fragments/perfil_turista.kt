@@ -17,8 +17,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_home_turista.*
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.runBlocking
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.CategoriaItem
+import ort.tp3_login.dataclasses.ServicioService
+import ort.tp3_login.services.RetrofitInstance
+import ort.tp3_login.services.RetrofitInstance.Companion.getRetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
@@ -45,6 +50,7 @@ class perfil_turista : Fragment() {
     lateinit var maxKm : TextView
     var categoriesParaBackend : ArrayList<String> = ArrayList<String>()
     var categoriesAux : MutableMap<String, CategoriaItem> = HashMap()
+    lateinit var servicioService: ServicioService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +73,9 @@ class perfil_turista : Fragment() {
         botonCategorias.setOnClickListener{
             createDialog()
         }
-
+        servicioService = RetrofitInstance
+        .getRetrofitInstance()
+            .create(ServicioService::class.java)
         return  v
     }
 
@@ -109,7 +117,7 @@ class perfil_turista : Fragment() {
             categoriasArray,
             viewModel.selectedCategorie.toBooleanArray()
         ) { dialog, which, isChecked ->}
-        builder.setPositiveButton("Submit"){dialog,which->
+        builder.setPositiveButton("Enviar"){dialog,which->
             val alertDialog = dialog as AlertDialog
             val sparseBooleanArray = alertDialog.listView.checkedItemPositions
             var counter = 0
@@ -122,13 +130,17 @@ class perfil_turista : Fragment() {
                     counter += 1
                 }
             }
+            if(!categoriesParaBackend.isEmpty()){
+                fetcher()
+                categoriesParaBackend.clear()
+            }
 
             if (counter > 0) {
 
 
             }
         }
-        builder.setNeutralButton("Cancel"){dialog,which->
+        builder.setNeutralButton("Cancelar"){dialog,which->
 
         }
         builder.setCancelable(false)
@@ -175,5 +187,10 @@ class perfil_turista : Fragment() {
             }
         }
 
+
+    fun fetcher() = runBlocking(CoroutineName("fetcher")) {
+        var response = servicioService.putCategories(categoriesParaBackend, viewModel.token)
+        Log.d("response --> Categorias Backend",response.body().toString())
+    }
 
 }
