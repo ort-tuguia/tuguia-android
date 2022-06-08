@@ -59,15 +59,17 @@
             android:id="@+id/action_turistaEdit_to_perfil_turista"
             app:destination="@id/perfil_turista" />
         <action
-            android:id="@+id/action_turistaEdit_to_telefonos2"
-            app:destination="@id/telefonos2" />
+            android:id="@+id/action_turistaEdit_to_telefonosTurista"
+            app:destination="@id/telefonosTurista" />
     </fragment>
     <fragment
-        android:id="@+id/telefonos2"
-        android:name="ort.tp3_login.fragments.Telefonos"
-        android:label="Telefonos" >
+        android:id="@+id/telefonosTurista"
+        android:name="TelefonosTurista"
+        android:label="TelefonosTurista" >
         <action
-            android:id="@+id/action_telefonos2_to_turistaEdit"
-            app:destination="@id/turistaEdit" />
+            android:id="@+id/action_telefonosTurista_to_turistaEdit"
+            app:destination="@id/turistaEdit"
+            app:popUpTo="@id/turistaEdit"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
