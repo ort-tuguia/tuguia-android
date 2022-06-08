@@ -14,6 +14,10 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.liveData
 import androidx.navigation.findNavController
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_home_turista.*
@@ -21,12 +25,13 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.CategoriaItem
+import ort.tp3_login.dataclasses.Categorias
 import ort.tp3_login.dataclasses.ServicioService
+import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.services.RetrofitInstance.Companion.getRetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
-
-
+import retrofit2.Response
 
 
 class perfil_turista : Fragment() {
@@ -98,17 +103,39 @@ class perfil_turista : Fragment() {
         //TODO Ver porque no carga al cambio de pantalla
         //TODO Guardar favoritos seleccionados en backend
         val builder = AlertDialog.Builder(context)
-        if(categoriesNombre.isEmpty()) {
+        if(categoriesNombre.size == 0) {
             resultCategorie.forEach { categoria ->
                 categoriesNombre.add(categoria.name)
                 categoriesAux[categoria.name] = categoria
             }
         }
-        if (viewModel.selectedCategorie.isEmpty()){
-            repeat(categoriesNombre.count()) {
-                viewModel.selectedCategorie.add(false)
+        //if (viewModel.selectedCategorie.isEmpty()){
+            repeat(categoriesNombre.count()) {i ->
+                var flag = false
+                if(!viewModel.user.value?.favCategories?.isEmpty()!!){
+                    viewModel.user.value?.favCategories?.forEach { favCategorie ->
+                        if(categoriesNombre[i] == favCategorie.name){
+                            flag = true
+                        }
+                    }
+                    if(viewModel.selectedCategorie.size == categoriesNombre.size){
+                        viewModel.selectedCategorie[i] = flag
+                    }else{
+                        viewModel.selectedCategorie.add(flag)
+                    }
+
+                }else{
+                    if(viewModel.selectedCategorie.size == categoriesNombre.size){
+                        viewModel.selectedCategorie[i] = false
+                    }else{
+                        viewModel.selectedCategorie.add(false)
+                    }
+
+                }
+
+
             }
-        }
+        //}
         val categoriasArray: Array<String> = categoriesNombre.toTypedArray()
 
 
@@ -132,7 +159,9 @@ class perfil_turista : Fragment() {
             }
             if(!categoriesParaBackend.isEmpty()){
                 fetcher()
+
                 categoriesParaBackend.clear()
+
             }
 
             if (counter > 0) {
@@ -190,7 +219,11 @@ class perfil_turista : Fragment() {
 
     fun fetcher() = runBlocking(CoroutineName("fetcher")) {
         var response = servicioService.putCategories(categoriesParaBackend, viewModel.token)
-        Log.d("response --> Categorias Backend",response.body().toString())
+        if(response.isSuccessful) {
+            viewModel.user.value!!.favCategories = response.body()!!.favCategories
+            Log.d("response -- > PerfilTurista", response.body().toString())
+        }
     }
+
 
 }
