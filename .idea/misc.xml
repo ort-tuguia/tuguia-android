@@ -93,6 +93,7 @@
         <entry key="app/src/main/res/layout/fragment_reservas_guia.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_telefonos.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_telefonos2.xml" value="0.1793478260869565" />
+        <entry key="app/src/main/res/layout/fragment_turista_edit.xml" value="0.16354166666666667" />
         <entry key="app/src/main/res/menu/menu_drawable_guia.xml" value="0.1388888888888889" />
         <entry key="app/src/main/res/menu/menu_drawable_turista.xml" value="0.1388888888888889" />
       </map>

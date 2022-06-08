@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.CategoriaItem
 import ort.tp3_login.dataclasses.ServicioItem
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.entities.ServicioCard
@@ -17,6 +18,8 @@ class ViewModelHomeTurista : ViewModel() {
     var token :String = ""
     var myLatitude : Double = 0.0
     var myLongitude : Double = 0.0
+    lateinit var categorias: MutableListIterator<CategoriaItem>
+
     init {
         lista.value = ArrayList<ServicioCard>()
        // initializar()

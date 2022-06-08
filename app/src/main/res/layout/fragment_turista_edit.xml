@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageViewTurista"
+            android:id="@+id/circleImageViewGuia"
             android:clickable="true"
             android:paddingTop="50dp"
             android:layout_width="match_parent"
@@ -28,20 +28,15 @@
             android:layout_height="100dp"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:paddingLeft="20dp"
-                android:src="@drawable/icon_profile"></ImageView>
-
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:id="@+id/user_name"
+                android:id="@+id/name"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:hint="Ingrese su nombre"/>
         </LinearLayout>
 
         <LinearLayout
@@ -49,41 +44,53 @@
             android:layout_height="100dp"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:paddingLeft="20dp"
-                android:src="@drawable/icon_email"></ImageView>
-
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:id="@+id/user_email"
+                android:id="@+id/lastName"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
-
+                android:textSize="20dp"
+                android:hint="Ingrese su apellido"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:id="@+id/mail"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:hint="Ingrese su mail"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="bottom|center">
+            android:gravity="bottom|center"
+            android:orientation="vertical">
 
             <Button
-                android:id="@+id/buttonCategorias"
+                android:id="@+id/buttonTelefono"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
 
-                android:text="Mis Categorias" />
+                android:text="Telefonos" />
 
             <Button
-                android:id="@+id/botonEdit"
+                android:id="@+id/buttonGuardar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Editar perfil" />
+                android:text="Guardar" />
         </LinearLayout>
 
     </LinearLayout>

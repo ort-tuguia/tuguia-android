@@ -27,7 +27,11 @@
         android:id="@+id/perfil_turista"
         android:name="ort.tp3_login.fragments.perfil_turista"
         android:label="Perfil"
-        tools:layout="@layout/fragment_perfil_turista" />
+        tools:layout="@layout/fragment_perfil_turista" >
+        <action
+            android:id="@+id/action_perfil_turista_to_turistaEdit"
+            app:destination="@id/turistaEdit" />
+    </fragment>
     <fragment
         android:id="@+id/reservaTurista"
         android:name="ort.tp3_login.fragments.ReservaTurista"
@@ -47,4 +51,23 @@
         android:name="ort.tp3_login.fragments.Reviews"
         android:label="Valoración"
         tools:layout="@layout/fragment_reviews" />
+    <fragment
+        android:id="@+id/turistaEdit"
+        android:name="ort.tp3_login.fragments.TuristaEdit"
+        android:label="TuristaEdit" >
+        <action
+            android:id="@+id/action_turistaEdit_to_perfil_turista"
+            app:destination="@id/perfil_turista" />
+        <action
+            android:id="@+id/action_turistaEdit_to_telefonos2"
+            app:destination="@id/telefonos2" />
+    </fragment>
+    <fragment
+        android:id="@+id/telefonos2"
+        android:name="ort.tp3_login.fragments.Telefonos"
+        android:label="Telefonos" >
+        <action
+            android:id="@+id/action_telefonos2_to_turistaEdit"
+            app:destination="@id/turistaEdit" />
+    </fragment>
 </navigation>
