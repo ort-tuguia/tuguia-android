@@ -28,6 +28,7 @@
                 android:paddingLeft="20dp"
                 android:id="@+id/telefono"
                 android:textColor="@color/white"
+                android:inputType="phone"
                 android:textSize="20dp"
                 android:hint="Ingrese un telefono (1111111)"/>
         </LinearLayout>
