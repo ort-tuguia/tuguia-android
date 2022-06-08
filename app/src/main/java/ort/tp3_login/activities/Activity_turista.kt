@@ -129,7 +129,6 @@ class activity_turista : AppCompatActivity() {
                 }.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         fetchActivities()
-
                     } else {
                         Log.d("latitude", "No funco")
                     }
