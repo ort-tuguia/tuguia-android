@@ -76,19 +76,21 @@ class TuristaEdit : Fragment() {
             pickImageGallery()
         }
 
-        usuario = UsuarioEdit (
-            nombre.text.toString(),
-            apellido.text.toString(),
-            email.text.toString(),
-        )
+
         botonGuardar.setOnClickListener{
+            usuario = UsuarioEdit (
+                nombre.text.toString(),
+                apellido.text.toString(),
+                email.text.toString(),
+            )
             val statusCode: Boolean = fetcher()
             if (statusCode) {
 
                 Snackbar.make(v, "Se actualizaron los datos.", Snackbar.LENGTH_LONG)
                     .setBackgroundTint(Color.parseColor("#42D727"))
                     .show()
-                val action = RegistroGuiaDirections.actionRegistroGuiaToLogin()
+                //val action = RegistroGuiaDirections.actionRegistroGuiaToLogin()
+                val action = TuristaEditDirections.actionTuristaEditToPerfilTurista()
                 v.findNavController().navigate(action)
             } else {
                 Snackbar.make(v, "No se pudo actualizar los datos.", Snackbar.LENGTH_LONG)
@@ -128,6 +130,8 @@ class TuristaEdit : Fragment() {
             viewModel.token
         )
         if(response.isSuccessful){
+            Log.d("Response", response.body().toString())
+            viewModel.user.value = response.body()
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())
