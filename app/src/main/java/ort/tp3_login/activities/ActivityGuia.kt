@@ -6,18 +6,20 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_guia.*
 import kotlinx.android.synthetic.main.activity_turista.*
-import kotlinx.android.synthetic.main.activity_turista.drawer_layout_id
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.viewModels.ViewModelGuia
-import ort.tp3_login.viewModels.ViewModelHomeTurista
+
 
 class ActivityGuia : AppCompatActivity() {
     private lateinit var navController : NavController
@@ -37,9 +39,11 @@ class ActivityGuia : AppCompatActivity() {
 
         nav_view_guia.getHeaderView(0).findViewById<TextView>(R.id.user_name).text = viewModel.user.value!!.firstName + " " + viewModel.user.value!!.lastName
         nav_view_guia.getHeaderView(0).findViewById<TextView>(R.id.user_email).text = viewModel.user.value!!.email
+       // Picasso.get().load(viewModel.user.value?.photoUrl?.toUri()).into(nav_view.getHeaderView(0).findViewById<CircleImageView>(R.id.profile_image))
 
         nav_view_guia.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this,navController,drawer_layout_id_guia)
+
         nav_view_guia.menu.findItem(R.id.logout_guia).setOnMenuItemClickListener { menuItem ->
             Log.d("menuItem", menuItem.toString())
             val intent = Intent(this, MainActivity::class.java)
