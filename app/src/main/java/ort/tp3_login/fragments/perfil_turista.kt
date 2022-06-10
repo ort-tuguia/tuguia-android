@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.TextView
@@ -28,6 +29,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.internal.StorageReferenceUri
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
@@ -58,11 +60,10 @@ class perfil_turista : Fragment() {
     lateinit var botonEdit: Button
 
     var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
-    var categorieListInt: ArrayList<Int> = ArrayList<Int>()
+
     lateinit var resultCategorie: MutableListIterator<CategoriaItem>
     var categoriesNombre: ArrayList<String> = ArrayList<String>()
-    lateinit var dialog: AlertDialog
-    lateinit var maxKm: TextView
+
     var categoriesParaBackend: ArrayList<String> = ArrayList<String>()
     var categoriesAux: MutableMap<String, CategoriaItem> = HashMap()
     lateinit var servicioService: ServicioService
@@ -113,7 +114,7 @@ class perfil_turista : Fragment() {
 //       ACAA FUNCION
     //
     //        Log.d("imagen", viewModel.user.value.toString())
-//     storageReference = FirebaseStorage.getInstance().reference.child("images/$imageName")
+//     storageReference = FirebaseStorage.getInstance().reference.child("images/ProfilePictures/$imageName")
 //
 //        val localFile = File.createTempFile("tempImage", "jpg")
 //        storageReference.getFile(localFile).addOnSuccessListener{
@@ -127,19 +128,13 @@ class perfil_turista : Fragment() {
 
 
 
-//        //TODO Cargar imagen en circleImageView
-            circleImageView.setImage(viewModel.user.value?.photoUrl?.toUri())
-//        circleImageView.maxWidth = 24
-//        circleImageView.maxHeight = 24
+//        //ACA FUNCIONA SI LO QUE VIENE ES UNA URL
 
-    /*
-        storageReference = FirebaseStorage.getInstance().getReference("/turista/${viewModel.user.value?.id}")
-        storageReference.downloadUrl.addOnSuccessListener {
-            Log.d("URL", it.toString())
-            val imageUri = it
-            val image = v.findViewById<CircleImageView>(R.id.circleImageViewTurista)
-            image.setImageURI(imageUri)
-        }*/
+        Picasso.get().load(viewModel.user.value?.photoUrl?.toUri()).into(circleImageView);
+            //circleImageView.setImage(viewModel.user.value?.photoUrl?.toUri())
+
+
+
     }
 
     override fun onStart() {
@@ -280,7 +275,7 @@ class perfil_turista : Fragment() {
 
         val fileName = UUID.randomUUID().toString()
         var urlPhoto:String = ""
-        storageReference = FirebaseStorage.getInstance().reference.child("images/$fileName")
+        storageReference = FirebaseStorage.getInstance().reference.child("images/ProfilePictures/$fileName")
         if (imageUri != null) {
             storageReference.putFile(imageUri!!).addOnSuccessListener {
                 circleImageView.setImageURI(imageUri)
