@@ -20,6 +20,7 @@ class ViewModelHomeTurista : ViewModel() {
     var myLongitude : Double = 0.0
     lateinit var categorias: MutableListIterator<CategoriaItem>
     var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
+    lateinit var servicioItemSeleccionado: ServicioItem
 
     init {
        // initializar()
