@@ -298,52 +298,6 @@ class perfil_turista : Fragment() {
 
 
 
-
-//    private fun pickImageGallery() {
-//        val intent = Intent(Intent.ACTION_PICK)
-//        intent.type = "image/*"
-//        intent.action = Intent.ACTION_GET_CONTENT
-//        startActivityForResult(intent, 100)
-//
-//    }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//
-//        var value: String
-//        var imageUri: Uri? = null
-//        val getResult = registerForActivityResult(
-//            ActivityResultContracts.StartActivityForResult()
-//        ) {
-//            if (it.resultCode == Activity.RESULT_OK) {
-//                 value = it.data?.getStringExtra("input")!!
-//                 imageUri = it.data?.data
-//            }
-//        }
-//
-//
-//        val progressDialog = ProgressDialog(context)
-//        progressDialog.setMessage("Subiendo imagen...")
-//        progressDialog.setCancelable(false)
-//        progressDialog.show()
-//
-//        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-//        val now = Date()
-//        val fileName = formatter.format(now)
-//        storageReference = FirebaseStorage.getInstance().reference.child("images/$fileName")
-//        if (imageUri != null) {
-//            storageReference.putFile(imageUri!!).addOnSuccessListener {
-//                circleImageView.setImageURI(imageUri)
-//                Toast.makeText(context, "Imagen subida correctamente", Toast.LENGTH_LONG).show()
-//                if (progressDialog.isShowing) progressDialog.dismiss()
-//            }.addOnFailureListener {
-//                if (progressDialog.isShowing) progressDialog.dismiss()
-//                Toast.makeText(context, "Error al subir imagen", Toast.LENGTH_LONG).show()
-//
-//            }
-//        }
-//    }
     fun upload(photo:Photo) = runBlocking(CoroutineName("upload"))
     {
         Log.d("Response -- > Antes de ir a backend", photo.toString())
@@ -362,9 +316,6 @@ class perfil_turista : Fragment() {
             Log.d("Response -- > Error", jObjError.getString("message"))
         }
 
-//        Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
-//            .setBackgroundTint(Color.parseColor("#D72F27"))
-//            .show()
     }
 
     fun fetcher() = runBlocking(CoroutineName("fetcher")) {
