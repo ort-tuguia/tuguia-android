@@ -10,8 +10,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.ktx.widget.PlaceSelectionError
+import com.google.android.libraries.places.ktx.widget.PlaceSelectionSuccess
+import com.google.android.libraries.places.ktx.widget.placeSelectionEvents
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_agregar_servicio.*
 import kotlinx.coroutines.CoroutineName
@@ -39,6 +48,11 @@ class AgregarServicio : Fragment() {
 
     private  val viewModel: ViewModelHomeTurista by activityViewModels()
 
+    //places
+    //private lateinit var placesClient: PlacesClient
+    //private lateinit var responseView: TextView
+
+
 
 
     override fun onCreateView(
@@ -54,9 +68,42 @@ class AgregarServicio : Fragment() {
         price = view1.findViewById(R.id.Precio)
         urlFoto = view1.findViewById(R.id.UrlServicio)
 
+        //google places
+        //activarPlaces ()
+
+
 
         return view1
     }
+
+   /* private fun activarPlaces() {
+        placesClient = Places.createClient(this.activity)
+
+        responseView = view1.findViewById(R.id.autocomplete_response_content)
+        val autocompleteFragment = activity?.supportFragmentManager?.findFragmentById(R.id.autocomplete_fragment)
+                as AutocompleteSupportFragment
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.NAME, Place.Field.ID, Place.Field.LAT_LNG, Place.Field.ADDRESS))
+
+        // Listen to place selection events
+        lifecycleScope.launchWhenCreated {
+            autocompleteFragment.placeSelectionEvents()?.collect { event ->
+                when (event) {
+                    is PlaceSelectionSuccess -> {
+                        val place = event.place
+                        //responseView.text = StringUtil.stringifyAutocompleteWidget(place, false)
+                    }
+                    is PlaceSelectionError -> Toast.makeText(
+                        context,
+                        "Failed to get place '${event.status.statusMessage}'",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+
+        }
+    }*/
 
     override fun onStart() {
         super.onStart()

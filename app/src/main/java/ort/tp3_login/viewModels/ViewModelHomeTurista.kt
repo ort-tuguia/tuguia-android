@@ -22,13 +22,13 @@ class ViewModelHomeTurista : ViewModel() {
     var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
 
     init {
-        lista.value = ArrayList<ServicioCard>()
        // initializar()
    }
 
 
     fun loadActivities () {
         // fetch data de la API
+        lista.value = ArrayList<ServicioCard>()
         actividades.value?.forEach() {
             lista.value?.add(
                 ServicioCard(it.guideUsername,

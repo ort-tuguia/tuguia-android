@@ -26,6 +26,7 @@ import ort.tp3_login.dataclasses.ServicioService
 import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.libraries.places.api.Places
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.async
@@ -33,6 +34,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import okhttp3.internal.wait
 import org.json.JSONObject
+import ort.tp3_login.BuildConfig
 import ort.tp3_login.dataclasses.ServiciosSearch
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
@@ -88,6 +90,9 @@ class activity_turista : AppCompatActivity() {
             finish()
             true
         }
+        //google places
+        //Places.initialize(this, BuildConfig.MAPS_API_KEY)
+
 
         /*appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(),
@@ -172,6 +177,8 @@ class activity_turista : AppCompatActivity() {
             } else {
                 Log.d("serviciosList", "es null")
             }
+            viewModel.loadActivities()
+
         })
 
 
