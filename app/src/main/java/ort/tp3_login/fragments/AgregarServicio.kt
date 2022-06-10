@@ -42,7 +42,7 @@ class AgregarServicio : Fragment() {
 
     lateinit var name: EditText
     lateinit var description: EditText
-    lateinit var location: EditText
+    lateinit var location: TextView
     lateinit var price: EditText
     lateinit var urlFoto: EditText
 
@@ -134,6 +134,9 @@ class AgregarServicio : Fragment() {
 
         volver.setOnClickListener {
             view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
+        }
+        location.setOnClickListener{
+            view1.findNavController().navigate(R.id.action_agregarServicio_to_mapsAgregarServicio)
         }
     }
     private suspend fun register() : Boolean {
