@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.navigation.NavController
@@ -26,15 +27,9 @@ import ort.tp3_login.dataclasses.ServicioService
 import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.libraries.places.api.Places
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
-import okhttp3.internal.wait
-import org.json.JSONObject
-import ort.tp3_login.BuildConfig
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import ort.tp3_login.dataclasses.ServiciosSearch
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
@@ -78,6 +73,8 @@ class activity_turista : AppCompatActivity() {
             viewModel.user.value!!.firstName + " " + viewModel.user.value!!.lastName
         nav_view.getHeaderView(0).findViewById<TextView>(R.id.user_email).text =
             viewModel.user.value!!.email
+        Picasso.get().load(viewModel.user.value?.photoUrl?.toUri()).into(nav_view.getHeaderView(0).findViewById<CircleImageView>(R.id.profile_image))
+
 
 
         nav_view.setupWithNavController(navController)
