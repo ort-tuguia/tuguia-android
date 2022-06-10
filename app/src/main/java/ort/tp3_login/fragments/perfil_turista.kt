@@ -31,6 +31,8 @@ import com.google.firebase.storage.internal.StorageReferenceUri
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_turista.*
+import kotlinx.android.synthetic.main.activity_turista.view.*
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
@@ -48,8 +50,6 @@ import java.util.*
 class perfil_turista : Fragment() {
     companion object {
         val IMAGE_REQUEST_CODE = 100
-
-
     }
 
     lateinit var circleImageView: CircleImageView
@@ -152,9 +152,6 @@ class perfil_turista : Fragment() {
     }
 
     private fun createDialog() {
-
-        //TODO Ver porque no carga al cambio de pantalla
-        //TODO Guardar favoritos seleccionados en backend
         val builder = AlertDialog.Builder(context)
         if (categoriesNombre.size == 0) {
             resultCategorie.forEach { categoria ->
@@ -265,9 +262,6 @@ class perfil_turista : Fragment() {
                  //value = it.data?.getStringExtra("input")!!
                  imageUri = it.data?.data
             }
-
-
-
         val progressDialog = ProgressDialog(context)
         progressDialog.setMessage("Subiendo imagen...")
         progressDialog.setCancelable(false)
@@ -286,7 +280,6 @@ class perfil_turista : Fragment() {
                     upload(photo)
                     Log.d("URL", task.toString())
                 }
-
                 if (progressDialog.isShowing) progressDialog.dismiss()
             }.addOnFailureListener {
                 if (progressDialog.isShowing) progressDialog.dismiss()
