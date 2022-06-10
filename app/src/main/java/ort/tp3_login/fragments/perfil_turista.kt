@@ -2,61 +2,69 @@ package ort.tp3_login.fragments
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.liveData
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.internal.StorageReferenceUri
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_home_turista.*
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.CategoriaItem
-import ort.tp3_login.dataclasses.Categorias
 import ort.tp3_login.dataclasses.ServicioService
-import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
-import ort.tp3_login.services.RetrofitInstance.Companion.getRetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
-import retrofit2.Response
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class perfil_turista : Fragment() {
-    companion object{
+    companion object {
         val IMAGE_REQUEST_CODE = 100
 
 
     }
+
     lateinit var circleImageView: CircleImageView
     lateinit var v: View
-    private  val viewModel: ViewModelHomeTurista by activityViewModels()
+    private val viewModel: ViewModelHomeTurista by activityViewModels()
 
     lateinit var botonCategorias: Button
     lateinit var botonEdit: Button
 
     var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
-    var categorieListInt : ArrayList<Int> = ArrayList<Int>()
+    var categorieListInt: ArrayList<Int> = ArrayList<Int>()
     lateinit var resultCategorie: MutableListIterator<CategoriaItem>
-    var categoriesNombre : ArrayList<String> = ArrayList<String>()
-    lateinit var dialog : AlertDialog
-    lateinit var maxKm : TextView
-    var categoriesParaBackend : ArrayList<String> = ArrayList<String>()
-    var categoriesAux : MutableMap<String, CategoriaItem> = HashMap()
+    var categoriesNombre: ArrayList<String> = ArrayList<String>()
+    lateinit var dialog: AlertDialog
+    lateinit var maxKm: TextView
+    var categoriesParaBackend: ArrayList<String> = ArrayList<String>()
+    var categoriesAux: MutableMap<String, CategoriaItem> = HashMap()
     lateinit var servicioService: ServicioService
-
+    lateinit var storageReference: StorageReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -68,73 +76,115 @@ class perfil_turista : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        v=inflater.inflate(R.layout.fragment_perfil_turista, container, false)
-        v.findViewById<TextView>(R.id.user_name).text = viewModel.user.value?.firstName + " " + viewModel.user.value?.lastName
+        v = inflater.inflate(R.layout.fragment_perfil_turista, container, false)
+        v.findViewById<TextView>(R.id.user_name).text =
+            viewModel.user.value?.firstName + " " + viewModel.user.value?.lastName
         v.findViewById<TextView>(R.id.user_email).text = viewModel.user.value?.email
         botonEdit = v.findViewById(R.id.botonEdit)
         botonCategorias = v.findViewById(R.id.buttonCategorias)
+
+
+        // Set imagen del backend desde firebase
+
+
         circleImageView = v.findViewById(R.id.circleImageViewTurista)
+        //TODO Cuando se arregle Backend
+         loadImageInCircle()
         resultCategorie = viewModel.categorias
-        botonCategorias.setOnClickListener{
+        botonCategorias.setOnClickListener {
             createDialog()
         }
         servicioService = RetrofitInstance
-        .getRetrofitInstance()
+            .getRetrofitInstance()
             .create(ServicioService::class.java)
-        return  v
+        return v
+    }
+
+    private fun loadImageInCircle() {
+
+        //TODO cuando se arregle backend cargar value.foto.id
+        val imageName : String? = viewModel.user.value?.photoUrl
+        if (imageName != null) {
+            Log.d("imagen", imageName)
+
+        }
+        Log.d("imagen", viewModel.user.value.toString())
+     storageReference = FirebaseStorage.getInstance().reference.child("images/$imageName")
+
+        val localFile = File.createTempFile("tempImage", "jpg")
+        storageReference.getFile(localFile).addOnSuccessListener{
+            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+            circleImageView.setImageBitmap(bitmap)
+        }.addOnFailureListener{
+            Toast.makeText(context, "Error al traer la imagen", Toast.LENGTH_SHORT).show()
+        }
+
+//        //TODO Cargar imagen en circleImageView
+//        circleImageView.setImageURI(viewModel.user.value?.photoUrl?.toUri())
+//        circleImageView.maxWidth = 24
+//        circleImageView.maxHeight = 24
+
+    /*
+        storageReference = FirebaseStorage.getInstance().getReference("/turista/${viewModel.user.value?.id}")
+        storageReference.downloadUrl.addOnSuccessListener {
+            Log.d("URL", it.toString())
+            val imageUri = it
+            val image = v.findViewById<CircleImageView>(R.id.circleImageViewTurista)
+            image.setImageURI(imageUri)
+        }*/
     }
 
     override fun onStart() {
         super.onStart()
 
-        circleImageView.setOnClickListener{
+        circleImageView.setOnClickListener {
             pickImageGallery()
         }
 
-        botonEdit.setOnClickListener{
+        botonEdit.setOnClickListener {
             v.findNavController().navigate(R.id.action_perfil_turista_to_turistaEdit)
         }
 
 
     }
 
-    private fun createDialog(){
+    private fun createDialog() {
 
         //TODO Ver porque no carga al cambio de pantalla
         //TODO Guardar favoritos seleccionados en backend
         val builder = AlertDialog.Builder(context)
-        if(categoriesNombre.size == 0) {
+        if (categoriesNombre.size == 0) {
             resultCategorie.forEach { categoria ->
                 categoriesNombre.add(categoria.name)
                 categoriesAux[categoria.name] = categoria
             }
         }
         //if (viewModel.selectedCategorie.isEmpty()){
-            repeat(categoriesNombre.count()) {i ->
-                var flag = false
-                if(!viewModel.user.value?.favCategories?.isEmpty()!!){
-                    viewModel.user.value?.favCategories?.forEach { favCategorie ->
-                        if(categoriesNombre[i] == favCategorie.name){
-                            flag = true
-                        }
+        repeat(categoriesNombre.count()) { i ->
+            var flag = false
+            if (!viewModel.user.value?.favCategories?.isEmpty()!!) {
+                viewModel.user.value?.favCategories?.forEach { favCategorie ->
+                    if (categoriesNombre[i] == favCategorie.name) {
+                        flag = true
                     }
-                    if(viewModel.selectedCategorie.size == categoriesNombre.size){
-                        viewModel.selectedCategorie[i] = flag
-                    }else{
-                        viewModel.selectedCategorie.add(flag)
-                    }
-
-                }else{
-                    if(viewModel.selectedCategorie.size == categoriesNombre.size){
-                        viewModel.selectedCategorie[i] = false
-                    }else{
-                        viewModel.selectedCategorie.add(false)
-                    }
-
+                }
+                if (viewModel.selectedCategorie.size == categoriesNombre.size) {
+                    viewModel.selectedCategorie[i] = flag
+                } else {
+                    viewModel.selectedCategorie.add(flag)
                 }
 
+            } else {
+                if (viewModel.selectedCategorie.size == categoriesNombre.size) {
+                    viewModel.selectedCategorie[i] = false
+                } else {
+                    viewModel.selectedCategorie.add(false)
+                }
 
             }
+
+
+        }
         //}
         val categoriasArray: Array<String> = categoriesNombre.toTypedArray()
 
@@ -143,8 +193,8 @@ class perfil_turista : Fragment() {
         builder.setMultiChoiceItems(
             categoriasArray,
             viewModel.selectedCategorie.toBooleanArray()
-        ) { dialog, which, isChecked ->}
-        builder.setPositiveButton("Enviar"){dialog,which->
+        ) { dialog, which, isChecked -> }
+        builder.setPositiveButton("Enviar") { dialog, which ->
             val alertDialog = dialog as AlertDialog
             val sparseBooleanArray = alertDialog.listView.checkedItemPositions
             var counter = 0
@@ -153,11 +203,11 @@ class perfil_turista : Fragment() {
             categoriasArray.forEachIndexed { index, s ->
                 if (sparseBooleanArray.get(index, false)) {
                     categoriesAux[s]?.let { categoriesParaBackend.add(it.id) }
-                    Log.d("Categoria --> IF ID" , categoriesParaBackend[counter].toString())
+                    Log.d("Categoria --> IF ID", categoriesParaBackend[counter].toString())
                     counter += 1
                 }
             }
-            if(!categoriesParaBackend.isEmpty()){
+            if (!categoriesParaBackend.isEmpty()) {
                 fetcher()
 
                 categoriesParaBackend.clear()
@@ -169,7 +219,7 @@ class perfil_turista : Fragment() {
 
             }
         }
-        builder.setNeutralButton("Cancelar"){dialog,which->
+        builder.setNeutralButton("Cancelar") { dialog, which ->
 
         }
         builder.setCancelable(false)
@@ -177,7 +227,7 @@ class perfil_turista : Fragment() {
         val dialog = builder.create()
         dialog.show()
 
-        if((selectedCategorie.filter { it }).size < 2){
+        if ((selectedCategorie.filter { it }).size < 2) {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
         }
         dialog.listView.onItemClickListener =
@@ -185,41 +235,127 @@ class perfil_turista : Fragment() {
                 val sparseBooleanArray = dialog.listView.checkedItemPositions
                 var checkedItems = 0
                 categoriasArray.forEachIndexed { index, s ->
-                    if (sparseBooleanArray.get(index,false)){
-                        checkedItems +=1
+                    if (sparseBooleanArray.get(index, false)) {
+                        checkedItems += 1
                         viewModel.selectedCategorie[index] = true
-                    }else{
+                    } else {
                         viewModel.selectedCategorie[index] = false
                     }
                 }
 
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                    .isEnabled = checkedItems >=1
+                    .isEnabled = checkedItems >= 1
             }
 
     }
-
     private fun pickImageGallery () {
-        val intent = Intent(Intent.ACTION_PICK)
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         getResult.launch(intent)
     }
+    private val getResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { it ->
+        // var value: String
+        var imageUri: Uri? = null
+            if (it.resultCode == Activity.RESULT_OK) {
+                 //value = it.data?.getStringExtra("input")!!
+                 imageUri = it.data?.data
+            }
 
 
-    private val getResult =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()) {
-            if(it.resultCode == Activity.RESULT_OK){
-                val value = it.data?.getStringExtra("input")
-                circleImageView.setImageURI(it.data?.data)
-                //circleImageView.setImageURI(value)
+
+        val progressDialog = ProgressDialog(context)
+        progressDialog.setMessage("Subiendo imagen...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+
+        val fileName = UUID.randomUUID().toString()
+        var urlPhoto:String = ""
+        storageReference = FirebaseStorage.getInstance().reference.child("images/$fileName")
+        if (imageUri != null) {
+            storageReference.putFile(imageUri!!).addOnSuccessListener {
+                circleImageView.setImageURI(imageUri)
+                Toast.makeText(context, "Imagen subida correctamente", Toast.LENGTH_LONG).show()
+                it.storage.downloadUrl.addOnSuccessListener {task->
+                    urlPhoto = task.toString()
+                    Log.d("URL", task.toString())
+                }
+                upload(urlPhoto)
+                if (progressDialog.isShowing) progressDialog.dismiss()
+            }.addOnFailureListener {
+                if (progressDialog.isShowing) progressDialog.dismiss()
+                Toast.makeText(context, "Error al subir imagen", Toast.LENGTH_LONG).show()
+
             }
         }
+    }
 
+
+
+
+//    private fun pickImageGallery() {
+//        val intent = Intent(Intent.ACTION_PICK)
+//        intent.type = "image/*"
+//        intent.action = Intent.ACTION_GET_CONTENT
+//        startActivityForResult(intent, 100)
+//
+//    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//
+//        var value: String
+//        var imageUri: Uri? = null
+//        val getResult = registerForActivityResult(
+//            ActivityResultContracts.StartActivityForResult()
+//        ) {
+//            if (it.resultCode == Activity.RESULT_OK) {
+//                 value = it.data?.getStringExtra("input")!!
+//                 imageUri = it.data?.data
+//            }
+//        }
+//
+//
+//        val progressDialog = ProgressDialog(context)
+//        progressDialog.setMessage("Subiendo imagen...")
+//        progressDialog.setCancelable(false)
+//        progressDialog.show()
+//
+//        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+//        val now = Date()
+//        val fileName = formatter.format(now)
+//        storageReference = FirebaseStorage.getInstance().reference.child("images/$fileName")
+//        if (imageUri != null) {
+//            storageReference.putFile(imageUri!!).addOnSuccessListener {
+//                circleImageView.setImageURI(imageUri)
+//                Toast.makeText(context, "Imagen subida correctamente", Toast.LENGTH_LONG).show()
+//                if (progressDialog.isShowing) progressDialog.dismiss()
+//            }.addOnFailureListener {
+//                if (progressDialog.isShowing) progressDialog.dismiss()
+//                Toast.makeText(context, "Error al subir imagen", Toast.LENGTH_LONG).show()
+//
+//            }
+//        }
+//    }
+    fun upload(fileName:String) = runBlocking(CoroutineName("upload"))
+    {
+
+        //TODO Cargue URL correctamente a backend
+        var response = servicioService.putPhoto(fileName, viewModel.token)
+        Log.d("Response", response.body().toString())
+        Log.d("Response", response.code().toString())
+        val jObjError = JSONObject(response.errorBody()!!.string())
+        Log.d("Error", jObjError.getString("errors"))
+//        Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
+//            .setBackgroundTint(Color.parseColor("#D72F27"))
+//            .show()
+    }
 
     fun fetcher() = runBlocking(CoroutineName("fetcher")) {
         var response = servicioService.putCategories(categoriesParaBackend, viewModel.token)
-        if(response.isSuccessful) {
+        if (response.isSuccessful) {
             viewModel.user.value!!.favCategories = response.body()!!.favCategories
             Log.d("response -- > PerfilTurista", response.body().toString())
         }

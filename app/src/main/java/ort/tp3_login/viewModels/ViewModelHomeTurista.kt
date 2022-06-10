@@ -32,7 +32,6 @@ class ViewModelHomeTurista : ViewModel() {
         actividades.value?.forEach() {
             lista.value?.add(
                 ServicioCard(it.guideUsername,
-
                     it.name,
                     R.drawable.profile,
                     5,

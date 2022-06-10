@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "530836002200",
+    "project_id": "tuguia-ort",
+    "storage_bucket": "tuguia-ort.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530836002200:android:0257cafa47dc64f5b747ed",
+        "android_client_info": {
+          "package_name": "ort.tp3_login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "530836002200-ppo8vpfga0r5ai4leq5aqlkmjurta46i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0VMRjENLzfsaMxi7JnKNw-AZvTlhpx6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "530836002200-ppo8vpfga0r5ai4leq5aqlkmjurta46i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
