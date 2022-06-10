@@ -52,8 +52,9 @@
         android:textIsSelectable="true" />-->
 
 
-    <EditText
+    <TextView
         android:id="@+id/Ubicacion"
+        android:clickable="true"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"

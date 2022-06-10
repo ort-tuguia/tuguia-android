@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_agregarServicio_to_home_guia"
             app:destination="@id/home_guia" />
+        <action
+            android:id="@+id/action_agregarServicio_to_mapsAgregarServicio"
+            app:destination="@id/mapsAgregarServicio" />
     </fragment>
     <fragment
         android:id="@+id/guiaEdit"
@@ -54,5 +57,14 @@
         <action
             android:id="@+id/action_telefonos_to_guiaEdit"
             app:destination="@id/guiaEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsAgregarServicio"
+        android:name="ort.tp3_login.fragments.MapsAgregarServicio"
+        android:label="fragment_maps_agregar_servicio"
+        tools:layout="@layout/fragment_maps_agregar_servicio" >
+        <action
+            android:id="@+id/action_mapsAgregarServicio_to_agregarServicio"
+            app:destination="@id/agregarServicio" />
     </fragment>
 </navigation>
