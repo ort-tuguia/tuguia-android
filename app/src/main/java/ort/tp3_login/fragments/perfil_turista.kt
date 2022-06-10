@@ -27,12 +27,14 @@ import com.google.firebase.ktx.app
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.internal.StorageReferenceUri
+import com.google.gson.Gson
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.CategoriaItem
+import ort.tp3_login.dataclasses.Photo
 import ort.tp3_login.dataclasses.ServicioService
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
@@ -108,19 +110,25 @@ class perfil_turista : Fragment() {
             Log.d("imagen", imageName)
 
         }
-        Log.d("imagen", viewModel.user.value.toString())
-     storageReference = FirebaseStorage.getInstance().reference.child("images/$imageName")
+//       ACAA FUNCION
+    //
+    //        Log.d("imagen", viewModel.user.value.toString())
+//     storageReference = FirebaseStorage.getInstance().reference.child("images/$imageName")
+//
+//        val localFile = File.createTempFile("tempImage", "jpg")
+//        storageReference.getFile(localFile).addOnSuccessListener{
+//            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+//            circleImageView.setImageBitmap(bitmap)
+//        }.addOnFailureListener{
+//            Toast.makeText(context, "Error al traer la imagen", Toast.LENGTH_SHORT).show()
+//        }
 
-        val localFile = File.createTempFile("tempImage", "jpg")
-        storageReference.getFile(localFile).addOnSuccessListener{
-            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-            circleImageView.setImageBitmap(bitmap)
-        }.addOnFailureListener{
-            Toast.makeText(context, "Error al traer la imagen", Toast.LENGTH_SHORT).show()
-        }
+        //HASTA ACAA
+
+
 
 //        //TODO Cargar imagen en circleImageView
-//        circleImageView.setImageURI(viewModel.user.value?.photoUrl?.toUri())
+            circleImageView.setImage(viewModel.user.value?.photoUrl?.toUri())
 //        circleImageView.maxWidth = 24
 //        circleImageView.maxHeight = 24
 
@@ -278,10 +286,12 @@ class perfil_turista : Fragment() {
                 circleImageView.setImageURI(imageUri)
                 Toast.makeText(context, "Imagen subida correctamente", Toast.LENGTH_LONG).show()
                 it.storage.downloadUrl.addOnSuccessListener {task->
-                    urlPhoto = task.toString()
+                    urlPhoto = task.normalizeScheme().toString()
+                    var photo: Photo = Photo(urlPhoto)
+                    upload(photo)
                     Log.d("URL", task.toString())
                 }
-                upload(urlPhoto)
+
                 if (progressDialog.isShowing) progressDialog.dismiss()
             }.addOnFailureListener {
                 if (progressDialog.isShowing) progressDialog.dismiss()
@@ -339,15 +349,24 @@ class perfil_turista : Fragment() {
 //            }
 //        }
 //    }
-    fun upload(fileName:String) = runBlocking(CoroutineName("upload"))
+    fun upload(photo:Photo) = runBlocking(CoroutineName("upload"))
     {
-
+        Log.d("Response -- > Antes de ir a backend", photo.toString())
+        Log.d("Response -- > Antes de ir a backend", viewModel.token)
         //TODO Cargue URL correctamente a backend
-        var response = servicioService.putPhoto(fileName, viewModel.token)
-        Log.d("Response", response.body().toString())
-        Log.d("Response", response.code().toString())
-        val jObjError = JSONObject(response.errorBody()!!.string())
-        Log.d("Error", jObjError.getString("errors"))
+        var response = servicioService.putPhoto(photo, viewModel.token)
+
+        if(response.isSuccessful){
+            Log.d("Response", response.body().toString())
+            Log.d("Response", response.code().toString())
+            viewModel.user.value=response.body()
+        }else{
+            Log.d("Response", response.body().toString())
+            Log.d("Response", response.code().toString())
+            val jObjError = JSONObject(response.errorBody()!!.string())
+            Log.d("Response -- > Error", jObjError.getString("message"))
+        }
+
 //        Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
 //            .setBackgroundTint(Color.parseColor("#D72F27"))
 //            .show()
