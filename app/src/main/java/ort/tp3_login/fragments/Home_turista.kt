@@ -262,6 +262,7 @@ class home_turista : Fragment() {
                 viewModel.actividades.value = serviciosList
 
             }
+            viewModel.loadActivities()
         })
 
 //        responseLiveData.observe( Observer<Response<Servicios>?> {
