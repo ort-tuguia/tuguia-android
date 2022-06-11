@@ -11,6 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,11 +23,15 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.ServicioItem
+import ort.tp3_login.viewModels.ViewModelGuia
+import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 class mapa_turista : Fragment() {
 
     lateinit var mapFragment: View
     lateinit var map: GoogleMap
+    private  val viewModel: ViewModelHomeTurista by activityViewModels()
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -36,7 +43,6 @@ class mapa_turista : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         val buenosAires = LatLng(-34.56660241116843, -58.44412629436163)
-        googleMap.addMarker(MarkerOptions().position(buenosAires).title("Alta fiesta de Shira"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(buenosAires, 15f))
         googleMap.uiSettings.apply {
             isZoomControlsEnabled = true
@@ -45,6 +51,15 @@ class mapa_turista : Fragment() {
         }
         map = googleMap
         checkLocationPermission()
+
+        var listaActividades : MutableLiveData<MutableList<ServicioItem>> = viewModel.actividades
+        listaActividades.observe(viewLifecycleOwner, Observer{
+            it.forEach {
+                val location = LatLng(it.locationLatitude, it.locationLongitude)
+                googleMap.addMarker(MarkerOptions().position(location).title("${it.name}"))
+            }
+        })
+
     }
 
 
@@ -102,3 +117,4 @@ class mapa_turista : Fragment() {
         }
     }
 }
+
