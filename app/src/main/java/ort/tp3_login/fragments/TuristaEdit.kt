@@ -69,7 +69,8 @@ class TuristaEdit : Fragment() {
     override fun onStart() {
         super.onStart()
         botonTelefono.setOnClickListener {
-            v.findNavController().navigate(R.id.action_turistaEdit_to_telefonosTurista)
+            //v.findNavController().navigate(R.id.action_turistaEdit_to_telefonosTurista)
+            v.findNavController().navigate(R.id.action_turistaEdit_to_phoneList)
         }
 
         circleImageView.setOnClickListener{
