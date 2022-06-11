@@ -87,7 +87,7 @@ class home_turista : Fragment() {
     }
 
 
-    //Location
+
 
 
     override fun onCreateView(
