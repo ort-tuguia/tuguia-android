@@ -54,24 +54,36 @@
     <fragment
         android:id="@+id/turistaEdit"
         android:name="ort.tp3_login.fragments.TuristaEdit"
-        android:label="TuristaEdit" >
+        android:label="Editar Perfil">
         <action
             android:id="@+id/action_turistaEdit_to_perfil_turista"
             app:destination="@id/perfil_turista"
             app:popUpTo="@id/perfil_turista"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_turistaEdit_to_telefonosTurista"
-            app:destination="@id/telefonosTurista" />
+            android:id="@+id/action_turistaEdit_to_phoneList"
+            app:destination="@id/phoneList" />
     </fragment>
     <fragment
         android:id="@+id/telefonosTurista"
         android:name="TelefonosTurista"
         android:label="TelefonosTurista" >
         <action
-            android:id="@+id/action_telefonosTurista_to_turistaEdit"
-            app:destination="@id/turistaEdit"
-            app:popUpTo="@id/turistaEdit"
+            android:id="@+id/action_telefonosTurista_to_phoneList"
+            app:destination="@id/phoneList"
+            app:popUpTo="@id/phoneList"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneList"
+        android:name="ort.tp3_login.fragments.PhoneList"
+        android:label="Telefonos"
+        tools:layout="@layout/fragment_phone_list">
+        <action
+            android:id="@+id/action_phoneList_to_turistaEdit"
+            app:destination="@id/turistaEdit" />
+        <action
+            android:id="@+id/action_phoneList_to_telefonosTurista"
+            app:destination="@id/telefonosTurista" />
     </fragment>
 </navigation>
