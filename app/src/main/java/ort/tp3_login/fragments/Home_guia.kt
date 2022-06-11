@@ -1,5 +1,7 @@
 package ort.tp3_login.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,9 +37,21 @@ class home_guia : Fragment() {
     override fun onStart() {
         super.onStart()
         botonAgregar.setOnClickListener {
-            view1.findNavController().navigate(R.id.action_home_guia_to_agregarServicio)
+            openDialog()
         }
 
+    }
+    private fun openDialog() {
+        var alertDialog = AlertDialog.Builder(this.context)
+        alertDialog.setTitle("Locación")
+            .setMessage("Eliga la ubicación de la actividad en el mapa")
+            .setIcon(R.drawable.icon_agregar_ubicacion)
+            .setCancelable(false)
+            .setPositiveButton("Ok",
+                DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
+                    view1.findNavController().navigate(R.id.action_home_guia_to_mapsAgregarServicio)
+                })
+        alertDialog.create().show()
     }
 
 

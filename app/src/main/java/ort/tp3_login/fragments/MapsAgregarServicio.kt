@@ -3,7 +3,6 @@ package ort.tp3_login.fragments
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
@@ -26,7 +25,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import ort.tp3_login.R
 import ort.tp3_login.viewModels.ViewModelGuia
-import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 class MapsAgregarServicio : Fragment() {
 
@@ -57,16 +55,16 @@ class MapsAgregarServicio : Fragment() {
         map.setOnMapClickListener { latlng ->
             location = LatLng(latlng.latitude, latlng.longitude)
             map.addMarker(MarkerOptions().position(location))
-            openDialog()
+            openDialogConfirmarUbicacion()
         }
         checkLocationPermission()
     }
 
-    private fun openDialog() {
+    private fun openDialogConfirmarUbicacion() {
         var alertDialog = AlertDialog.Builder(this.context)
         alertDialog.setTitle("Locación")
             .setMessage("Querés usar la locación siguiente: lat: ${location.latitude} lon: ${location.longitude}\"?")
-            .setIcon(R.drawable.dialogiconagregarservicio)
+            .setIcon(R.drawable.icon_agregar_ubicacion)
             .setCancelable(false)
             .setNegativeButton("No",DialogInterface.OnClickListener{dialog: DialogInterface?, which: Int ->
                 map.clear()
@@ -76,8 +74,22 @@ class MapsAgregarServicio : Fragment() {
                 map.clear()
                 viewModel.servicioLocationlat = location.latitude
                 viewModel.servicioLocationlon = location.longitude
-                mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_agregarServicio)
+                openAlertDialog()
+
             })
+        alertDialog.create().show()
+    }
+
+    private fun openAlertDialog() {
+        var alertDialog = AlertDialog.Builder(this.context)
+        alertDialog.setTitle("Imagen")
+            .setMessage("Eliga una imagen para su actividad")
+            .setIcon(R.drawable.icon_agregar_imagen)
+            .setCancelable(false)
+            .setPositiveButton("Ok",
+                DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
+                    mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_fotoAgregarServicio)
+                })
         alertDialog.create().show()
     }
 

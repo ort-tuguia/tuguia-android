@@ -1,5 +1,7 @@
 package ort.tp3_login.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +14,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.liveData
 import androidx.navigation.findNavController
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -21,16 +26,21 @@ import com.google.android.libraries.places.ktx.widget.PlaceSelectionError
 import com.google.android.libraries.places.ktx.widget.PlaceSelectionSuccess
 import com.google.android.libraries.places.ktx.widget.placeSelectionEvents
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_agregar_servicio.*
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.CategoriaItem
+import ort.tp3_login.dataclasses.Categorias
 import ort.tp3_login.dataclasses.CrearServicio
 import ort.tp3_login.dataclasses.ServicioService
 import ort.tp3_login.services.RetrofitInstance
+import ort.tp3_login.viewModels.ViewModelGuia
 import ort.tp3_login.viewModels.ViewModelHomeTurista
+import retrofit2.Response
 
 
 class AgregarServicio : Fragment() {
@@ -42,11 +52,17 @@ class AgregarServicio : Fragment() {
 
     lateinit var name: EditText
     lateinit var description: EditText
-    lateinit var location: TextView
+    lateinit var categoria: TextView
+    //lateinit var location: TextView
     lateinit var price: EditText
-    lateinit var urlFoto: EditText
+    //lateinit var urlFoto: EditText
 
-    private  val viewModel: ViewModelHomeTurista by activityViewModels()
+    private  val viewModel: ViewModelGuia by activityViewModels()
+
+
+    var resultCategorie: MutableListIterator<CategoriaItem>? = null
+
+    private var arraylistCategorias : ArrayList <CategoriaItem>? = ArrayList()
 
     //places
     //private lateinit var placesClient: PlacesClient
@@ -64,9 +80,11 @@ class AgregarServicio : Fragment() {
         volver = view1.findViewById(R.id.Volver)
         name = view1.findViewById(R.id.Nombre)
         description = view1.findViewById(R.id.Descripcion)
-        location = view1.findViewById(R.id.Ubicacion)
+        //location = view1.findViewById(R.id.Ubicacion)
         price = view1.findViewById(R.id.Precio)
-        urlFoto = view1.findViewById(R.id.UrlServicio)
+        //urlFoto = view1.findViewById(R.id.UrlServicio)
+        categoria = view1.findViewById(R.id.categoria)
+        fetchCategories()
 
         //google places
         //activarPlaces ()
@@ -111,12 +129,12 @@ class AgregarServicio : Fragment() {
             servicio = CrearServicio(
                 name.text.toString(),
                 description.text.toString(),
-                location.text.toString().toDouble(),
-                location.text.toString().toDouble(),
+                viewModel.servicioLocationlat.toString().toDouble(),
+                viewModel.servicioLocationlon.toString().toDouble(),
                 price.text.toString().toDouble(),
-                urlFoto.text.toString(),
-                "d7030b7b-56d4-4544-b563-477e14e6d8df",
-                "turista",
+                viewModel.servicioUrlFoto.toString(),
+                viewModel.servicioCategoriaId,
+                viewModel.user.value?.username.toString(),
 
             )
             var statusCode: Boolean = fetcher()
@@ -133,12 +151,28 @@ class AgregarServicio : Fragment() {
 
 
         volver.setOnClickListener {
-            view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
+            //view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
         }
-        location.setOnClickListener{
-            view1.findNavController().navigate(R.id.action_agregarServicio_to_mapsAgregarServicio)
+       // location.setOnClickListener{
+            //view1.findNavController().navigate(R.id.action_agregarServicio_to_mapsAgregarServicio)
+        //}
+        categoria.setOnClickListener{
+            openDialog()
         }
     }
+
+    private fun openDialog() {
+
+            MaterialAlertDialogBuilder(view1.context)
+                .setTitle("Categoria")
+                .setItems(viewModel.categorias)
+                    { dialog, which ->
+                        arraylistCategorias?.forEach {
+                            viewModel.servicioCategoriaId = arraylistCategorias?.get(which)?.id.toString()
+                        }
+                    }.show()
+    }
+
     private suspend fun register() : Boolean {
         val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
@@ -156,6 +190,37 @@ class AgregarServicio : Fragment() {
     }
     fun fetcher() = runBlocking(CoroutineName("fetcher")) {
         register()
+    }
+
+    private fun subirFoto() {
+
+    }
+
+    private fun fetchCategories(){
+        val retService : ServicioService = RetrofitInstance
+            .getRetrofitInstance()
+            .create(ServicioService::class.java)
+        val responseLiveData : LiveData<Response<Categorias>> = liveData{
+            val response = retService.getCategories(viewModel.token)
+            Log.d("Categorias", response.body().toString())
+            emit(response)
+        }
+        responseLiveData.observe(viewLifecycleOwner, Observer{
+            val categoriasList = it.body()?.listIterator()
+            if (categoriasList != null) {
+                //Log.d("categoriasList", categoriasList.toString())
+                 var i : Int = 0
+                resultCategorie = categoriasList
+
+                resultCategorie?.forEach { categoria ->
+                    arraylistCategorias?.add(categoria)
+                }
+                viewModel.categorias = arraylistCategorias?.let { Array(it.size) { i -> arraylistCategorias!!.get(i).name } }
+            }else{
+                Log.d("categoriasList","es null")
+            }
+        })
+
     }
 }
 

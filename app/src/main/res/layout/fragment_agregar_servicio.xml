@@ -28,7 +28,8 @@
     <EditText
         android:id="@+id/Descripcion"
         android:layout_width="296dp"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
+        android:lines="20"
         android:layout_marginTop="24dp"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/white"
@@ -53,16 +54,18 @@
 
 
     <TextView
-        android:id="@+id/Ubicacion"
+        android:id="@+id/categoria"
         android:clickable="true"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/white"
+        android:drawableRight="@android:drawable/arrow_down_float"
         android:ems="10"
         android:gravity="center"
-        android:hint="Ingrese Ubicación"
+        android:padding="12dp"
+        android:hint="Seleccione una categoria"
         android:inputType="textPersonName"
          />
 
@@ -75,20 +78,11 @@
         android:backgroundTint="@color/white"
         android:ems="10"
         android:gravity="center"
+
         android:hint="Precio del Servicio"
         android:inputType="numberDecimal"
         />
-    <EditText
-        android:id="@+id/UrlServicio"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/button_shape"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="URL Foto del Servicio"
-         />
+
 
 
     <Button
