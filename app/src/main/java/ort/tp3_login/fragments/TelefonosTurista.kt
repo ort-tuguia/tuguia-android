@@ -71,7 +71,7 @@ class TelefonosTurista : Fragment() {
                     .setBackgroundTint(Color.parseColor("#42D727"))
                     .show()
 
-                v.findNavController().navigate(R.id.action_telefonosTurista_to_turistaEdit)
+                v.findNavController().navigate(R.id.action_telefonosTurista_to_phoneList)
 
             }
         }
@@ -89,6 +89,7 @@ class TelefonosTurista : Fragment() {
         )
         if(response.isSuccessful){
             Log.d("response -->Telefonos", response.body().toString())
+            viewModel.user.value = response.body()
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())
