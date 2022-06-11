@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/gradient"
+    android:orientation="vertical"
+    tools:context=".fragments.RegistroEligir">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="454dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewAgregar"
+                android:layout_width="match_parent"
+                android:layout_height="183dp"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp" />
+
+            <Button
+                android:id="@+id/buttonAgregarImagen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/button_shape"
+                android:paddingLeft="2dp"
+                android:text="Agregar Imagen"
+                android:textColor="@color/white"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonSiguiente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/button_shape"
+                android:paddingLeft="2dp"
+                android:text="Siguiente"
+                android:textColor="@color/white"></Button>
+        </LinearLayout>
+
+
+
+
+
+</LinearLayout>
