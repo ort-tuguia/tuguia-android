@@ -10,5 +10,6 @@ data class ServicioItem(
     val locationLongitude: Double,
     val name: String,
     val price: Int,
-    val updatedAt: String
+    val updatedAt: String,
+    val category: CategoriaItem
 )

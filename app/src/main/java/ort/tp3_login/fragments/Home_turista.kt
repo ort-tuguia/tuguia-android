@@ -1,9 +1,6 @@
 package ort.tp3_login.fragments
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,12 +17,7 @@ import androidx.lifecycle.liveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_home_guia.view.*
-import kotlinx.android.synthetic.main.fragment_home_turista.*
 import ort.tp3_login.R
-import ort.tp3_login.activities.activity_turista
 import ort.tp3_login.adapters.ServicioAdapter
 import ort.tp3_login.dataclasses.*
 import ort.tp3_login.entities.ServicioCard

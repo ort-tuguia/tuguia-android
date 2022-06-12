@@ -57,11 +57,11 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewHomeTurista"
+        android:id="@+id/recyclerViewHomeGuia"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient"
-        tools:listitem="@layout/card_design">
+        tools:listitem="@layout/card_design_home_guia">
 
     </androidx.recyclerview.widget.RecyclerView>
 

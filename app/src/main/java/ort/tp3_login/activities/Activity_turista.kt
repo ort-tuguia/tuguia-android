@@ -178,9 +178,6 @@ class activity_turista : AppCompatActivity() {
 
         })
 
-
-    //TODO Implementar viewModel.loadActivities()
-
     }
 
 

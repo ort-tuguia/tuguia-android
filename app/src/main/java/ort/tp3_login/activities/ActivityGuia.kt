@@ -7,6 +7,9 @@ import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.net.toUri
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.liveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -17,8 +20,13 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_guia.*
 import kotlinx.android.synthetic.main.activity_turista.*
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.Categorias
+import ort.tp3_login.dataclasses.ServicioService
+import ort.tp3_login.dataclasses.Servicios
 import ort.tp3_login.dataclasses.UsuarioLogin
+import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelGuia
+import retrofit2.Response
 
 
 class ActivityGuia : AppCompatActivity() {
@@ -51,7 +59,35 @@ class ActivityGuia : AppCompatActivity() {
             finish()
             true
         }
+        fetchActivities()
     }
+
+
+        private fun fetchActivities(){
+            val retService : ServicioService = RetrofitInstance
+                .getRetrofitInstance()
+                .create(ServicioService::class.java)
+            val responseLiveData : LiveData<Response<Servicios>> = liveData{
+                val response = retService.getMyServicios(viewModel.token)
+                Log.d("servicios", response.body().toString())
+                emit(response)
+            }
+            responseLiveData.observe(this, Observer{
+                val serviciosList = it.body()
+                if (serviciosList != null) {
+                    //Log.d("categoriasList", categoriasList.toString())
+                    viewModel.actividades.value = serviciosList
+                    //activitiesList = viewModel.categorias
+                    Log.d("serviciosList", serviciosList.toString())
+                    Log.d("serviciosList --> Viewmodel", viewModel.actividades.value.toString())
+                }else{
+                    Log.d("servicioList","es null")
+                }
+                viewModel.loadActivities()
+            })
+
+        }
+
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController,drawer_layout_id_guia)

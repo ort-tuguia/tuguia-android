@@ -13,6 +13,9 @@ interface ServicioService {
     @GET("categories")
     suspend fun getCategories( @Header("Authorization") token: String): Response<Categorias>
 
+    @GET("activities/myself")
+    suspend fun getMyServicios(@Header("Authorization") token: String) : Response<Servicios>
+
     @POST("user/login")
     suspend fun getLogin(@Body login: Login)
     : Response<UsuarioLogin>
