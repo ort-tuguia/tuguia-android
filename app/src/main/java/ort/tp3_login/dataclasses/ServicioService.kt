@@ -37,7 +37,7 @@ interface ServicioService {
     suspend fun putCategories (@Body categories: ArrayList<String>, @Header("Authorization") token: String)
             : Response<UsuarioLogin>
     @PUT("user/password")
-    suspend fun putPassword (@Body changePassword:  ChangePassword, @Header("Authorization") token: String)
+    suspend fun putPassword (@Body changePassword:  ChangePasswordDataClass, @Header("Authorization") token: String)
             : Response<UsuarioLogin>
     @PUT("user/photo")
     suspend fun putPhoto (@Body photo: Photo, @Header("Authorization") token: String)
