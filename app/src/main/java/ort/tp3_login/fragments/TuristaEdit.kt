@@ -11,21 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_turista_edit.*
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import ort.tp3_login.R
-import ort.tp3_login.dataclasses.Phone
 import ort.tp3_login.dataclasses.ServicioService
 import ort.tp3_login.dataclasses.UsuarioEdit
 import ort.tp3_login.services.RetrofitInstance
-import ort.tp3_login.viewModels.ViewModelGuia
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
@@ -44,6 +42,7 @@ class TuristaEdit : Fragment() {
     lateinit var email: EditText
     lateinit var botonGuardar: Button
     lateinit var botonTelefono: Button
+    lateinit var botonChangePassword: Button
 
 
     override fun onCreateView(
@@ -57,7 +56,7 @@ class TuristaEdit : Fragment() {
         botonTelefono = v.findViewById(R.id.buttonTelefono)
         botonGuardar = v.findViewById(R.id.buttonGuardar)
         circleImageView = v.findViewById(R.id.circleImageViewGuia)
-
+        botonChangePassword = v.findViewById(R.id.buttonChangePassword)
         nombre.setText(viewModel.user.value?.firstName.toString())
         apellido.setText(viewModel.user.value?.lastName.toString())
         email.setText(viewModel.user.value?.email.toString())
@@ -76,7 +75,9 @@ class TuristaEdit : Fragment() {
         circleImageView.setOnClickListener{
             pickImageGallery()
         }
-
+        buttonChangePassword.setOnClickListener {
+            v.findNavController().navigate(R.id.action_turistaEdit_to_changePassword)
+        }
 
         botonGuardar.setOnClickListener{
             usuario = UsuarioEdit (
