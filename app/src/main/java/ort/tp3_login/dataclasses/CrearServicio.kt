@@ -6,7 +6,7 @@ data class CrearServicio(
     val locationLatitude: Double,
     val locationLongitude: Double,
     val price: Double,
-    val urlServicio: String,
+    val photos: List<Photo>,
     val categoryId: String,
     val guideUsername: String
 
