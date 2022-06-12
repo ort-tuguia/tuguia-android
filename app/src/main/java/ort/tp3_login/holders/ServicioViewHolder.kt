@@ -1,5 +1,6 @@
 package ort.tp3_login.holders
 
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,6 +21,7 @@ class ServicioViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var imagenView : ImageView = view.findViewById(R.id.imageCard)
         var textViewValoracion : TextView = view.findViewById(R.id.valoracionCard)
         var perfilPic : CircleImageView = view.findViewById(R.id.perfilPicCard)
+        var imageFavorite : ImageView = view.findViewById(R.id.imageFavorite)
 
 
         textViewTitulo.text = titulo
@@ -28,7 +30,18 @@ class ServicioViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         textViewValoracion.text = valoracion.toString()
         perfilPic.setImageResource(perfilpic)
 
-    }
+        imageFavorite.setOnClickListener{
+                imageFavorite.setImageResource(R.drawable.icon_favorites_red)
+        //TODO Sacar de favoritos
+//       TODO Pegarle al backend
+}
+
+
+
+
+        }
+
+
 
     fun getCardLayout () : CardView {
         return view.findViewById(R.id.card_package_item)
