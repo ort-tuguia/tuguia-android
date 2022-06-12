@@ -1,5 +1,7 @@
 package ort.tp3_login.viewModels
 
+import android.net.Uri
+import androidx.core.net.toUri
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -31,13 +33,17 @@ class ViewModelHomeTurista : ViewModel() {
         // fetch data de la API
         lista.value = ArrayList<ServicioCard>()
         actividades.value?.forEach() {
+            var urlPhoto: Uri = "".toUri()
+            if(it.photos.isNotEmpty()){
+                urlPhoto =  it.photos[0].photoUrl.toUri()
+            }
             lista.value?.add(
                 ServicioCard(it.guideUsername,
                     it.name,
-                    R.drawable.profile,
+                    R.drawable.icon_profile,
                     5,
-                    R.drawable.recycler_city,
-                    "city trip")
+                    urlPhoto,
+                    "categoria")
             )
         }
 /*
