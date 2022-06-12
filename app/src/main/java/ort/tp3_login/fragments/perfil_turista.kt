@@ -261,7 +261,7 @@ class perfil_turista : Fragment() {
             if (it.resultCode == Activity.RESULT_OK) {
                  //value = it.data?.getStringExtra("input")!!
                  imageUri = it.data?.data
-            }
+
         val progressDialog = ProgressDialog(context)
         progressDialog.setMessage("Subiendo imagen...")
         progressDialog.setCancelable(false)
@@ -287,15 +287,14 @@ class perfil_turista : Fragment() {
 
             }
         }
+            }
     }
 
 
 
     fun upload(photo:Photo) = runBlocking(CoroutineName("upload"))
     {
-        Log.d("Response -- > Antes de ir a backend", photo.toString())
-        Log.d("Response -- > Antes de ir a backend", viewModel.token)
-        //TODO Cargue URL correctamente a backend
+
         var response = servicioService.putPhoto(photo, viewModel.token)
 
         if(response.isSuccessful){

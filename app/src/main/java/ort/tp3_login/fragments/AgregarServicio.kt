@@ -1,6 +1,7 @@
 package ort.tp3_login.fragments
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -28,19 +30,20 @@ import com.google.android.libraries.places.ktx.widget.placeSelectionEvents
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_agregar_servicio.*
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import ort.tp3_login.R
-import ort.tp3_login.dataclasses.CategoriaItem
-import ort.tp3_login.dataclasses.Categorias
-import ort.tp3_login.dataclasses.CrearServicio
-import ort.tp3_login.dataclasses.ServicioService
+import ort.tp3_login.dataclasses.*
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelGuia
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AgregarServicio : Fragment() {
@@ -58,7 +61,7 @@ class AgregarServicio : Fragment() {
     //lateinit var urlFoto: EditText
 
     private  val viewModel: ViewModelGuia by activityViewModels()
-
+    lateinit var storageReference: StorageReference
 
     var resultCategorie: MutableListIterator<CategoriaItem>? = null
 
@@ -123,29 +126,66 @@ class AgregarServicio : Fragment() {
         }
     }*/
 
-    override fun onStart() {
-        super.onStart()
-        buttonAgregar.setOnClickListener {
-            servicio = CrearServicio(
-                name.text.toString(),
-                description.text.toString(),
-                viewModel.servicioLocationlat.toString().toDouble(),
-                viewModel.servicioLocationlon.toString().toDouble(),
-                price.text.toString().toDouble(),
-                viewModel.servicioUrlFoto.toString(),
-                viewModel.servicioCategoriaId,
-                viewModel.user.value?.username.toString(),
+    fun savePictureOnFirebase(){
+        val progressDialog = ProgressDialog(context)
+        progressDialog.setMessage("Subiendo imagen...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+        val fileName = UUID.randomUUID().toString()
+        var urlPhoto : String = ""
+        storageReference = FirebaseStorage.getInstance().reference.child("images/activities/$fileName")
+        if(viewModel.servicioUrlFoto.toString()!=null){
+            storageReference.putFile(viewModel.servicioUrlFoto!!).addOnSuccessListener {
+                Toast.makeText(context, "Imagen subida correctamente", Toast.LENGTH_LONG).show()
+                it.storage.downloadUrl.addOnSuccessListener { task ->
+                    urlPhoto = task.normalizeScheme().toString()
+                    var photo : Photo = Photo(urlPhoto)
+                    viewModel.servicioUrlFoto = urlPhoto.toUri()
+                    createServicio()
+                }
+                if(progressDialog.isShowing){
+                    progressDialog.dismiss()
+                }
+            }.addOnFailureListener{
+                if(progressDialog.isShowing){
+                    progressDialog.dismiss()
+                }
+                Toast.makeText(context, "Error al subir imagen", Toast.LENGTH_LONG).show()
+            }
+
+
+        }
+
+    }
+    fun createServicio() {
+        servicio = CrearServicio(
+            name.text.toString(),
+            description.text.toString(),
+            viewModel.servicioLocationlat.toString().toDouble(),
+            viewModel.servicioLocationlon.toString().toDouble(),
+            price.text.toString().toDouble(),
+            listOf(Photo(viewModel.servicioUrlFoto.toString())),
+            viewModel.servicioCategoriaId,
+            viewModel.user.value?.username.toString(),
 
             )
-            var statusCode: Boolean = fetcher()
+        var statusCode: Boolean = fetcher()
 
-            if (statusCode) {
+        if (statusCode) {
 
-                Snackbar.make(view1, "Se creo el Servicio ", Snackbar.LENGTH_LONG)
-                    .setBackgroundTint(Color.parseColor("#42D727"))
-                    .show()
-                view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
-            }
+            Snackbar.make(view1, "Se creo el Servicio ", Snackbar.LENGTH_LONG)
+                .setBackgroundTint(Color.parseColor("#42D727"))
+                .show()
+            view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
+        }
+    }
+    override fun onStart() {
+        super.onStart()
+
+        buttonAgregar.setOnClickListener {
+            savePictureOnFirebase()
+
+
         }
 
 
