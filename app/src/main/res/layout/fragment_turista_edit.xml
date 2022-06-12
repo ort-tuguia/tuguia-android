@@ -76,19 +76,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom|center"
+            android:gravity="bottom"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/buttonTelefono"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="Telefonos" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="177dp"
+                android:gravity="center|bottom"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonTelefono"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Telefonos" />
+
+                <Button
+                    android:id="@+id/buttonChangePassword"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cambiar clave" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/buttonGuardar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="67dp"
                 android:text="Guardar" />
         </LinearLayout>
 
