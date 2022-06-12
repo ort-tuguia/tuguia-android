@@ -13,6 +13,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.core.text.set
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -45,30 +47,30 @@ import retrofit2.Response
 
 class AgregarServicio : Fragment() {
 
-    lateinit var view1 : View
-    lateinit var buttonAgregar : Button
+    lateinit var view1: View
+    lateinit var buttonAgregar: Button
     lateinit var volver: TextView
     lateinit var servicio: CrearServicio
 
     lateinit var name: EditText
     lateinit var description: EditText
     lateinit var categoria: TextView
+
     //lateinit var location: TextView
     lateinit var price: EditText
     //lateinit var urlFoto: EditText
 
-    private  val viewModel: ViewModelGuia by activityViewModels()
+    private val viewModel: ViewModelGuia by activityViewModels()
 
 
     var resultCategorie: MutableListIterator<CategoriaItem>? = null
 
-    private var arraylistCategorias : ArrayList <CategoriaItem>? = ArrayList()
+    private var arraylistCategorias: ArrayList<CategoriaItem>? = ArrayList()
+
 
     //places
     //private lateinit var placesClient: PlacesClient
     //private lateinit var responseView: TextView
-
-
 
 
     override fun onCreateView(
@@ -86,15 +88,23 @@ class AgregarServicio : Fragment() {
         categoria = view1.findViewById(R.id.categoria)
         fetchCategories()
 
+        if (viewModel.servicioItemSeleccionado != null) {
+
+            name.setText(viewModel.servicioItemSeleccionado!!.name)
+            description.setText(viewModel.servicioItemSeleccionado!!.description)
+            price.setText(viewModel.servicioItemSeleccionado!!.price.toString())
+            buttonAgregar.setText("Editar")
+            requireActivity().title = "Editar Servicio"
+        }
+
         //google places
         //activarPlaces ()
-
 
 
         return view1
     }
 
-   /* private fun activarPlaces() {
+    /* private fun activarPlaces() {
         placesClient = Places.createClient(this.activity)
 
         responseView = view1.findViewById(R.id.autocomplete_response_content)
@@ -125,7 +135,11 @@ class AgregarServicio : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
         buttonAgregar.setOnClickListener {
+            if (viewModel.servicioCategoriaId == "" && viewModel.servicioItemSeleccionado != null) {
+                viewModel.servicioCategoriaId = viewModel.servicioItemSeleccionado!!.category.id
+            }
             servicio = CrearServicio(
                 name.text.toString(),
                 description.text.toString(),
@@ -135,17 +149,29 @@ class AgregarServicio : Fragment() {
                 viewModel.servicioUrlFoto.toString(),
                 viewModel.servicioCategoriaId,
                 viewModel.user.value?.username.toString(),
-
             )
-            var statusCode: Boolean = fetcher()
+            if (viewModel.servicioItemSeleccionado != null) {
+                var statusCode: Boolean = fetcherPutServicio()
+                if (statusCode) {
 
-            if (statusCode) {
+                    Snackbar.make(view1, "Se cambió el Servicio ", Snackbar.LENGTH_LONG)
+                        .setBackgroundTint(Color.parseColor("#42D727"))
+                        .show()
+                    view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
+                }
+            } else {
 
-                Snackbar.make(view1, "Se creo el Servicio ", Snackbar.LENGTH_LONG)
-                    .setBackgroundTint(Color.parseColor("#42D727"))
-                    .show()
-                view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
+                var statusCode: Boolean = fetcherCrearServicio()
+
+                if (statusCode) {
+
+                    Snackbar.make(view1, "Se creo el Servicio ", Snackbar.LENGTH_LONG)
+                        .setBackgroundTint(Color.parseColor("#42D727"))
+                        .show()
+                    view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
+                }
             }
+
         }
 
 
@@ -153,32 +179,32 @@ class AgregarServicio : Fragment() {
         volver.setOnClickListener {
             //view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
         }
-       // location.setOnClickListener{
-            //view1.findNavController().navigate(R.id.action_agregarServicio_to_mapsAgregarServicio)
+        // location.setOnClickListener{
+        //view1.findNavController().navigate(R.id.action_agregarServicio_to_mapsAgregarServicio)
         //}
-        categoria.setOnClickListener{
+        categoria.setOnClickListener {
             openDialog()
         }
     }
 
     private fun openDialog() {
 
-            MaterialAlertDialogBuilder(view1.context)
-                .setTitle("Categoria")
-                .setItems(viewModel.categorias)
-                    { dialog, which ->
-                        arraylistCategorias?.forEach {
-                            viewModel.servicioCategoriaId = arraylistCategorias?.get(which)?.id.toString()
-                        }
-                    }.show()
+        MaterialAlertDialogBuilder(view1.context)
+            .setTitle("Categoria")
+            .setItems(viewModel.categorias)
+            { dialog, which ->
+                arraylistCategorias?.forEach {
+                    viewModel.servicioCategoriaId = arraylistCategorias?.get(which)?.id.toString()
+                }
+            }.show()
     }
 
-    private suspend fun register() : Boolean {
+    private suspend fun crearServicio(): Boolean {
         val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
             .create(ServicioService::class.java)
         val response = retService.postCrearServicio(servicio, viewModel.token)
-        if(response.isSuccessful){
+        if (response.isSuccessful) {
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())
@@ -188,40 +214,66 @@ class AgregarServicio : Fragment() {
             .show()
         return false
     }
-    fun fetcher() = runBlocking(CoroutineName("fetcher")) {
-        register()
+
+    fun fetcherCrearServicio() = runBlocking(CoroutineName("fetcherCrearServicio")) {
+        crearServicio()
+    }
+
+    fun fetcherPutServicio() = runBlocking(CoroutineName("fetcherPutServicio")) {
+        putServicio()
     }
 
     private fun subirFoto() {
 
     }
 
-    private fun fetchCategories(){
-        val retService : ServicioService = RetrofitInstance
+    private fun fetchCategories() {
+        val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
             .create(ServicioService::class.java)
-        val responseLiveData : LiveData<Response<Categorias>> = liveData{
+        val responseLiveData: LiveData<Response<Categorias>> = liveData {
             val response = retService.getCategories(viewModel.token)
             Log.d("Categorias", response.body().toString())
             emit(response)
         }
-        responseLiveData.observe(viewLifecycleOwner, Observer{
+        responseLiveData.observe(viewLifecycleOwner, Observer {
             val categoriasList = it.body()?.listIterator()
             if (categoriasList != null) {
                 //Log.d("categoriasList", categoriasList.toString())
-                 var i : Int = 0
+                var i: Int = 0
                 resultCategorie = categoriasList
 
                 resultCategorie?.forEach { categoria ->
                     arraylistCategorias?.add(categoria)
                 }
-                viewModel.categorias = arraylistCategorias?.let { Array(it.size) { i -> arraylistCategorias!!.get(i).name } }
-            }else{
-                Log.d("categoriasList","es null")
+                viewModel.categorias =
+                    arraylistCategorias?.let { Array(it.size) { i -> arraylistCategorias!!.get(i).name } }
+            } else {
+                Log.d("categoriasList", "es null")
             }
         })
 
     }
+
+    private suspend fun putServicio(): Boolean {
+
+        val retService: ServicioService = RetrofitInstance
+            .getRetrofitInstance()
+            .create(ServicioService::class.java)
+        val response = retService.putActividad(viewModel.servicioItemSeleccionado!!.id, servicio, viewModel.token)
+        Log.d("response", response.toString())
+        if (response.isSuccessful) {
+            return true
+        }
+        val jObjError = JSONObject(response.errorBody()!!.string())
+        Log.d("Error", jObjError.getString("errors"))
+        Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(Color.parseColor("#D72F27"))
+            .show()
+        return false
+
+    }
+
 }
 
 

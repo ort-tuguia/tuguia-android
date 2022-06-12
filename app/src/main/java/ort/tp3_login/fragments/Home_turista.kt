@@ -93,6 +93,7 @@ class home_turista : Fragment() {
         recyclerView = view1.findViewById(R.id.recyclerViewHomeTurista)
         maxKm = view1.findViewById(R.id.editTextTextRadio)
         buscarButton = view1.findViewById(R.id.button12)
+        //viewModel.servicioItemSeleccionado = null
         fetchCategories()
 
         TextViewCategories.setOnClickListener {

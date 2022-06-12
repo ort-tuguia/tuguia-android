@@ -1,5 +1,6 @@
 package ort.tp3_login.dataclasses
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -35,6 +36,10 @@ interface ServicioService {
     @PUT("user")
     suspend fun putUsuario (@Body usuario: UsuarioEdit, @Header("Authorization") token: String)
             : Response<UsuarioLogin>
+
+    @PUT("activities/{id}")
+    suspend fun putActividad (@Path("id")id: String, @Body servicio: CrearServicio, @Header("Authorization") token: String)
+            : Response<ServicioItem>
 
     @PUT("user/categories")
     suspend fun putCategories (@Body categories: ArrayList<String>, @Header("Authorization") token: String)

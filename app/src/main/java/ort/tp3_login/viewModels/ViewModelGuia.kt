@@ -26,6 +26,9 @@ class ViewModelGuia: ViewModel() {
     var servicioUrlFoto: Uri? = null
     var  categorias: Array<CharSequence>? = null
 
+    //detalleServicio
+    var servicioItemSeleccionado: ServicioItem? = null
+
     fun loadActivities () {
         // fetch data de la API
         lista.value = ArrayList<ServicioCard>()

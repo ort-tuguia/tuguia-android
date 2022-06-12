@@ -44,8 +44,7 @@ class home_guia : Fragment() {
         view1 = inflater.inflate(R.layout.fragment_home_guia, container, false)
         botonAgregar = view1.findViewById(R.id.buttonAgregar)
         recyclerView = view1.findViewById(R.id.recyclerViewHomeGuia)
-
-
+        viewModel.servicioItemSeleccionado = null
 
         //var nombreDeUsuario = requireArguments().getString("usuario")
         //textHola.text = "Hola... ${nombreDeUsuario.toString()}"
@@ -95,6 +94,8 @@ class home_guia : Fragment() {
     }
 
     private fun onItemClick(position: Int) : Boolean {
+        viewModel.servicioItemSeleccionado = viewModel.actividades.value?.get(position)!!
+        view1.findNavController().navigate(R.id.action_home_guia_to_detalleActividadGuia)
         return true
     }
 

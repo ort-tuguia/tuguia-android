@@ -74,9 +74,28 @@ class MapsAgregarServicio : Fragment() {
                 map.clear()
                 viewModel.servicioLocationlat = location.latitude
                 viewModel.servicioLocationlon = location.longitude
-                openAlertDialog()
+                if(viewModel.servicioItemSeleccionado != null){
+                    openAlertDialogImagen()
+                }else{
+                    openAlertDialog()
+                }
+               })
+        alertDialog.create().show()
+    }
 
-            })
+    private fun openAlertDialogImagen() {
+        var alertDialog = AlertDialog.Builder(this.context)
+        alertDialog.setTitle("Imagen")
+            .setMessage("Querés cambiar el imagen de la actividad?")
+            .setPositiveButton("Si",
+                DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
+                    mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_fotoAgregarServicio)
+                })
+            .setNegativeButton("No",
+                DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
+                    //TODO implementar viewmodel url imagen
+                    mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_agregarServicio)
+                })
         alertDialog.create().show()
     }
 
