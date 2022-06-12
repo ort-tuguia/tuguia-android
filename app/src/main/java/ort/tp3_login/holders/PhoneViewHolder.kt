@@ -26,7 +26,6 @@ fun setPhones(description: String,phone:String){
         var phone: Phone = Phone(
             view.findViewById<EditText>(R.id.editTextPhone).text.toString(),
             view.findViewById<EditText>(R.id.editTextDescription).text.toString()
-
         )
         return phone
     }
