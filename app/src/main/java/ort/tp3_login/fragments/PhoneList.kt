@@ -54,6 +54,20 @@ class PhoneList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setRecyclerView()
+
+        buttonSave.setOnClickListener {
+            viewModel.user.value!!.phones = adapter.getData()
+            fetcher()
+            setRecyclerView()
+        }
+        buttonAddPhone.setOnClickListener {
+            v.findNavController().navigate(R.id.action_phoneList_to_telefonosTurista)
+        }
+
+
+    }
+    fun setRecyclerView() {
         cardsPhonesList = viewModel.user.value!!.phones
         recyclerView.hasFixedSize()
         linearLayoutManager = LinearLayoutManager(context)
@@ -63,24 +77,6 @@ class PhoneList : Fragment() {
             Log.d("Phone",   recyclerView.adapter.toString())
         }
         recyclerView.adapter = adapter
-
-        buttonSave.setOnClickListener {
-            var algo = recyclerView
-            var algo2 = adapter
-            Log.d("Phones",recyclerView.toString())
-
-            Log.d("Phone",   recyclerView.layoutManager.toString())
-            Log.d("Phone",   recyclerView.adapter.toString())
-            Log.d("Phone",   algo2.toString())
-            Log.d("Phone",   algo.toString())
-            viewModel.user.value!!.phones = adapter.getData()
-            fetcher()
-        }
-        buttonAddPhone.setOnClickListener {
-            v.findNavController().navigate(R.id.action_phoneList_to_telefonosTurista)
-        }
-
-
     }
     fun fetcher() = runBlocking(CoroutineName("fetcher")) {
         var response = service.putPhone(viewModel.user.value!!.phones as ArrayList<Phone>, viewModel.token)

@@ -3,6 +3,7 @@ package ort.tp3_login.viewModels
 import android.location.Location
 import android.net.Uri
 import android.widget.EditText
+import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
@@ -33,16 +34,25 @@ class ViewModelGuia: ViewModel() {
         // fetch data de la API
         lista.value = ArrayList<ServicioCard>()
         actividades.value?.forEach() {
+            var urlPhoto: Uri = "".toUri()
+            if(it.photos.isNotEmpty()){
+                urlPhoto =  it.photos[0].photoUrl.toUri()
+            }
             lista.value?.add(
                 ServicioCard(it.guideUsername,
                     it.name,
-                    R.drawable.profile,
+                    R.drawable.icon_profile,
                     5,
-                    R.drawable.recycler_city,
+                    urlPhoto,
                     "categoria")
             )
         }
     }
+
+
+
+    //TODO pregutnar su tiene fo, true enviar uri, false enviar imagen por defecto
+
 
 
 

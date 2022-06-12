@@ -11,5 +11,6 @@ data class ServicioItem(
     val name: String,
     val price: Int,
     val updatedAt: String,
-    val category: CategoriaItem
+    val category: CategoriaItem,
+    val photos : List<Photo>
 )

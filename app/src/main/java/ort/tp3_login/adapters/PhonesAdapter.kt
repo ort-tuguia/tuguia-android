@@ -12,7 +12,7 @@ class PhonesAdapter (
     private var phones: MutableList<Phone>,
     val onItemClick: (Int) -> Unit): RecyclerView.Adapter<PhoneViewHolder>() {
 
-    var phoneViewHold: PhoneViewHolder? = null
+    var phoneViewHold: MutableList<PhoneViewHolder>? = mutableListOf()
     override fun onBindViewHolder(holder: PhoneViewHolder, position: Int) {
         holder.setPhones(
             phones[position].description,
@@ -21,7 +21,7 @@ class PhonesAdapter (
         holder.getCardLayout().setOnClickListener {
             onItemClick(position)
         }
-        phoneViewHold = holder
+        phoneViewHold?.add(holder)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhoneViewHolder {
@@ -43,9 +43,11 @@ class PhonesAdapter (
     fun getData(): List<Phone> {
         var auxPhones: MutableList<Phone> = ArrayList<Phone>()
 
-        phones.forEach {
-            phoneViewHold?.let { it1 -> auxPhones.add(it1.getPhone()) }
-
+//        phones.forEach {
+//            phoneViewHold?.let { it1 -> auxPhones.add(it1.getPhone()) }
+//        }
+        phoneViewHold?.forEach{
+            auxPhones.add(it.getPhone())
         }
 
         return auxPhones
