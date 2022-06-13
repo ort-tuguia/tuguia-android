@@ -49,6 +49,7 @@ class home_guia : Fragment() {
 
         //var nombreDeUsuario = requireArguments().getString("usuario")
         //textHola.text = "Hola... ${nombreDeUsuario.toString()}"
+        viewModel.loadActivities()
         return view1
     }
 

@@ -182,7 +182,6 @@ class AgregarServicio : Fragment() {
             viewModel.user.value?.username.toString(),
 
             )
-        var statusCode: Boolean = fetcher()
 
         if (viewModel.servicioItemSeleccionado != null) {
             var statusCode: Boolean = fetcherPutServicio()
@@ -211,8 +210,6 @@ class AgregarServicio : Fragment() {
 
         buttonAgregar.setOnClickListener {
             savePictureOnFirebase()
-
-
         }
 
 
@@ -240,7 +237,7 @@ class AgregarServicio : Fragment() {
                     }.show()
     }
 
-    private suspend fun register() : Boolean {
+    /*private suspend fun register() : Boolean {
         val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
             .create(ServicioService::class.java)
@@ -257,11 +254,8 @@ class AgregarServicio : Fragment() {
     }
     fun fetcher() = runBlocking(CoroutineName("fetcher")) {
         register()
-    }
+    }*/
 
-    private fun subirFoto() {
-
-    }
 
     private fun fetchCategories(){
         val retService : ServicioService = RetrofitInstance
