@@ -1,23 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@color/teal_700"
     android:backgroundTint="@null"
-    android:orientation="vertical"
-    tools:context=".activities.MainActivity">
-
+    tools:context=".fragments.favoritos_turista">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient"
+        android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewHomeTurista"
+        android:id="@+id/recyclerViewFavoritos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient"
         tools:listitem="@layout/card_design">
 
     </androidx.recyclerview.widget.RecyclerView>
-
-</LinearLayout>
+    </LinearLayout>
+</FrameLayout>

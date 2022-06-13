@@ -261,20 +261,10 @@ class home_turista : Fragment() {
             viewModel.loadActivities()
         })
 
-//        responseLiveData.observe( Observer<Response<Servicios>?> {
-//            val serviciosList = it.body()
-//            if (serviciosList != null) {
-//                viewModel.actividades.value = serviciosList
-//
-//                Log.d("serviciosList", serviciosList.toString())
-//                Log.d("serviciosList --> Viewmodel", viewModel.actividades.value.toString())
-//            } else {
-//                Log.d("serviciosList", "es null")
-//            }
-//        })
 
 
-        //TODO Implementar viewModel.loadActivities()
+
+
 
     }
 

@@ -50,4 +50,10 @@ interface ServicioService {
     suspend fun putPhoto (@Body photo: Photo, @Header("Authorization") token: String)
             : Response<UsuarioLogin>
 
+    @POST("user/fav/activities/{activityId}")
+    suspend fun postFavActivity(@Path("activityId") activityId: String, @Header("Authorization") token: String)
+            : Response<List<ServicioItem>>
+    @DELETE("user/fav/activities/{activityId}")
+    suspend fun deleteFavActivity(@Path("activityId") activityId: String, @Header("Authorization") token: String)
+            : Response<List<ServicioItem>>
 }

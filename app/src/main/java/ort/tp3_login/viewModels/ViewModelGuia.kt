@@ -44,7 +44,10 @@ class ViewModelGuia: ViewModel() {
                     R.drawable.icon_profile,
                     5,
                     urlPhoto,
-                    "categoria")
+                    "categoria",
+                    it.id,
+                    user.value,
+                    token)
             )
         }
     }
