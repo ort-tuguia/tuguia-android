@@ -28,6 +28,10 @@ interface ServicioService {
     suspend fun postCrearServicio (@Body x: CrearServicio, @Header("Authorization") token: String)
             : Response<ServicioItem>
 
+    @PUT("activities/{id}")
+    suspend fun putActividad (@Path("id")id: String, @Body servicio: CrearServicio, @Header("Authorization") token: String)
+            : Response<ServicioItem>
+
     @PUT("user/phones")
     suspend fun putPhone (@Body phone: ArrayList<Phone>, @Header("Authorization") token: String)
             : Response<UsuarioLogin>

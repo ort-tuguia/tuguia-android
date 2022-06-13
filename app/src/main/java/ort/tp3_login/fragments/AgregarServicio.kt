@@ -91,6 +91,14 @@ class AgregarServicio : Fragment() {
 
         //google places
         //activarPlaces ()
+        if (viewModel.servicioItemSeleccionado != null) {
+
+            name.setText(viewModel.servicioItemSeleccionado!!.name)
+            description.setText(viewModel.servicioItemSeleccionado!!.description)
+            price.setText(viewModel.servicioItemSeleccionado!!.price.toString())
+            buttonAgregar.setText("Editar")
+            requireActivity().title = "Editar Servicio"
+        }
 
 
 
@@ -158,6 +166,11 @@ class AgregarServicio : Fragment() {
 
     }
     fun createServicio() {
+            if (viewModel.servicioCategoriaId == "" && viewModel.servicioItemSeleccionado != null) {
+                //viewModel.servicioCategoriaId = viewModel.servicioItemSeleccionado!!.category.id
+                //TODO category id
+            }
+
         servicio = CrearServicio(
             name.text.toString(),
             description.text.toString(),
@@ -171,12 +184,26 @@ class AgregarServicio : Fragment() {
             )
         var statusCode: Boolean = fetcher()
 
-        if (statusCode) {
+        if (viewModel.servicioItemSeleccionado != null) {
+            var statusCode: Boolean = fetcherPutServicio()
+            if (statusCode) {
 
-            Snackbar.make(view1, "Se creo el Servicio ", Snackbar.LENGTH_LONG)
-                .setBackgroundTint(Color.parseColor("#42D727"))
-                .show()
-            view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
+                Snackbar.make(view1, "Se cambió el Servicio ", Snackbar.LENGTH_LONG)
+                    .setBackgroundTint(Color.parseColor("#42D727"))
+                    .show()
+                view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
+            }
+        } else {
+
+            var statusCode: Boolean = fetcherCrearServicio()
+
+            if (statusCode) {
+
+                Snackbar.make(view1, "Se creo el Servicio ", Snackbar.LENGTH_LONG)
+                    .setBackgroundTint(Color.parseColor("#42D727"))
+                    .show()
+                view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
+            }
         }
     }
     override fun onStart() {
@@ -260,6 +287,50 @@ class AgregarServicio : Fragment() {
                 Log.d("categoriasList","es null")
             }
         })
+
+    }
+    fun fetcherCrearServicio() = runBlocking(CoroutineName("fetcherCrearServicio")) {
+        crearServicio()
+    }
+
+    fun fetcherPutServicio() = runBlocking(CoroutineName("fetcherPutServicio")) {
+        putServicio()
+    }
+    private suspend fun crearServicio(): Boolean {
+        val retService: ServicioService = RetrofitInstance
+            .getRetrofitInstance()
+            .create(ServicioService::class.java)
+        val response = retService.postCrearServicio(servicio, viewModel.token)
+        if (response.isSuccessful) {
+            return true
+        }
+        val jObjError = JSONObject(response.errorBody()!!.string())
+        Log.d("Error", jObjError.getString("errors"))
+        Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(Color.parseColor("#D72F27"))
+            .show()
+        return false
+    }
+    private suspend fun putServicio(): Boolean {
+
+        val retService: ServicioService = RetrofitInstance
+            .getRetrofitInstance()
+            .create(ServicioService::class.java)
+        val response = retService.putActividad(
+            viewModel.servicioItemSeleccionado!!.id,
+            servicio,
+            viewModel.token
+        )
+        Log.d("response", response.toString())
+        if (response.isSuccessful) {
+            return true
+        }
+        val jObjError = JSONObject(response.errorBody()!!.string())
+        Log.d("Error", jObjError.getString("errors"))
+        Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(Color.parseColor("#D72F27"))
+            .show()
+        return false
 
     }
 }

@@ -95,6 +95,8 @@ class home_guia : Fragment() {
     }
 
     private fun onItemClick(position: Int) : Boolean {
+        viewModel.servicioItemSeleccionado = viewModel.actividades.value?.get(position)!!
+        view1.findNavController().navigate(R.id.action_home_guia_to_detalleActividadGuia)
         return true
     }
 
