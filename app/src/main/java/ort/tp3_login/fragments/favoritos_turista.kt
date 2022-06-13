@@ -1,60 +1,97 @@
 package ort.tp3_login.fragments
 
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ort.tp3_login.R
+import ort.tp3_login.adapters.ServicioAdapter
+import ort.tp3_login.entities.ServicioCard
+import ort.tp3_login.viewModels.ViewModelHomeTurista
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [favoritos_turista.newInstance] factory method to
- * create an instance of this fragment.
- */
-class favoritos_turista : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class favoritos_turista: Fragment() {
+    lateinit var v: View
+    private val viewModel: ViewModelHomeTurista by activityViewModels()
+    lateinit var recyclerView: RecyclerView
+    var cardsTuristaLista : MutableList<ServicioCard> = ArrayList<ServicioCard>()
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var adapter: ServicioAdapter
+    var favoritos = MutableLiveData<MutableList<ServicioCard>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritos_turista, container, false)
+        v = inflater.inflate(R.layout.fragment_favoritos_turista, container, false)
+        recyclerView = v.findViewById(R.id.recyclerViewFavoritos)
+        loadActivitiesFavorites()
+        favoritos.observe(viewLifecycleOwner, Observer { result ->
+            cardsTuristaLista = result
+            recyclerView.hasFixedSize()
+            linearLayoutManager = LinearLayoutManager(context)
+            recyclerView.layoutManager = linearLayoutManager
+            adapter = ServicioAdapter(cardsTuristaLista){x ->
+                // onItemClick(x)
+            }
+            recyclerView.adapter = adapter
+        })
+        return v
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment favoritos_turista.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            favoritos_turista().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//
+//        loadActivitiesFavorites ()
+//        favoritos.observe(viewLifecycleOwner, Observer { result ->
+//            cardsTuristaLista = result
+//            recyclerView.hasFixedSize()
+//            linearLayoutManager = LinearLayoutManager(context)
+//            recyclerView.layoutManager = linearLayoutManager
+//            adapter = ServicioAdapter(cardsTuristaLista){x ->
+//               // onItemClick(x)
+//            }
+//            recyclerView.adapter = adapter
+//        })
+
     }
+    override fun onStart() {
+        super.onStart()
+
+    }
+
+
+    fun loadActivitiesFavorites () {
+        // fetch data de la API
+        favoritos.value = ArrayList<ServicioCard>()
+        viewModel.user.value?.favActivities?.forEach() {
+            var urlPhoto: Uri = "".toUri()
+            if (it.photos.isNotEmpty()) {
+                urlPhoto = it.photos[0].photoUrl.toUri()
+            }
+            favoritos.value?.add(
+                ServicioCard(
+                    it.guideUsername,
+                    it.name,
+                    R.drawable.icon_profile,
+                    5,
+                    urlPhoto,
+                    "categoria",
+                    it.id,
+                    viewModel.user.value,
+                    viewModel.token
+                )
+            )
+        }
+    }
+
+
 }

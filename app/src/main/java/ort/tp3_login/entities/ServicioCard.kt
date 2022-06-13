@@ -1,6 +1,7 @@
 package ort.tp3_login.entities
 
 import android.net.Uri
+import ort.tp3_login.dataclasses.UsuarioLogin
 
 class ServicioCard
                     (nombreGuia : String?,
@@ -8,7 +9,10 @@ class ServicioCard
                     profilePic: Int?,
                     valoracion: Int?,
                     imagen: Uri?,
-                    categoria: String?
+                    categoria: String?,
+                     activityId: String?,
+                     user: UsuarioLogin?,
+                     token: String?
 ) {
 
     var nombreGuia : String
@@ -17,6 +21,9 @@ class ServicioCard
     var valoracion : Int
     var imagen : Uri
     var categoria : String
+    var activityId : String
+    var user: UsuarioLogin
+    var token: String
 
 
     init {
@@ -26,6 +33,9 @@ class ServicioCard
         this.valoracion = valoracion!!
         this.imagen = imagen!!
         this.categoria = categoria!!
+        this.activityId = activityId!!
+        this.user = user!!
+        this.token = token!!
 
     }
 }

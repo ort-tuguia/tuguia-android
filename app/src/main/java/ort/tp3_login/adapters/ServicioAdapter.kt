@@ -20,7 +20,10 @@ class ServicioAdapter(
             servicioList[position].nombreGuia,
             servicioList[position].imagen,
             servicioList[position].valoracion,
-            servicioList[position].profilePic
+            servicioList[position].profilePic,
+            servicioList[position].activityId,
+            servicioList[position].user,
+            servicioList[position].token,
         )
         holder.getCardLayout().setOnClickListener{
             onItemClick(position)
