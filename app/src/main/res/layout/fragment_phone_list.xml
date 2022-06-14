@@ -5,7 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/teal_700"
     android:backgroundTint="@null"
     android:orientation="vertical"
     tools:context=".fragments.PhoneList">
