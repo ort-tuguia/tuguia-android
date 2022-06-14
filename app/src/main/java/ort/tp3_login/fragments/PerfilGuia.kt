@@ -101,8 +101,6 @@ class PerfilGuia : Fragment() {
 
         //HASTA ACAA
 
-
-
 //        //ACA FUNCIONA SI LO QUE VIENE ES UNA URL
 
         Picasso.get().load(viewModel.user.value?.photoUrl?.toUri()).into(circleImageView);

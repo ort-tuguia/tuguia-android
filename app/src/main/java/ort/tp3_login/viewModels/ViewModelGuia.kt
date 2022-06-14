@@ -54,7 +54,6 @@ class ViewModelGuia: ViewModel() {
 
 
 
-    //TODO pregutnar su tiene fo, true enviar uri, false enviar imagen por defecto
 
 
 

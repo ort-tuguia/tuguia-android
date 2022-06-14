@@ -68,7 +68,6 @@ class TuristaEdit : Fragment() {
     override fun onStart() {
         super.onStart()
         botonTelefono.setOnClickListener {
-            //v.findNavController().navigate(R.id.action_turistaEdit_to_telefonosTurista)
             v.findNavController().navigate(R.id.action_turistaEdit_to_phoneList)
         }
 
@@ -91,7 +90,6 @@ class TuristaEdit : Fragment() {
                 Snackbar.make(v, "Se actualizaron los datos.", Snackbar.LENGTH_LONG)
                     .setBackgroundTint(Color.parseColor("#42D727"))
                     .show()
-                //val action = RegistroGuiaDirections.actionRegistroGuiaToLogin()
                 val action = TuristaEditDirections.actionTuristaEditToPerfilTurista()
                 v.findNavController().navigate(action)
             } else {

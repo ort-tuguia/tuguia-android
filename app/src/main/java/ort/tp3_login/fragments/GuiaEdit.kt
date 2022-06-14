@@ -44,6 +44,7 @@ class GuiaEdit : Fragment() {
     lateinit var email: EditText
     lateinit var botonGuardar: Button
     lateinit var botonTelefono: Button
+    lateinit var botonChangePassword: Button
 
 
     override fun onCreateView(
@@ -57,7 +58,7 @@ class GuiaEdit : Fragment() {
         botonTelefono = v.findViewById(R.id.buttonTelefono)
         botonGuardar = v.findViewById(R.id.buttonGuardar)
         circleImageView = v.findViewById(R.id.circleImageViewGuia)
-
+        botonChangePassword = v.findViewById(R.id.buttonChangePassword)
         nombre.setText(viewModel.user.value?.firstName.toString())
         apellido.setText(viewModel.user.value?.lastName.toString())
         email.setText(viewModel.user.value?.email.toString())
@@ -69,19 +70,23 @@ class GuiaEdit : Fragment() {
     override fun onStart() {
         super.onStart()
         botonTelefono.setOnClickListener {
-            v.findNavController().navigate(R.id.action_guiaEdit_to_telefonos)
+            v.findNavController().navigate(R.id.action_guiaEdit_to_phoneListGuia)
         }
 
         circleImageView.setOnClickListener{
             pickImageGallery()
         }
+        botonChangePassword.setOnClickListener {
+            v.findNavController().navigate(R.id.action_guiaEdit_to_changePasswordGuia)
+        }
 
-        usuario = UsuarioEdit (
-            nombre.text.toString(),
-            apellido.text.toString(),
-            email.text.toString(),
-        )
+
         botonGuardar.setOnClickListener{
+            usuario = UsuarioEdit (
+                nombre.text.toString(),
+                apellido.text.toString(),
+                email.text.toString(),
+            )
             val statusCode: Boolean = fetcher()
             if (statusCode) {
 
@@ -128,6 +133,7 @@ class GuiaEdit : Fragment() {
             viewModel.token
         )
         if(response.isSuccessful){
+            viewModel.user.value = response.body()
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())

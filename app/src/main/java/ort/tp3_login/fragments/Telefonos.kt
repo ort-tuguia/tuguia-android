@@ -20,14 +20,14 @@ import ort.tp3_login.dataclasses.Phone
 import ort.tp3_login.dataclasses.ServicioService
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelGuia
-import ort.tp3_login.viewModels.ViewModelHomeTurista
+
 
 
 class Telefonos : Fragment() {
 
     lateinit var v: View
 
-    private  val viewModel: ViewModelHomeTurista by activityViewModels()
+    private  val viewModel: ViewModelGuia by activityViewModels()
 
     lateinit var telefono: EditText
     lateinit var descripcion: EditText
@@ -41,7 +41,7 @@ class Telefonos : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        v =  inflater.inflate(R.layout.fragment_telefonos2, container, false)
+        v =  inflater.inflate(R.layout.fragment_telefono_guia, container, false)
         telefono = v.findViewById(R.id.telefono)
         descripcion = v.findViewById(R.id.descripcion)
         buttonGuardar = v.findViewById(R.id.buttonGuardar)
@@ -55,12 +55,12 @@ class Telefonos : Fragment() {
 
         buttonGuardar.setOnClickListener{
 
-            if(!viewModel.user.value?.phones?.isEmpty()!!){
+            if(viewModel.user.value?.phones?.isEmpty() == false){
                 viewModel.user.value?.phones?.forEach{
                     objTelefono.add(it)
                 }
             }
-            objTelefono.add(Phone (
+            objTelefono.add(Phone(
                 telefono.text.toString(),
                 descripcion.text.toString()
             ))
@@ -71,7 +71,7 @@ class Telefonos : Fragment() {
                 Snackbar.make(v, "Se actualizo el telefono", Snackbar.LENGTH_LONG)
                     .setBackgroundTint(Color.parseColor("#42D727"))
                     .show()
-                v.findNavController().navigate(R.id.action_telefonos_to_guiaEdit)
+                v.findNavController().navigate(R.id.action_telefonos_to_phoneListGuia)
             }
         }
     }
@@ -87,7 +87,10 @@ class Telefonos : Fragment() {
             viewModel.token
         )
         if(response.isSuccessful){
+            viewModel.user.value = response.body()
             return true
+
+
         }
         val jObjError = JSONObject(response.errorBody()!!.string())
         Log.d("Error", jObjError.getString("message"))
