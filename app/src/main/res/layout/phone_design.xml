@@ -12,7 +12,7 @@
         android:layout_margin="7dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:backgroundTint="@color/teal_700"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="10dp">
 
         <LinearLayout
@@ -22,7 +22,12 @@
 
             <EditText
                 android:id="@+id/editTextDescription"
+                android:gravity="center"
                 android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:text="Telefono"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:textSize="12dp" />
@@ -30,7 +35,11 @@
             <EditText
                 android:id="@+id/editTextPhone"
                 android:layout_width="match_parent"
+                android:text="09 374 62 75"
+                android:paddingLeft="10dp"
+
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:clickable="true"
                 android:textSize="20dp" />
         </LinearLayout>

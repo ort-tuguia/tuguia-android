@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.CategoriaItem
+import ort.tp3_login.dataclasses.Review
 import ort.tp3_login.dataclasses.ServicioItem
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.entities.ServicioCard
@@ -15,6 +16,8 @@ import ort.tp3_login.entities.ServicioCard
 
 class ViewModelHomeTurista : ViewModel() {
     var lista = MutableLiveData<MutableList<ServicioCard>>()
+    var listaReservas = MutableLiveData<MutableList<ServicioCard>>()
+    var listaReviews = MutableLiveData<MutableList<Review>>()
     var user = MutableLiveData<UsuarioLogin>()
     var actividades = MutableLiveData<MutableList<ServicioItem>>()
     var token :String = ""
@@ -22,7 +25,11 @@ class ViewModelHomeTurista : ViewModel() {
     var myLongitude : Double = 0.0
     lateinit var categorias: MutableListIterator<CategoriaItem>
     var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
+
     lateinit var servicioItemSeleccionado: ServicioItem
+
+
+
 
     init {
        // initializar()

@@ -50,7 +50,11 @@
         android:id="@+id/reviews"
         android:name="ort.tp3_login.fragments.Reviews"
         android:label="Valoración"
-        tools:layout="@layout/fragment_reviews" />
+        tools:layout="@layout/fragment_reviews" >
+        <action
+            android:id="@+id/action_reviews_to_crearReview"
+            app:destination="@id/crearReview" />
+    </fragment>
     <fragment
         android:id="@+id/turistaEdit"
         android:name="ort.tp3_login.fragments.TuristaEdit"
@@ -99,5 +103,14 @@
             app:destination="@id/turistaEdit"
             app:popUpTo="@id/turistaEdit"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/crearReview"
+        android:name="ort.tp3_login.fragments.CrearReview"
+        android:label="fragment_rating_bar"
+        tools:layout="@layout/fragment_rating_bar" >
+        <action
+            android:id="@+id/action_crearReview_to_home_turista"
+            app:destination="@id/home_turista" />
     </fragment>
 </navigation>

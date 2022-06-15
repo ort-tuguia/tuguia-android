@@ -53,6 +53,11 @@ interface ServicioService {
     @POST("user/fav/activities/{activityId}")
     suspend fun postFavActivity(@Path("activityId") activityId: String, @Header("Authorization") token: String)
             : Response<List<ServicioItem>>
+
+    @POST("reviews")
+    suspend fun postReview(@Body x: CrearReview,@Header("Authorization") token: String)
+            : Response<Review>
+
     @DELETE("user/fav/activities/{activityId}")
     suspend fun deleteFavActivity(@Path("activityId") activityId: String, @Header("Authorization") token: String)
             : Response<List<ServicioItem>>

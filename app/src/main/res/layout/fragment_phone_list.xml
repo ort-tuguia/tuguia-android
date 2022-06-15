@@ -5,37 +5,34 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_700"
+    android:layout_gravity="center"
     android:backgroundTint="@null"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".fragments.PhoneList">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPhoneList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="@drawable/gradient"
         tools:listitem="@layout/phone_design">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/buttonAddPhone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom|center"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/buttonAddPhone"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Agregar nuevo Telefono" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Agregar nuevo Telefono" />
 
         <Button
             android:id="@+id/buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Guardar" />
-    </LinearLayout>
+
 
 </LinearLayout>

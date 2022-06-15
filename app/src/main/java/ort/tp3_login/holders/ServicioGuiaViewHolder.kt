@@ -1,7 +1,6 @@
 package ort.tp3_login.holders
 
 import android.net.Uri
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -42,6 +41,6 @@ class ServicioGuiaViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     }
 
     fun getCardLayout () : CardView {
-        return view.findViewById(R.id.card_package_item)
+        return view.findViewById(R.id.cardViewReview)
     }
 }

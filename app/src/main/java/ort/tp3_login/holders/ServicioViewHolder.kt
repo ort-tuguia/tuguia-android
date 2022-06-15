@@ -1,14 +1,11 @@
 package ort.tp3_login.holders
 
 import android.net.Uri
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.net.toUri
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -18,8 +15,6 @@ import ort.tp3_login.R
 import ort.tp3_login.dataclasses.ServicioService
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.services.RetrofitInstance
-import ort.tp3_login.viewModels.ViewModelHomeTurista
-import kotlin.properties.ReadOnlyProperty
 
 class ServicioViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     private var view : View
@@ -96,6 +91,6 @@ class ServicioViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
 
     fun getCardLayout () : CardView {
-        return view.findViewById(R.id.card_package_item)
+        return view.findViewById(R.id.cardViewReview)
     }
 }
