@@ -93,19 +93,14 @@ class GuiaEdit : Fragment() {
                 Snackbar.make(v, "Se actualizaron los datos.", Snackbar.LENGTH_LONG)
                     .setBackgroundTint(Color.parseColor("#42D727"))
                     .show()
-                val action = RegistroGuiaDirections.actionRegistroGuiaToLogin()
-                v.findNavController().navigate(action)
+                //val action = RegistroGuiaDirections.actionRegistroGuiaToLogin()
+                v.findNavController().navigate(R.id.action_guiaEdit_to_perfil_guia)
             } else {
                 Snackbar.make(v, "No se pudo actualizar los datos.", Snackbar.LENGTH_LONG)
                     .setBackgroundTint(Color.parseColor("#FF0000"))
                     .show()
             }
         }
-
-
-
-
-
     }
 
     private fun pickImageGallery () {

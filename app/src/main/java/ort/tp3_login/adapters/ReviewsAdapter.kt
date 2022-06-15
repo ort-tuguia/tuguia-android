@@ -34,8 +34,6 @@ class ReviewsAdapter(
         return ReviewViewHolder(view)
     }
 
-
-
     override fun getItemCount(): Int {
 
         return reviewsList.size

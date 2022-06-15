@@ -16,6 +16,8 @@ class ViewModelGuia: ViewModel() {
     var token :String = ""
     var actividades = MutableLiveData<MutableList<ServicioItem>>()
     var lista = MutableLiveData<MutableList<ServicioCard>>()
+    //var valoracion : Double = calcularValoracion()
+
 
     // agregarServicio
     //var servicioName: String = ""
@@ -29,6 +31,22 @@ class ViewModelGuia: ViewModel() {
 
     //detalleServicio
     var servicioItemSeleccionado: ServicioItem? = null
+
+
+
+//    fun calcularValoracion() : Double{
+//        var valoracion : Double = 0.0
+//        var size : Int? = actividades.value?.size
+//        if (actividades.value != null)
+//        actividades.value?.forEach {
+//            //valoracion += it.valoracion
+//        }
+//        if (size != null) {
+//            valoracion /= size
+//        }
+//        return valoracion
+//    }
+
 
     fun loadActivities () {
         // fetch data de la API

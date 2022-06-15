@@ -25,7 +25,7 @@ class favoritos_turista: Fragment() {
     var cardsTuristaLista : MutableList<ServicioCard> = ArrayList<ServicioCard>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var adapter: ServicioAdapter
-    var favoritos = MutableLiveData<MutableList<ServicioCard>>()
+    //var favoritos = MutableLiveData<MutableList<ServicioCard>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +33,9 @@ class favoritos_turista: Fragment() {
     ): View? {
         v = inflater.inflate(R.layout.fragment_favoritos_turista, container, false)
         recyclerView = v.findViewById(R.id.recyclerViewFavoritos)
+        viewModel.favoritos.value = ArrayList<ServicioCard>()
         loadActivitiesFavorites()
-        favoritos.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.favoritos.observe(viewLifecycleOwner, Observer { result ->
             cardsTuristaLista = result
             recyclerView.hasFixedSize()
             linearLayoutManager = LinearLayoutManager(context)
@@ -71,13 +72,14 @@ class favoritos_turista: Fragment() {
 
     fun loadActivitiesFavorites () {
         // fetch data de la API
-        favoritos.value = ArrayList<ServicioCard>()
-        viewModel.user.value?.favActivities?.forEach() {
+
+        viewModel.user.observe(viewLifecycleOwner, Observer { result ->
+        result.favActivities?.forEach() {
             var urlPhoto: Uri = "".toUri()
             if (it.photos.isNotEmpty()) {
                 urlPhoto = it.photos[0].photoUrl.toUri()
             }
-            favoritos.value?.add(
+            viewModel.favoritos.value?.add(
                 ServicioCard(
                     it.guideUsername,
                     it.name,
@@ -91,6 +93,7 @@ class favoritos_turista: Fragment() {
                 )
             )
         }
+        })
     }
 
 
