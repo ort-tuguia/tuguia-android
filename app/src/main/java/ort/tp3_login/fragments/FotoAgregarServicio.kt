@@ -1,6 +1,7 @@
 package ort.tp3_login.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -33,6 +34,7 @@ class FotoAgregarServicio : Fragment() {
     lateinit var imageView: ImageView
     lateinit var buttonAgregar: Button
     private val viewModel: ViewModelGuia by activityViewModels()
+    var imagenCargada = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +52,15 @@ class FotoAgregarServicio : Fragment() {
     override fun onStart() {
         super.onStart()
         buttonSiguiente.setOnClickListener {
-            view1.findNavController().navigate(R.id.action_fotoAgregarServicio_to_agregarServicio)
+            if(imagenCargada){
+                view1.findNavController().navigate(R.id.action_fotoAgregarServicio_to_agregarServicio)
+            }else{
+                var alertDialog = AlertDialog.Builder(this.context)
+                alertDialog.setTitle("Error")
+                    .setMessage("Antes de avanzar debe crear una imagen para el servicio")
+                alertDialog.create().show()
+            }
+
         }
         buttonAgregar.setOnClickListener {
             pickImageGallery()
@@ -73,6 +83,7 @@ class FotoAgregarServicio : Fragment() {
             //value = it.data?.getStringExtra("input")!!
             imageUri = it.data?.data
             viewModel.servicioUrlFoto = imageUri
+            imagenCargada = true
             imageView.setImageURI(imageUri)
         }
     }
