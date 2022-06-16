@@ -121,7 +121,7 @@ class PerfilGuia : Fragment() {
         if (it.resultCode == Activity.RESULT_OK) {
             //value = it.data?.getStringExtra("input")!!
             imageUri = it.data?.data
-        }
+
         val progressDialog = ProgressDialog(context)
         progressDialog.setMessage("Subiendo imagen...")
         progressDialog.setCancelable(false)
@@ -146,6 +146,7 @@ class PerfilGuia : Fragment() {
                 Toast.makeText(context, "Error al subir imagen", Toast.LENGTH_LONG).show()
 
             }
+        }
         }
     }
 
