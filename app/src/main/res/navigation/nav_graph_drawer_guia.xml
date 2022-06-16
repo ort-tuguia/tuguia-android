@@ -24,11 +24,11 @@
         android:name="ort.tp3_login.fragments.home_guia"
         android:label="Home" >
         <action
-            android:id="@+id/action_home_guia_to_mapsAgregarServicio"
-            app:destination="@id/mapsAgregarServicio" />
-        <action
             android:id="@+id/action_home_guia_to_detalleActividadGuia"
             app:destination="@id/detalleActividadGuia" />
+        <action
+            android:id="@+id/action_home_guia_to_fotoAgregarServicio"
+            app:destination="@id/fotoAgregarServicio" />
     </fragment>
     <fragment
         android:id="@+id/agregarServicio"
@@ -54,18 +54,6 @@
             app:destination="@id/changePasswordGuia" />
     </fragment>
     <fragment
-        android:id="@+id/mapsAgregarServicio"
-        android:name="ort.tp3_login.fragments.MapsAgregarServicio"
-        android:label="fragment_maps_agregar_servicio"
-        tools:layout="@layout/fragment_maps_agregar_servicio" >
-        <action
-            android:id="@+id/action_mapsAgregarServicio_to_fotoAgregarServicio"
-            app:destination="@id/fotoAgregarServicio" />
-        <action
-            android:id="@+id/action_mapsAgregarServicio_to_agregarServicio"
-            app:destination="@id/agregarServicio" />
-    </fragment>
-    <fragment
         android:id="@+id/fotoAgregarServicio"
         android:name="ort.tp3_login.fragments.FotoAgregarServicio"
         android:label="FotoAgregarServicio" >
@@ -77,9 +65,6 @@
         android:id="@+id/detalleActividadGuia"
         android:name="ort.tp3_login.fragments.DetalleActividadGuia"
         android:label="DetalleActividadGuia" >
-        <action
-            android:id="@+id/action_detalleActividadGuia_to_mapsAgregarServicio2"
-            app:destination="@id/mapsAgregarServicio" />
         <action
             android:id="@+id/action_detalleActividadGuia_to_fotoAgregarServicio"
             app:destination="@id/fotoAgregarServicio" />

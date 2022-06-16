@@ -77,6 +77,7 @@ dependencies {
 
     //autocomplete
     implementation 'com.google.android.libraries.places:places:2.6.0'
-    implementation 'com.google.maps.android:places-ktx:2.0.0'
+
+
 
 }

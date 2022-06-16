@@ -40,15 +40,11 @@ class home_guia : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         view1 = inflater.inflate(R.layout.fragment_home_guia, container, false)
+        viewModel.servicioLocationlon = 0.0
+        viewModel.servicioLocationlat = 0.0
         botonAgregar = view1.findViewById(R.id.buttonAgregar)
         recyclerView = view1.findViewById(R.id.recyclerViewHomeGuia)
-
-
-
-        //var nombreDeUsuario = requireArguments().getString("usuario")
-        //textHola.text = "Hola... ${nombreDeUsuario.toString()}"
         viewModel.loadActivities()
         return view1
     }
@@ -71,6 +67,9 @@ class home_guia : Fragment() {
             }
             //asignar adaptar a recyclerview
             recyclerView.adapter = adapter
+
+            //viewModel.loadActivities()
+
         })
 
     }
@@ -78,21 +77,9 @@ class home_guia : Fragment() {
     override fun onStart() {
         super.onStart()
         botonAgregar.setOnClickListener {
-            openDialog()
+            view1.findNavController().navigate(R.id.action_home_guia_to_fotoAgregarServicio)
         }
 
-    }
-    private fun openDialog() {
-        var alertDialog = AlertDialog.Builder(this.context)
-        alertDialog.setTitle("Locación")
-            .setMessage("Eliga la ubicación de la actividad en el mapa")
-            .setIcon(R.drawable.icon_agregar_ubicacion)
-            .setCancelable(false)
-            .setPositiveButton("Ok",
-                DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
-                    view1.findNavController().navigate(R.id.action_home_guia_to_mapsAgregarServicio)
-                })
-        alertDialog.create().show()
     }
 
     private fun onItemClick(position: Int) : Boolean {

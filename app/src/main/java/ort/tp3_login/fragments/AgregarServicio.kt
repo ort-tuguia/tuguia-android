@@ -1,8 +1,6 @@
 package ort.tp3_login.fragments
-
-import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.content.DialogInterface
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -18,21 +16,17 @@ import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.liveData
 import androidx.navigation.findNavController
+import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.PlacesClient
-import com.google.android.libraries.places.ktx.widget.PlaceSelectionError
-import com.google.android.libraries.places.ktx.widget.PlaceSelectionSuccess
-import com.google.android.libraries.places.ktx.widget.placeSelectionEvents
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.android.synthetic.main.fragment_agregar_servicio.*
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
@@ -40,7 +34,6 @@ import ort.tp3_login.R
 import ort.tp3_login.dataclasses.*
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelGuia
-import ort.tp3_login.viewModels.ViewModelHomeTurista
 import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
@@ -50,7 +43,6 @@ class AgregarServicio : Fragment() {
 
     lateinit var view1 : View
     lateinit var buttonAgregar : Button
-    lateinit var volver: TextView
     lateinit var servicio: CrearServicio
 
     lateinit var name: EditText
@@ -65,14 +57,12 @@ class AgregarServicio : Fragment() {
 
     var resultCategorie: MutableListIterator<CategoriaItem>? = null
 
+
     private var arraylistCategorias : ArrayList <CategoriaItem>? = ArrayList()
 
     //places
     //private lateinit var placesClient: PlacesClient
     //private lateinit var responseView: TextView
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,17 +70,40 @@ class AgregarServicio : Fragment() {
     ): View? {
         view1 = inflater.inflate(R.layout.fragment_agregar_servicio, container, false)
         buttonAgregar = view1.findViewById(R.id.Agregar)
-        volver = view1.findViewById(R.id.Volver)
         name = view1.findViewById(R.id.Nombre)
         description = view1.findViewById(R.id.Descripcion)
         //location = view1.findViewById(R.id.Ubicacion)
         price = view1.findViewById(R.id.Precio)
         //urlFoto = view1.findViewById(R.id.UrlServicio)
         categoria = view1.findViewById(R.id.categoria)
-        fetchCategories()
 
-        //google places
-        //activarPlaces ()
+        if (!Places.isInitialized()) {
+            Places.initialize(context, "AIzaSyDcmuX27tGfel6OYDsBoZ65WavbgZylzfw")
+        }
+
+        fetchCategories()
+        val autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment?
+        autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                viewModel.servicioLocationlon = place.latLng.longitude
+                viewModel.servicioLocationlat = place.latLng.latitude
+                Log.i(TAG, "Place:${place.latLng.longitude} , ${place.latLng.latitude}")
+            }
+
+            override fun onError(status: Status) {
+                Log.i(TAG, "An error occurred: $status")
+            }
+        })
+
+
+        autocompleteFragment!!.setPlaceFields(
+            Arrays.asList(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.LAT_LNG
+            )
+        )
+
         if (viewModel.servicioItemSeleccionado != null) {
 
             name.setText(viewModel.servicioItemSeleccionado!!.name)
@@ -105,34 +118,8 @@ class AgregarServicio : Fragment() {
         return view1
     }
 
-   /* private fun activarPlaces() {
-        placesClient = Places.createClient(this.activity)
-
-        responseView = view1.findViewById(R.id.autocomplete_response_content)
-        val autocompleteFragment = activity?.supportFragmentManager?.findFragmentById(R.id.autocomplete_fragment)
-                as AutocompleteSupportFragment
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.NAME, Place.Field.ID, Place.Field.LAT_LNG, Place.Field.ADDRESS))
-
-        // Listen to place selection events
-        lifecycleScope.launchWhenCreated {
-            autocompleteFragment.placeSelectionEvents()?.collect { event ->
-                when (event) {
-                    is PlaceSelectionSuccess -> {
-                        val place = event.place
-                        //responseView.text = StringUtil.stringifyAutocompleteWidget(place, false)
-                    }
-                    is PlaceSelectionError -> Toast.makeText(
-                        context,
-                        "Failed to get place '${event.status.statusMessage}'",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
 
 
-        }
-    }*/
 
     fun savePictureOnFirebase(){
         val progressDialog = ProgressDialog(context)
@@ -165,9 +152,14 @@ class AgregarServicio : Fragment() {
         }
 
     }
+
     fun createServicio() {
             if (viewModel.servicioCategoriaId == "" && viewModel.servicioItemSeleccionado != null) {
                 //viewModel.servicioCategoriaId = viewModel.servicioItemSeleccionado!!.category.id
+                if(viewModel.servicioLocationlat == 0.0){
+                    viewModel.servicioLocationlon = viewModel.servicioItemSeleccionado!!.locationLongitude
+                    viewModel.servicioLocationlat = viewModel.servicioItemSeleccionado!!.locationLatitude
+                }
                 //TODO category id
             }
 
@@ -213,10 +205,6 @@ class AgregarServicio : Fragment() {
         }
 
 
-
-        volver.setOnClickListener {
-            //view1.findNavController().navigate(R.id.action_agregarServicio_to_home_guia)
-        }
        // location.setOnClickListener{
             //view1.findNavController().navigate(R.id.action_agregarServicio_to_mapsAgregarServicio)
         //}

@@ -45,27 +45,11 @@ class DetalleActividadGuia : Fragment() {
             view1.findNavController().navigate(R.id.action_detalleActividad_to_reviews)
         }
         buttonEditar.setOnClickListener {
-            openDialogLocation()
+            openDialogImagen()
         }
 
     }
 
-    private fun openDialogLocation() {
-        var alertDialog = AlertDialog.Builder(this.context)
-        alertDialog.setTitle("Locación")
-            .setMessage("Querés cambiar la locación de la actividad?")
-            .setPositiveButton("Si",
-                DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
-                    view1.findNavController().navigate(R.id.action_detalleActividadGuia_to_mapsAgregarServicio2)
-                })
-            .setNegativeButton("No",
-                DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
-                    viewModel.servicioLocationlat = viewModel.servicioItemSeleccionado!!.locationLatitude!!
-                    viewModel.servicioLocationlon = viewModel.servicioItemSeleccionado!!.locationLongitude
-                    openDialogImagen()
-                })
-        alertDialog.create().show()
-    }
 
     private fun openDialogImagen() {
         var alertDialog = AlertDialog.Builder(this.context)

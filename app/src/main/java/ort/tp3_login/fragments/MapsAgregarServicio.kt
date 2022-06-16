@@ -89,12 +89,12 @@ class MapsAgregarServicio : Fragment() {
             .setMessage("Querés cambiar el imagen de la actividad?")
             .setPositiveButton("Si",
                 DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
-                    mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_fotoAgregarServicio)
+                    //mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_fotoAgregarServicio)
                 })
             .setNegativeButton("No",
                 DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
                     //TODO implementar viewmodel url imagen
-                    mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_agregarServicio)
+                    //mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_agregarServicio)
                 })
         alertDialog.create().show()
     }
@@ -107,7 +107,7 @@ class MapsAgregarServicio : Fragment() {
             .setCancelable(false)
             .setPositiveButton("Ok",
                 DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
-                    mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_fotoAgregarServicio)
+                    //mapFragment.findNavController().navigate(R.id.action_mapsAgregarServicio_to_fotoAgregarServicio)
                 })
         alertDialog.create().show()
     }
