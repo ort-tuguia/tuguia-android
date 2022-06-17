@@ -43,7 +43,6 @@ class MapsAgregarServicio : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         val buenosAires = LatLng(-34.56660241116843, -58.44412629436163)
-        googleMap.addMarker(MarkerOptions().position(buenosAires).title("Alta fiesta de Shira"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(buenosAires, 15f))
         googleMap.uiSettings.apply {
             isZoomControlsEnabled = true
@@ -51,12 +50,6 @@ class MapsAgregarServicio : Fragment() {
 
         }
         map = googleMap
-
-        map.setOnMapClickListener { latlng ->
-            location = LatLng(latlng.latitude, latlng.longitude)
-            map.addMarker(MarkerOptions().position(location))
-            openDialogConfirmarUbicacion()
-        }
         checkLocationPermission()
     }
 

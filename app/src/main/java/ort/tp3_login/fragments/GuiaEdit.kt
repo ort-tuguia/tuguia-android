@@ -33,7 +33,7 @@ class GuiaEdit : Fragment() {
 
     lateinit var usuario: UsuarioEdit
 
-    lateinit var circleImageView: CircleImageView
+
 
     private val viewModel: ViewModelGuia by activityViewModels()
 
@@ -57,7 +57,7 @@ class GuiaEdit : Fragment() {
         email = v.findViewById(R.id.mail)
         botonTelefono = v.findViewById(R.id.buttonTelefono)
         botonGuardar = v.findViewById(R.id.buttonGuardar)
-        circleImageView = v.findViewById(R.id.circleImageViewGuia)
+
         botonChangePassword = v.findViewById(R.id.buttonChangePassword)
         nombre.setText(viewModel.user.value?.firstName.toString())
         apellido.setText(viewModel.user.value?.lastName.toString())
@@ -73,9 +73,7 @@ class GuiaEdit : Fragment() {
             v.findNavController().navigate(R.id.action_guiaEdit_to_phoneListGuia)
         }
 
-        circleImageView.setOnClickListener{
-            pickImageGallery()
-        }
+
         botonChangePassword.setOnClickListener {
             v.findNavController().navigate(R.id.action_guiaEdit_to_changePasswordGuia)
         }
@@ -114,7 +112,7 @@ class GuiaEdit : Fragment() {
             ActivityResultContracts.StartActivityForResult()) {
             if(it.resultCode == Activity.RESULT_OK){
                 val value = it.data?.getStringExtra("input")
-                circleImageView.setImageURI(it.data?.data)
+
                 //circleImageView.setImageURI(value)
             }
         }

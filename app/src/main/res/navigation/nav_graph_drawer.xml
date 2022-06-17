@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_home_turista_to_detalleActividad"
             app:destination="@id/detalleActividad" />
+        <action
+            android:id="@+id/action_home_turista_to_detalleReservas"
+            app:destination="@id/detalleReservas" />
     </fragment>
     <fragment
         android:id="@+id/mapa_turista"
@@ -36,7 +39,11 @@
         android:id="@+id/reservaTurista"
         android:name="ort.tp3_login.fragments.ReservaTurista"
         android:label="Reservas"
-        tools:layout="@layout/fragment_reserva_turista" />
+        tools:layout="@layout/fragment_reserva_turista" >
+        <action
+            android:id="@+id/action_reservaTurista_to_detalleReservas"
+            app:destination="@id/detalleReservas" />
+    </fragment>
     <fragment
         android:id="@+id/detalleActividad"
         android:name="ort.tp3_login.fragments.DetalleActividad"
@@ -50,11 +57,7 @@
         android:id="@+id/reviews"
         android:name="ort.tp3_login.fragments.Reviews"
         android:label="Valoración"
-        tools:layout="@layout/fragment_reviews" >
-        <action
-            android:id="@+id/action_reviews_to_crearReview"
-            app:destination="@id/crearReview" />
-    </fragment>
+        tools:layout="@layout/fragment_reviews" />
     <fragment
         android:id="@+id/turistaEdit"
         android:name="ort.tp3_login.fragments.TuristaEdit"
@@ -74,7 +77,7 @@
     <fragment
         android:id="@+id/telefonosTurista"
         android:name="TelefonosTurista"
-        android:label="TelefonosTurista" >
+        android:label="Telefonos">
         <action
             android:id="@+id/action_telefonosTurista_to_phoneList"
             app:destination="@id/phoneList"
@@ -107,10 +110,19 @@
     <fragment
         android:id="@+id/crearReview"
         android:name="ort.tp3_login.fragments.CrearReview"
-        android:label="fragment_rating_bar"
-        tools:layout="@layout/fragment_rating_bar" >
+        android:label="Valorar"
+        tools:layout="@layout/fragment_rating_bar">
         <action
             android:id="@+id/action_crearReview_to_home_turista"
             app:destination="@id/home_turista" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleReservas"
+        android:name="ort.tp3_login.fragments.DetalleReservas"
+        android:label="Detalle"
+        tools:layout="@layout/fragment_detalle_reservas">
+        <action
+            android:id="@+id/action_detalleReservas_to_crearReview"
+            app:destination="@id/crearReview" />
     </fragment>
 </navigation>

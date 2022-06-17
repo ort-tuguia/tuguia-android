@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:orientation="vertical"
-    tools:context=".fragments.Reviews">
+    tools:context=".fragments.ReviewsGuia">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewReviews"
@@ -17,3 +17,5 @@
 
 
 </LinearLayout>
+
+

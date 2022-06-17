@@ -42,14 +42,13 @@ class DetalleActividadGuia : Fragment() {
     override fun onStart() {
         super.onStart()
         valoracion.setOnClickListener{
-            view1.findNavController().navigate(R.id.action_detalleActividad_to_reviews)
+            view1.findNavController().navigate(R.id.action_detalleActividadGuia_to_reviewsActividadGuia)
         }
         buttonEditar.setOnClickListener {
             openDialogImagen()
         }
 
     }
-
 
     private fun openDialogImagen() {
         var alertDialog = AlertDialog.Builder(this.context)

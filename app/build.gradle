@@ -56,7 +56,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
 
     //circleview para el drawer
-
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //Firebase

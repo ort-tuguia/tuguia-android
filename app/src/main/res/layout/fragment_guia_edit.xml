@@ -11,28 +11,20 @@
         android:background="@drawable/gradient"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageViewGuia"
-            android:clickable="true"
-            android:paddingTop="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:src="@drawable/profile"></de.hdodenhof.circleimageview.CircleImageView>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="50dp"
             android:orientation="horizontal"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="97dp"
+            android:layout_height="100dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
-                android:layout_height="71dp"
+                android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:hint="Ingrese su nombre"
                 android:paddingLeft="20dp"
@@ -42,13 +34,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="83dp"
+            android:layout_height="100dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/lastName"
                 android:layout_width="match_parent"
-                android:layout_height="61dp"
+                android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:hint="Ingrese su apellido"
                 android:paddingLeft="20dp"
@@ -58,13 +50,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="103dp"
+            android:layout_height="100dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/mail"
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
+                android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:hint="Ingrese su mail"
                 android:paddingLeft="20dp"
@@ -82,7 +74,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="108dp"
+                android:layout_height="177dp"
                 android:gravity="center|bottom"
                 android:orientation="horizontal">
 
@@ -102,7 +94,7 @@
             <Button
                 android:id="@+id/buttonGuardar"
                 android:layout_width="match_parent"
-                android:layout_height="62dp"
+                android:layout_height="67dp"
                 android:text="Guardar" />
         </LinearLayout>
 

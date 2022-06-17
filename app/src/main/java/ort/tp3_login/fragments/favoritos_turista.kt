@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ort.tp3_login.R
 import ort.tp3_login.adapters.ServicioAdapter
+import ort.tp3_login.adapters.ServicioGuiaAdapter
 import ort.tp3_login.entities.ServicioCard
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
@@ -24,7 +26,7 @@ class favoritos_turista: Fragment() {
     lateinit var recyclerView: RecyclerView
     var cardsTuristaLista : MutableList<ServicioCard> = ArrayList<ServicioCard>()
     private lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var adapter: ServicioAdapter
+    lateinit var adapter: ServicioGuiaAdapter
     //var favoritos = MutableLiveData<MutableList<ServicioCard>>()
 
     override fun onCreateView(
@@ -40,8 +42,8 @@ class favoritos_turista: Fragment() {
             recyclerView.hasFixedSize()
             linearLayoutManager = LinearLayoutManager(context)
             recyclerView.layoutManager = linearLayoutManager
-            adapter = ServicioAdapter(cardsTuristaLista){x ->
-                // onItemClick(x)
+            adapter = ServicioGuiaAdapter(cardsTuristaLista){x ->
+                onItemClick(x)
             }
             recyclerView.adapter = adapter
         })
@@ -67,6 +69,10 @@ class favoritos_turista: Fragment() {
     override fun onStart() {
         super.onStart()
 
+    }
+    private fun onItemClick(position: Int) : Boolean {
+
+        return true
     }
 
 

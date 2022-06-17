@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -16,14 +17,16 @@ import ort.tp3_login.adapters.ReviewsAdapter
 import ort.tp3_login.adapters.ServicioAdapter
 import ort.tp3_login.dataclasses.Review
 import ort.tp3_login.entities.ServicioCard
+import ort.tp3_login.viewModels.ViewModelGuia
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
-class Reviews : Fragment() {
+class ReviewsActividadGuia : Fragment() {
     lateinit var view1 : View
 
+
     //ViewModel
-    private val viewModel: ViewModelHomeTurista by activityViewModels()
+    private val viewModel: ViewModelGuia by activityViewModels()
 
     //RecyclerView
     lateinit var recyclerView: RecyclerView
@@ -36,13 +39,15 @@ class Reviews : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        view1= inflater.inflate(R.layout.fragment_reviews, container, false)
+        view1= inflater.inflate(R.layout.fragment_reviews_guia, container, false)
         recyclerView = view1.findViewById(R.id.recyclerViewReviews)
+
         return view1
     }
 
     override fun onStart() {
         super.onStart()
+
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,3 +74,4 @@ class Reviews : Fragment() {
 
 
 }
+

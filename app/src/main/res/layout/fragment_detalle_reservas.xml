@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:orientation="vertical"
-    tools:context=".fragments.DetalleActividad">
+    tools:context=".fragments.DetalleReservas">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/textviewTitle"
+            android:id="@+id/reservasTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -26,7 +26,6 @@
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/textviewValoracion"
             android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,29 +39,68 @@
     </LinearLayout>
 
 
-    <ImageView
-        android:id="@+id/imageViewFoto"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_weight="1"
-        tools:src="" />
-
     <TextView
-        android:id="@+id/textviewDescription"
+        android:id="@+id/reservasDescripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|top"
         android:maxLines="20"
-        android:layout_weight="1"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="Mauris dictum accumsan ante, id tempus tellus commodo eget. Nunc tincidunt nisl nec ipsum mollis, ut posuere quam euismod. Sed nec maximus metus, vel porttitor magna. Suspendisse velit massa, pretium in molestie in, interdum at est. Phasellus ornare, sapien vitae pharetra tempor, ligula nisi suscipit tellus, eu pretium orci enim in justo. Proin sit amet orci ex. Sed non nibh in erat blandit laoreet. Ut tempus accumsan lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium ligula metus, non vulputate neque dictum id. Praesent turpis nisi, venenatis at nulla sed, tristique convallis nisi. Fusce mi sapien, ornare non consectetur in, porttitor sed ex. Nunc sed enim finibus,rcu ac sapien ultricies, a euismod justo lobortis. Maecenas rutrum, nunc sed ultricies fermentum, purus nibh vestibulum tortor, nec suscipit lorem nibh at nisl. Morbi sollicitudin, libero nec cursus facilisis, sem neque dignissim sapien, sit amet feugiat justo ex vitae massa. Nunc molestie placerat elit. Nulla vitae pretium sem. Fusce hendrerit nulla tempus lectus molestie, sit amet vulputate nunc egestas."
         android:textColor="@color/black"
         android:textSize="15dp" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Contacto"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/reservasNombreGuia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:text="Nombre Guia"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/reservasEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:text="Email"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/reservasTelefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:text="Telefono"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
         <Button
-            android:id="@+id/buttonReservar"
+            android:id="@+id/buttonValorar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reservar" />
+            android:text="Valorar" />
+    </LinearLayout>
+
 
 </LinearLayout>

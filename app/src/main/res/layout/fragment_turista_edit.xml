@@ -11,13 +11,6 @@
         android:background="@drawable/gradient"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageViewGuia"
-            android:clickable="true"
-            android:paddingTop="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:src="@drawable/profile"></de.hdodenhof.circleimageview.CircleImageView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"

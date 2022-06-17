@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/agregarServicio"
         android:name="ort.tp3_login.fragments.AgregarServicio"
-        android:label="AgregarServicio" >
+        android:label="Agregar Actividad">
         <action
             android:id="@+id/action_agregarServicio_to_home_guia"
             app:destination="@id/home_guia" />
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/fotoAgregarServicio"
         android:name="ort.tp3_login.fragments.FotoAgregarServicio"
-        android:label="FotoAgregarServicio" >
+        android:label="Agregar Foto">
         <action
             android:id="@+id/action_fotoAgregarServicio_to_agregarServicio"
             app:destination="@id/agregarServicio" />
@@ -64,18 +64,22 @@
     <fragment
         android:id="@+id/detalleActividadGuia"
         android:name="ort.tp3_login.fragments.DetalleActividadGuia"
-        android:label="DetalleActividadGuia" >
+        android:label="Detalle">
         <action
             android:id="@+id/action_detalleActividadGuia_to_fotoAgregarServicio"
             app:destination="@id/fotoAgregarServicio" />
         <action
             android:id="@+id/action_detalleActividadGuia_to_agregarServicio"
             app:destination="@id/agregarServicio" />
+        <action
+            android:id="@+id/action_detalleActividadGuia_to_reviewsActividadGuia"
+            app:destination="@id/reviewsActividadGuia" />
+
     </fragment>
     <fragment
         android:id="@+id/phoneListGuia"
         android:name="ort.tp3_login.fragments.PhoneListGuia"
-        android:label="PhoneListGuia" >
+        android:label="Telefonos">
         <action
             android:id="@+id/action_phoneListGuia_to_guiaEdit"
             app:destination="@id/guiaEdit" />
@@ -96,11 +100,16 @@
     <fragment
         android:id="@+id/changePasswordGuia"
         android:name="ort.tp3_login.fragments.ChangePasswordGuia"
-        android:label="ChangePasswordGuia" >
+        android:label="Cambiar Contraseña">
         <action
             android:id="@+id/action_changePasswordGuia_to_guiaEdit"
             app:destination="@id/guiaEdit"
             app:popUpTo="@id/guiaEdit"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/reviewsActividadGuia"
+        android:name="ort.tp3_login.fragments.ReviewsActividadGuia"
+        android:label="Reviews" />
+
 </navigation>

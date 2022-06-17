@@ -1,20 +1,20 @@
 package ort.tp3_login.fragments
-
 import android.app.AlertDialog
-import android.app.Dialog
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import ort.tp3_login.R
-import ort.tp3_login.dataclasses.ServicioItem
-import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
@@ -26,6 +26,8 @@ class DetalleActividad : Fragment() {
     lateinit var description: TextView
     private val viewModel: ViewModelHomeTurista by activityViewModels()
     lateinit var buttonReservar : Button
+    lateinit var foto : ImageView
+    var uriPhoto: Uri = "".toUri()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,15 @@ class DetalleActividad : Fragment() {
         buttonReservar = view1.findViewById(R.id.buttonReservar)
         title.text = viewModel.servicioItemSeleccionado.name
         description.text = viewModel.servicioItemSeleccionado.description
+        foto = view1.findViewById(R.id.imageViewFoto)
+
+        if (viewModel.servicioItemSeleccionado.photos.isNotEmpty()) {
+            uriPhoto = viewModel.servicioItemSeleccionado.photos[0].photoUrl.toUri()
+            Picasso.get().load(uriPhoto).into(foto)
+            Log.d("uri foto", uriPhoto.toString())
+        }else{
+            foto.setImageResource(R.drawable.no_image_available)
+        }
 
         return view1
     }

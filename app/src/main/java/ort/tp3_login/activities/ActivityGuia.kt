@@ -47,7 +47,7 @@ class ActivityGuia : AppCompatActivity() {
 
         nav_view_guia.getHeaderView(0).findViewById<TextView>(R.id.user_name).text = viewModel.user.value!!.firstName + " " + viewModel.user.value!!.lastName
         nav_view_guia.getHeaderView(0).findViewById<TextView>(R.id.user_email).text = viewModel.user.value!!.email
-       // Picasso.get().load(viewModel.user.value?.photoUrl?.toUri()).into(nav_view.getHeaderView(0).findViewById<CircleImageView>(R.id.profile_image))
+       Picasso.get().load(viewModel.user.value?.photoUrl?.toUri()).into(nav_view_guia.getHeaderView(0).findViewById<CircleImageView>(R.id.profile_image))
 
         nav_view_guia.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this,navController,drawer_layout_id_guia)

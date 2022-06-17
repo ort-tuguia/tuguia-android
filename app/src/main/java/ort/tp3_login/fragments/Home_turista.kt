@@ -135,9 +135,6 @@ class home_turista : Fragment() {
 
 
 
-    //setear mi locaciòn y pedir permisos (permisos estan en el manifest file)
-
-
 
     override fun onStart() {
         super.onStart()
@@ -149,9 +146,8 @@ class home_turista : Fragment() {
     // funcion que vamos a usar para ir a la pantalla de detalles
     private fun onItemClick(position: Int) : Boolean {
        viewModel.servicioItemSeleccionado = viewModel.actividades.value?.get(position)!!
-        view1.findNavController().navigate(R.id.action_home_turista_to_detalleActividad)
-        //Snackbar.make(view1,"vamos a detalle de $position", Snackbar.LENGTH_SHORT).show()
-
+        view1.findNavController().navigate(R.id.action_home_turista_to_detalleActividad) //TODO es correcto
+        //view1.findNavController().navigate(R.id.action_home_turista_to_detalleReservas)
         return true
     }
 

@@ -7,6 +7,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.Review
 import ort.tp3_login.dataclasses.ServicioItem
 import ort.tp3_login.dataclasses.UsuarioLogin
 import ort.tp3_login.entities.ServicioCard
@@ -16,6 +17,7 @@ class ViewModelGuia: ViewModel() {
     var token :String = ""
     var actividades = MutableLiveData<MutableList<ServicioItem>>()
     var lista = MutableLiveData<MutableList<ServicioCard>>()
+    var listaReviews = MutableLiveData<MutableList<Review>>()
     //var valoracion : Double = calcularValoracion()
 
 

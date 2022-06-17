@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ort.tp3_login.R
 import ort.tp3_login.adapters.ServicioAdapter
+import ort.tp3_login.adapters.ServicioGuiaAdapter
 import ort.tp3_login.entities.ServicioCard
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
@@ -24,7 +27,7 @@ class ReservaTurista : Fragment() {
     lateinit var recyclerView: RecyclerView
     var cardsTuristaLista : MutableList<ServicioCard> = ArrayList<ServicioCard>()
     private lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var adapter: ServicioAdapter
+    lateinit var adapter: ServicioGuiaAdapter
 
     lateinit var view1 : View
 
@@ -47,8 +50,8 @@ class ReservaTurista : Fragment() {
             recyclerView.layoutManager = linearLayoutManager
 
             //setear adapter
-            adapter = ServicioAdapter(cardsTuristaLista){x ->
-
+            adapter = ServicioGuiaAdapter(cardsTuristaLista){x ->
+                    onItemClick(x)
             }
             //asignar adaptar a recyclerview
             recyclerView.adapter = adapter
@@ -57,9 +60,11 @@ class ReservaTurista : Fragment() {
 
     }
 
-
-
-
+    private fun onItemClick(position: Int) : Boolean {
+        viewModel.servicioItemSeleccionado = viewModel.actividades.value?.get(position)!!
+        view1.findNavController().navigate(R.id.action_reservaTurista_to_detalleReservas)
+        return true
+    }
 
 
 }
