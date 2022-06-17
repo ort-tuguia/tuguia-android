@@ -19,7 +19,7 @@ class ReviewsAdapter(
         holder.setNames(
             reviewsList[position].score,
             reviewsList[position].createdAt,
-            reviewsList[position].commentary
+            reviewsList[position].comment
         )
         holder.getCardLayout().setOnClickListener{
             onItemClick(position)

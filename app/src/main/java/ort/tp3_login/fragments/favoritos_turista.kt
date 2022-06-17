@@ -2,20 +2,16 @@ package ort.tp3_login.fragments
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ort.tp3_login.R
-import ort.tp3_login.adapters.ServicioAdapter
 import ort.tp3_login.adapters.ServicioGuiaAdapter
 import ort.tp3_login.entities.ServicioCard
 import ort.tp3_login.viewModels.ViewModelHomeTurista
@@ -90,7 +86,7 @@ class favoritos_turista: Fragment() {
                     it.guideUsername,
                     it.name,
                     R.drawable.icon_profile,
-                    5,
+                    5.0,
                     urlPhoto,
                     "categoria",
                     it.id,

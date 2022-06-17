@@ -257,11 +257,6 @@ class home_turista : Fragment() {
             viewModel.loadActivities()
         })
 
-
-
-
-
-
     }
 
 

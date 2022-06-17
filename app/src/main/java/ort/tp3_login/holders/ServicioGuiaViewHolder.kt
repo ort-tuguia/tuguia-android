@@ -17,7 +17,7 @@ class ServicioGuiaViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         this.view = v
     }
 
-    fun setNames (titulo: String, nombreGuia: String, imageView: Uri, valoracion: Int, perfilpic: Int) {
+    fun setNames (titulo: String, nombreGuia: String, imageView: Uri, valoracion: Double, perfilpic: Int) {
         var textViewTitulo : TextView = view.findViewById(R.id.tituloCard)
         var textViewNombreGuia : TextView = view.findViewById(R.id.nombreGuiaCard)
         var imagenView : ImageView = view.findViewById(R.id.imageCard)

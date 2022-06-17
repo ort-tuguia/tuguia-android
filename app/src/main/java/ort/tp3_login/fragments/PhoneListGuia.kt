@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -29,6 +30,7 @@ class PhoneListGuia : Fragment() {
     lateinit var buttonSave : Button
     lateinit var buttonAddPhone : Button
     private val viewModel: ViewModelGuia by activityViewModels()
+    lateinit var buttonDelete : ImageView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private  var service: ServicioService = RetrofitInstance
         .getRetrofitInstance()
@@ -43,6 +45,7 @@ class PhoneListGuia : Fragment() {
         recyclerView = v.findViewById(R.id.recyclerViewPhoneList)
         buttonSave = v.findViewById(R.id.buttonSave)
         buttonAddPhone = v.findViewById(R.id.buttonAddPhone)
+        buttonDelete = v.findViewById(R.id.imageViewDelete)
 
         return v
 
@@ -59,6 +62,10 @@ class PhoneListGuia : Fragment() {
         }
         buttonAddPhone.setOnClickListener {
             v.findNavController().navigate(R.id.action_phoneListGuia_to_telefonos)
+        }
+
+        buttonDelete.setOnClickListener{
+
         }
 
 

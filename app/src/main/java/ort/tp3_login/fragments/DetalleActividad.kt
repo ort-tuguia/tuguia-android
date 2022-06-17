@@ -1,5 +1,6 @@
 package ort.tp3_login.fragments
 import android.app.AlertDialog
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +14,15 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.CrearReserva
+import ort.tp3_login.dataclasses.ServicioService
+import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
 
@@ -28,6 +36,8 @@ class DetalleActividad : Fragment() {
     lateinit var buttonReservar : Button
     lateinit var foto : ImageView
     var uriPhoto: Uri = "".toUri()
+    lateinit var crearReserva : CrearReserva
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +59,8 @@ class DetalleActividad : Fragment() {
         }else{
             foto.setImageResource(R.drawable.no_image_available)
         }
+        crearReserva = CrearReserva(viewModel.servicioItemSeleccionado.id)
+
 
         return view1
     }
@@ -59,8 +71,10 @@ class DetalleActividad : Fragment() {
             view1.findNavController().navigate(R.id.action_detalleActividad_to_reviews)
         }
         buttonReservar.setOnClickListener{
+
             //TODO PEgarle a backend agregando a reservasGuia y a reservasTurista
             //TODO SACAR CONTACTO DE PANTALLA
+
             showDialog()
         }
     }
@@ -70,10 +84,36 @@ class DetalleActividad : Fragment() {
         dialog.setMessage("Nombre del guia: "+viewModel.servicioItemSeleccionado.guideUsername
                 +"\n"+"Telefono: "+viewModel.servicioItemSeleccionado.price
                 +"\n"+"Correo: "+viewModel.servicioItemSeleccionado.name)
-        dialog.setPositiveButton("Aceptar") { dialog, which ->}
+        dialog.setPositiveButton("Aceptar") { dialog, which ->
+            fetcherCrearReserva()
+            view1.findNavController().navigate(R.id.action_detalleActividad_to_reservaTurista)
+        }
         dialog.show()
 
     }
+
+    private suspend fun crearReserva(): Boolean {
+        val retService: ServicioService = RetrofitInstance
+            .getRetrofitInstance()
+            .create(ServicioService::class.java)
+        val response = retService.postReserva(crearReserva, viewModel.token)
+        Log.d("postReserva", crearReserva.toString())
+        if (response.isSuccessful) {
+            return true
+        }
+        val jObjError = JSONObject(response.errorBody()!!.string())
+        Log.d("Error", jObjError.getString("errors"))
+        Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(Color.parseColor("#D72F27"))
+            .show()
+        return false
+    }
+
+    fun fetcherCrearReserva() = runBlocking(CoroutineName("fetcherCrearReserva")) {
+        Log.d("reviewFetcher", crearReserva.toString())
+        crearReserva()
+    }
+
 
 
 }

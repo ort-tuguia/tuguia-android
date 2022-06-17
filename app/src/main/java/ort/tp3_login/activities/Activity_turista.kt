@@ -22,16 +22,13 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_turista.*
 import ort.tp3_login.R
-import ort.tp3_login.dataclasses.Servicios
-import ort.tp3_login.dataclasses.ServicioService
 import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import ort.tp3_login.dataclasses.ServiciosSearch
-import ort.tp3_login.dataclasses.UsuarioLogin
+import ort.tp3_login.dataclasses.*
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 import retrofit2.Response
@@ -61,6 +58,7 @@ class activity_turista : AppCompatActivity() {
         viewModel.user.value =
             gson.fromJson(intent.getStringExtra("user"), UsuarioLogin::class.java)
         setmylocation()
+        getReservas()
         viewModel.token = intent.getStringExtra("token").toString()
 
         Log.d("token --> dentro el metodo", viewModel.token)
@@ -144,6 +142,7 @@ class activity_turista : AppCompatActivity() {
         }
     }
 
+
     private fun fetchActivities() {
         val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
@@ -176,6 +175,7 @@ class activity_turista : AppCompatActivity() {
             }
             viewModel.loadActivities()
 
+
         })
 
     }
@@ -185,6 +185,27 @@ class activity_turista : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_drawable_turista,menu)
         return true
     }*/
+    private fun getReservas() {
+        val retService: ServicioService = RetrofitInstance
+            .getRetrofitInstance()
+            .create(ServicioService::class.java)
+        val responseLiveData: LiveData<Response<List<Reserva>>> = liveData {
+            val response = retService.getReservas(viewModel.token)
 
+            emit(response)
+        }
+
+        responseLiveData.observe(this,Observer {
+            val reservasList = it.body()
+            if (reservasList != null) {
+
+                viewModel.reservas.value = reservasList as MutableList<Reserva>?
+                Log.d("response -->Servicios", viewModel.reservas.value.toString())
+
+            }
+            viewModel.loadReservas()
+        })
+
+    }
 
 }

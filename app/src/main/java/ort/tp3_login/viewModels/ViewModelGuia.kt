@@ -1,8 +1,6 @@
 package ort.tp3_login.viewModels
 
-import android.location.Location
 import android.net.Uri
-import android.widget.EditText
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -62,7 +60,7 @@ class ViewModelGuia: ViewModel() {
                 ServicioCard(it.guideUsername,
                     it.name,
                     R.drawable.icon_profile,
-                    5,
+                    5.0,
                     urlPhoto,
                     "categoria",
                     it.id,

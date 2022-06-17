@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_detalleActividad_to_reviews"
             app:destination="@id/reviews" />
+        <action
+            android:id="@+id/action_detalleActividad_to_reservaTurista"
+            app:destination="@id/reservaTurista" />
     </fragment>
     <fragment
         android:id="@+id/reviews"

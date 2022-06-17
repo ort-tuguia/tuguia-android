@@ -2,15 +2,10 @@ package ort.tp3_login.viewModels
 
 import android.net.Uri
 import androidx.core.net.toUri
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
-import ort.tp3_login.dataclasses.CategoriaItem
-import ort.tp3_login.dataclasses.Review
-import ort.tp3_login.dataclasses.ServicioItem
-import ort.tp3_login.dataclasses.UsuarioLogin
+import ort.tp3_login.dataclasses.*
 import ort.tp3_login.entities.ServicioCard
 
 
@@ -20,6 +15,7 @@ class ViewModelHomeTurista : ViewModel() {
     var listaReviews = MutableLiveData<MutableList<Review>>()
     var user = MutableLiveData<UsuarioLogin>()
     var actividades = MutableLiveData<MutableList<ServicioItem>>()
+    var reservas = MutableLiveData<MutableList<Reserva>>()
     var token :String = ""
     var myLatitude : Double = 0.0
     var myLongitude : Double = 0.0
@@ -49,7 +45,7 @@ class ViewModelHomeTurista : ViewModel() {
                 ServicioCard(it.guideUsername,
                     it.name,
                     R.drawable.icon_profile,
-                    5,
+                    5.0,
                     urlPhoto,
                     "categoria",
                     it.id,
@@ -79,6 +75,30 @@ class ViewModelHomeTurista : ViewModel() {
                 R.drawable.recycler_iguazu,
                 "naturaleza")
         )*/
+    }
+
+    fun loadReservas () {
+        // fetch data de la API
+        reservas.value = ArrayList<Reserva>()
+        reservas.value?.forEach() {
+            var urlPhoto: Uri = "".toUri()
+            if (it.activity.photos.isNotEmpty()) {
+                urlPhoto = it.activity.photos[0].photoUrl.toUri()
+            }
+            lista.value?.add(
+                ServicioCard(
+                    it.activity.guideUsername,
+                    it.activity.name,
+                    R.drawable.icon_profile,
+                    it.review?.score?:0.0,
+                    urlPhoto,
+                    "categoria",
+                    it.id,
+                    user.value,
+                    token
+                )
+            )
+        }
     }
 
     // calcular distancia entre dos coordinatos

@@ -61,4 +61,13 @@ interface ServicioService {
     @DELETE("user/fav/activities/{activityId}")
     suspend fun deleteFavActivity(@Path("activityId") activityId: String, @Header("Authorization") token: String)
             : Response<List<ServicioItem>>
+
+    @POST("bookings")
+    suspend fun postReserva(@Body crearReserva: CrearReserva, @Header("Authorization") token: String)
+            : Response<Reserva>
+
+    @GET("bookings/myself")
+    suspend fun getReservas(@Header("Authorization") token: String) : Response<List<Reserva>>
+
+
 }
