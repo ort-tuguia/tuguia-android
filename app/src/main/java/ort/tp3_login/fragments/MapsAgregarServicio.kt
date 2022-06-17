@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.ServicioItem
 import ort.tp3_login.viewModels.ViewModelGuia
 
 class MapsAgregarServicio : Fragment() {
@@ -51,6 +54,14 @@ class MapsAgregarServicio : Fragment() {
         }
         map = googleMap
         checkLocationPermission()
+
+        var listaActividades : MutableLiveData<MutableList<ServicioItem>> = viewModel.actividades
+        listaActividades.observe(viewLifecycleOwner, Observer{
+            it.forEach {
+                val location = LatLng(it.locationLatitude, it.locationLongitude)
+                googleMap.addMarker(MarkerOptions().position(location).title("${it.name}"))
+            }
+        })
     }
 
     private fun openDialogConfirmarUbicacion() {

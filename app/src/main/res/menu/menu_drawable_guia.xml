@@ -14,6 +14,10 @@
         android:title="Reservas"
         android:icon="@drawable/icon_reservas"/>
     <item
+        android:id="@+id/mapa_guia"
+        android:title="Mapa"
+        android:icon="@drawable/icon_search"/>
+    <item
         android:id="@+id/logout_guia"
         android:icon="@drawable/logout"
         android:title="Salir" />
