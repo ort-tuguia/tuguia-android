@@ -122,7 +122,7 @@ class MapsAgregarServicio : Fragment() {
         if(ContextCompat.checkSelfPermission(mapFragment.context,android.Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED){
             map.isMyLocationEnabled = true
-            Snackbar.make(mapFragment,"Tenemos permiso", Snackbar.LENGTH_SHORT).show()
+            //Snackbar.make(mapFragment,"Tenemos permiso", Snackbar.LENGTH_SHORT).show()
         }else{
             requestPermission()
         }
