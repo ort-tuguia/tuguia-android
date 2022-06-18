@@ -60,7 +60,11 @@ class DetalleActividad : Fragment() {
             foto.setImageResource(R.drawable.no_image_available)
         }
         crearReserva = CrearReserva(viewModel.servicioItemSeleccionado.id)
-        valoracion.setText(viewModel.servicioItemSeleccionado.reviews.avgScore.toString())
+        if(viewModel.servicioItemSeleccionado.reviews!=null){
+            valoracion.text  = viewModel.servicioItemSeleccionado.reviews.avgScore.toString()
+        }else{
+            valoracion.visibility = View.GONE
+        }
 
 
         return view1

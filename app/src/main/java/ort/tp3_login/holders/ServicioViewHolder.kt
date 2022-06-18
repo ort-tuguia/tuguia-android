@@ -41,7 +41,12 @@ class ServicioViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         textViewTitulo.text = titulo
         textViewNombreGuia.text = nombreGuia
         //imagenView.setImageResource(imageView)
-        textViewValoracion.text = valoracion.toString()
+        if(valoracion != 0.0) {
+            textViewValoracion.text = valoracion.toString()
+        }else{
+            textViewValoracion.visibility = View.GONE
+        }
+
 
 
         perfilPic.setImageResource(perfilpic)

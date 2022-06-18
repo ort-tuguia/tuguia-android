@@ -35,6 +35,13 @@ class DetalleActividadGuia : Fragment() {
 
         title.text = viewModel.servicioItemSeleccionado?.name
         description.text = viewModel.servicioItemSeleccionado?.description
+        if(viewModel.servicioItemSeleccionado?.reviews!=null){
+            valoracion.text = viewModel.servicioItemSeleccionado?.reviews?.avgScore.toString()
+        }
+        else{
+            valoracion.visibility = View.GONE
+        }
+
 
         return view1
     }

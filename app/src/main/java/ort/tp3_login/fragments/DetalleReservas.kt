@@ -26,6 +26,7 @@ class DetalleReservas : Fragment() {
     lateinit var nombreGuia : TextView
     lateinit var email : TextView
     lateinit var telefono : TextView
+    lateinit var score : TextView
 
     lateinit var view1 : View
     override fun onCreateView(
@@ -40,11 +41,13 @@ class DetalleReservas : Fragment() {
         nombreGuia = view1.findViewById(R.id.reservasNombreGuia)
         email = view1.findViewById(R.id.reservasEmail)
         telefono = view1.findViewById(R.id.reservasTelefono)
+        score = view1.findViewById(R.id.textViewValorar)
 
 
         title.text = viewModel.reservaSeleccionado?.activity?.name
         description.text = viewModel.reservaSeleccionado?.activity?.description
-
+        //score.text = viewModel.reservaSeleccionado.activity.reviews.avgScore.toString()
+        score.visibility = View.GONE
 
         //TODO !!!!!
         nombreGuia.text = "Guia: "+ viewModel.reservaSeleccionado?.activity?.guideUsername

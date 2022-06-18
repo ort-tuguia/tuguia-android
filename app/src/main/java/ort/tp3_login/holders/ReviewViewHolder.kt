@@ -15,7 +15,13 @@ class ReviewViewHolder(v:View):RecyclerView.ViewHolder(v) {
         var textViewValoracion : TextView = view.findViewById(R.id.textviewValoracion)
         var textViewFecha : TextView = view.findViewById(R.id.textviewFecha)
         var textViewContenido : TextView = view.findViewById(R.id.textviewReview)
-        textViewValoracion.setText(valoracion.toString())
+
+        if(valoracion != 0.0){
+            textViewValoracion.text = valoracion.toString()
+        }else{
+            textViewValoracion.visibility = View.GONE
+        }
+
         textViewFecha.setText(fecha)
         textViewContenido.setText(contenido)
     }

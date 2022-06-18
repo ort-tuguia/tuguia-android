@@ -48,44 +48,25 @@ class ViewModelHomeTurista : ViewModel() {
         lista.value = ArrayList<ServicioCard>()
         actividades.value?.forEach() {
             var urlPhoto: Uri = "".toUri()
-            if(it.photos.isNotEmpty()){
-                urlPhoto =  it.photos[0].photoUrl.toUri()
+            if (it.photos.isNotEmpty()) {
+                urlPhoto = it.photos[0].photoUrl.toUri()
             }
             lista.value?.add(
-                ServicioCard(it.guideUsername,
+                ServicioCard(
+                    it.guideUsername,
                     it.name,
                     R.drawable.icon_profile,
-                    it.reviews?.avgScore?:0.0,
+                    it.reviews?.avgScore ?: 0.0,
                     urlPhoto,
                     "categoria",
                     it.id,
                     user.value,
-                    token)
+                    token
+                )
             )
         }
-/*
-
-
-        lista.value?.add(
-            ServicioCard("Tom Maenhout",
-                "24/10/2022",
-                "free walking tour Missiones",
-                R.drawable.profile,
-                5,
-                R.drawable.recycler_city,
-                "city trip")
-        )
-
-        lista.value?.add(
-            ServicioCard("Tommy",
-                "13/10/2022",
-                "Cataratas de Iguazu",
-                R.drawable.icon_profile,
-                4,
-                R.drawable.recycler_iguazu,
-                "naturaleza")
-        )*/
     }
+
 
     fun loadReservas () {
         listaReservas.value = ArrayList<ServicioCard>()
