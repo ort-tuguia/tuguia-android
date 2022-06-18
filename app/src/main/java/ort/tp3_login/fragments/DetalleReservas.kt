@@ -47,7 +47,7 @@ class DetalleReservas : Fragment() {
 
 
         //TODO !!!!!
-        nombreGuia.text = viewModel.reservaSeleccionado?.activity?.guideUsername
+        nombreGuia.text = "Guia: "+ viewModel.reservaSeleccionado?.activity?.guideUsername
         //email.text = viewModel.servicioItemSeleccionado?.description
         //telefono.text = viewModel.servicioItemSeleccionado?.
 
