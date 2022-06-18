@@ -80,7 +80,7 @@ class ViewModelHomeTurista : ViewModel() {
                     it.activity.guideUsername,
                     it.activity.name,
                     R.drawable.icon_profile,
-                    it.review?.score?:0.0,
+                    0.0,
                     urlPhoto,
                     "categoria",
                     it.id,
