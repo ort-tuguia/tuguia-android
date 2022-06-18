@@ -6,13 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.*
+import ort.tp3_login.entities.ReviewCard
 import ort.tp3_login.entities.ServicioCard
 
 
 class ViewModelHomeTurista : ViewModel() {
     var lista = MutableLiveData<MutableList<ServicioCard>>()
     var listaReservas = MutableLiveData<MutableList<ServicioCard>>()
-    var listaReviews = MutableLiveData<MutableList<Review>>()
+    var listaReviews = MutableLiveData<MutableList<ReviewCard>>()
     var user = MutableLiveData<UsuarioLogin>()
     var actividades = MutableLiveData<MutableList<ServicioItem>>()
     var reservas = MutableLiveData<MutableList<Reserva>>()
@@ -78,14 +79,13 @@ class ViewModelHomeTurista : ViewModel() {
     }
 
     fun loadReservas () {
-        // fetch data de la API
-        reservas.value = ArrayList<Reserva>()
+        listaReservas.value = ArrayList<ServicioCard>()
         reservas.value?.forEach() {
             var urlPhoto: Uri = "".toUri()
             if (it.activity.photos.isNotEmpty()) {
                 urlPhoto = it.activity.photos[0].photoUrl.toUri()
             }
-            lista.value?.add(
+            listaReservas.value?.add(
                 ServicioCard(
                     it.activity.guideUsername,
                     it.activity.name,

@@ -69,5 +69,8 @@ interface ServicioService {
     @GET("bookings/myself")
     suspend fun getReservas(@Header("Authorization") token: String) : Response<List<Reserva>>
 
+    @GET("activities/{id}/reviews")
+    suspend fun getReviewsActividad(@Path("activityId") activityId: String, @Header("Authorization") token: String) : Response<List<Review>>
+
 
 }

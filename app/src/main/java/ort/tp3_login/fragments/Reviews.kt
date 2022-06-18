@@ -15,6 +15,7 @@ import ort.tp3_login.R
 import ort.tp3_login.adapters.ReviewsAdapter
 import ort.tp3_login.adapters.ServicioAdapter
 import ort.tp3_login.dataclasses.Review
+import ort.tp3_login.entities.ReviewCard
 import ort.tp3_login.entities.ServicioCard
 import ort.tp3_login.viewModels.ViewModelHomeTurista
 
@@ -27,7 +28,7 @@ class Reviews : Fragment() {
 
     //RecyclerView
     lateinit var recyclerView: RecyclerView
-    var cardsReviewsLista : MutableList<Review> = ArrayList<Review>()
+    var cardsReviewsLista : MutableList<ReviewCard> = ArrayList<ReviewCard>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var adapter: ReviewsAdapter
 

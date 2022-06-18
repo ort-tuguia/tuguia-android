@@ -7,19 +7,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.Review
+import ort.tp3_login.entities.ReviewCard
 import ort.tp3_login.holders.ReviewViewHolder
 
 
 class ReviewsAdapter(
-    private var reviewsList: MutableList<Review>,
+    private var reviewsList: MutableList<ReviewCard>,
     val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<ReviewViewHolder>()
 {
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
 
         holder.setNames(
-            reviewsList[position].score,
-            reviewsList[position].createdAt,
-            reviewsList[position].comment
+            reviewsList[position].valoracion,
+            reviewsList[position].review,
+            reviewsList[position].fecha
         )
         holder.getCardLayout().setOnClickListener{
             onItemClick(position)

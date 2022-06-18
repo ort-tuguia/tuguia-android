@@ -1,18 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="fragments.ReservaTurista">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewReservasTurista"
+    android:background="@color/teal_700"
+    android:backgroundTint="@null"
+    tools:context=".fragments.ReservaTurista">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient"
-        tools:listitem="@layout/card_design_home_guia">
+        android:orientation="vertical">
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewReservasTurista"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient"
+            tools:listitem="@layout/card_design_home_guia">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+</FrameLayout>

@@ -5,17 +5,27 @@ import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
+import ort.tp3_login.dataclasses.Reserva
 import ort.tp3_login.dataclasses.Review
 import ort.tp3_login.dataclasses.ServicioItem
 import ort.tp3_login.dataclasses.UsuarioLogin
+import ort.tp3_login.entities.ReservaCard
+import ort.tp3_login.entities.ReviewCard
 import ort.tp3_login.entities.ServicioCard
 
 class ViewModelGuia: ViewModel() {
     var user = MutableLiveData<UsuarioLogin>()
     var token :String = ""
+
     var actividades = MutableLiveData<MutableList<ServicioItem>>()
+    var reservas = MutableLiveData<MutableList<Reserva>>()
+    var reviews = MutableLiveData<MutableList<Review>>()
+
     var lista = MutableLiveData<MutableList<ServicioCard>>()
-    var listaReviews = MutableLiveData<MutableList<Review>>()
+    var listaReviews = MutableLiveData<MutableList<ReviewCard>>()
+    var listaReservas = MutableLiveData<MutableList<ReservaCard>>()
+
+
     //var valoracion : Double = calcularValoracion()
 
 
@@ -66,6 +76,32 @@ class ViewModelGuia: ViewModel() {
                     it.id,
                     user.value,
                     token)
+            )
+        }
+    }
+
+    fun loadReservas () {
+        listaReservas.value = ArrayList<ReservaCard>()
+        reservas.value?.forEach() {
+            listaReservas.value?.add(
+                ReservaCard(
+                    it.activity.name,
+                    it.tourist.username,
+                    it.tourist.phones[0].number,
+                    it.tourist.email
+                )
+            )
+        }
+    }
+    fun loadReviews () {
+        listaReviews.value = ArrayList<ReviewCard>()
+        reviews.value?.forEach() {
+            listaReviews.value?.add(
+                ReviewCard(
+                    it.createdAt,
+                    it.comment,
+                    it.score
+                )
             )
         }
     }
