@@ -55,6 +55,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:paddingRight="10dp"
+                    android:clickable="true"
                     android:src="@drawable/icon_delete"></ImageView>
             </LinearLayout>
 

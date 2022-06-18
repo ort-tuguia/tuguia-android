@@ -44,9 +44,6 @@ class PhoneList : Fragment() {
         buttonSave = v.findViewById(R.id.buttonSave)
         buttonAddPhone = v.findViewById(R.id.buttonAddPhone)
 
-
-
-
         return v
 
     }
@@ -82,6 +79,12 @@ class PhoneList : Fragment() {
         var response = service.putPhone(viewModel.user.value!!.phones as ArrayList<Phone>, viewModel.token)
         Log.d("Phone", response.body().toString())
         viewModel.user.value = response.body()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.user.value!!.phones = adapter.getData()
+        fetcher()
     }
 
 

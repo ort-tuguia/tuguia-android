@@ -43,11 +43,10 @@ class PhonesAdapter (
     fun getData(): List<Phone> {
         var auxPhones: MutableList<Phone> = ArrayList<Phone>()
 
-//        phones.forEach {
-//            phoneViewHold?.let { it1 -> auxPhones.add(it1.getPhone()) }
-//        }
         phoneViewHold?.forEach{
-            auxPhones.add(it.getPhone())
+           if(!it.getFlagDelete()){
+               auxPhones.add(it.getPhone())
+           }
         }
 
         return auxPhones
