@@ -60,6 +60,7 @@ class DetalleActividad : Fragment() {
             foto.setImageResource(R.drawable.no_image_available)
         }
         crearReserva = CrearReserva(viewModel.servicioItemSeleccionado.id)
+        //valoracion.setText(viewModel.servicioItemSeleccionado.... TODO------------!!!)
 
 
         return view1
@@ -71,10 +72,6 @@ class DetalleActividad : Fragment() {
             view1.findNavController().navigate(R.id.action_detalleActividad_to_reviews)
         }
         buttonReservar.setOnClickListener{
-
-            //TODO PEgarle a backend agregando a reservasGuia y a reservasTurista
-            //TODO SACAR CONTACTO DE PANTALLA
-
             showDialog()
         }
     }
