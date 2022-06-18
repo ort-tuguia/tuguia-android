@@ -60,7 +60,7 @@ class DetalleActividad : Fragment() {
             foto.setImageResource(R.drawable.no_image_available)
         }
         crearReserva = CrearReserva(viewModel.servicioItemSeleccionado.id)
-        //valoracion.setText(viewModel.servicioItemSeleccionado.... TODO------------!!!)
+        valoracion.setText(viewModel.servicioItemSeleccionado.reviews.avgScore.toString())
 
 
         return view1
