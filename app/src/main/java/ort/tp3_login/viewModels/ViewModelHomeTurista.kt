@@ -47,7 +47,7 @@ class ViewModelHomeTurista : ViewModel() {
                 ServicioCard(it.guideUsername,
                     it.name,
                     R.drawable.icon_profile,
-                    5.0,
+                    it.reviews?.avgScore?:0.0,
                     urlPhoto,
                     "categoria",
                     it.id,
