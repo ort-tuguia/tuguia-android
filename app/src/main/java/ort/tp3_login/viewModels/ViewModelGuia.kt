@@ -29,11 +29,7 @@ class ViewModelGuia: ViewModel() {
     var listaReviews = MutableLiveData<MutableList<ReviewCard>>()
     var listaReservas = MutableLiveData<MutableList<ReservaCard>>()
 
-
-
-
-
-    //var valoracion : Double = calcularValoracion()
+    var valoracion : Double = 0.0
 
 
     // agregarServicio
@@ -51,18 +47,23 @@ class ViewModelGuia: ViewModel() {
 
 
 
-//    fun calcularValoracion() : Double{
-//        var valoracion : Double = 0.0
-//        var size : Int? = actividades.value?.size
-//        if (actividades.value != null)
-//        actividades.value?.forEach {
-//            //valoracion += it.valoracion
-//        }
-//        if (size != null) {
-//            valoracion /= size
-//        }
-//        return valoracion
-//    }
+    fun calcularValoracion() : Double{
+        var valoracion : Double = 0.0
+        var cont = 0
+        var size : Int? = actividades.value?.size
+       if (actividades.value != null)
+        actividades.value?.forEach {
+            if(it.reviews != null){
+            if(it?.reviews?.reviews!! > 0){
+            valoracion += it.reviews.avgScore
+            cont++}
+       }
+        }
+        if (cont > 0) {
+            valoracion /= cont
+       }
+        return valoracion
+    }
 
 
     fun loadActivities () {

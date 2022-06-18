@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -24,6 +25,7 @@ class home_guia : Fragment() {
 
     lateinit var view1 : View
     lateinit var botonAgregar: Button
+    lateinit var promedio : TextView
 
     //RecyclerView
     lateinit var recyclerView: RecyclerView
@@ -45,6 +47,7 @@ class home_guia : Fragment() {
         viewModel.servicioLocationlat = 0.0
         botonAgregar = view1.findViewById(R.id.buttonAgregar)
         recyclerView = view1.findViewById(R.id.recyclerViewHomeGuia)
+        promedio = view1.findViewById(R.id.textViewHomeValoracion)
         viewModel.loadActivities()
         return view1
     }
@@ -67,6 +70,8 @@ class home_guia : Fragment() {
             }
             //asignar adaptar a recyclerview
             recyclerView.adapter = adapter
+            viewModel.valoracion = viewModel.calcularValoracion()
+            promedio.text = viewModel.valoracion.toString()
 
             //viewModel.loadActivities()
 

@@ -60,7 +60,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Descripcion"
-        android:inputType="textLongMessage"
+        android:inputType="textMultiLine"
          />
     <!--<androidx.fragment.app.FragmentContainerView
         android:id="@+id/autocomplete_fragment"
