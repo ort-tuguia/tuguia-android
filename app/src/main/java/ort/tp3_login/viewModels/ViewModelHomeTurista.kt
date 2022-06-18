@@ -1,5 +1,7 @@
 package ort.tp3_login.viewModels
 
+import android.icu.text.DateFormat
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
@@ -8,15 +10,21 @@ import ort.tp3_login.R
 import ort.tp3_login.dataclasses.*
 import ort.tp3_login.entities.ReviewCard
 import ort.tp3_login.entities.ServicioCard
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ViewModelHomeTurista : ViewModel() {
     var lista = MutableLiveData<MutableList<ServicioCard>>()
     var listaReservas = MutableLiveData<MutableList<ServicioCard>>()
     var listaReviews = MutableLiveData<MutableList<ReviewCard>>()
+
     var user = MutableLiveData<UsuarioLogin>()
+
     var actividades = MutableLiveData<MutableList<ServicioItem>>()
     var reservas = MutableLiveData<MutableList<Reserva>>()
+    var reviews = MutableLiveData<MutableList<Review>>()
+
     var token :String = ""
     var myLatitude : Double = 0.0
     var myLongitude : Double = 0.0
@@ -97,6 +105,22 @@ class ViewModelHomeTurista : ViewModel() {
                     it.id,
                     user.value,
                     token
+                )
+            )
+        }
+    }
+
+    fun loadReviews () {
+        listaReviews.value = ArrayList<ReviewCard>()
+        reviews.value?.forEach() {
+            var fecha: DateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
+            var inputFormat: DateFormat =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+            var date : Date = inputFormat.parse(it.createdAt)
+            listaReviews.value?.add(
+                ReviewCard(
+                    fecha.format(date),
+                    it.comment,
+                    it.score
                 )
             )
         }
