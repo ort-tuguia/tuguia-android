@@ -30,7 +30,6 @@ class PhoneListGuia : Fragment() {
     lateinit var buttonSave : Button
     lateinit var buttonAddPhone : Button
     private val viewModel: ViewModelGuia by activityViewModels()
-    lateinit var buttonDelete : ImageView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private  var service: ServicioService = RetrofitInstance
         .getRetrofitInstance()
@@ -45,7 +44,7 @@ class PhoneListGuia : Fragment() {
         recyclerView = v.findViewById(R.id.recyclerViewPhoneList)
         buttonSave = v.findViewById(R.id.buttonSave)
         buttonAddPhone = v.findViewById(R.id.buttonAddPhone)
-        buttonDelete = v.findViewById(R.id.imageViewDelete)
+
 
         return v
 
@@ -64,9 +63,7 @@ class PhoneListGuia : Fragment() {
             v.findNavController().navigate(R.id.action_phoneListGuia_to_telefonos)
         }
 
-        buttonDelete.setOnClickListener{
 
-        }
 
 
     }
@@ -85,6 +82,11 @@ class PhoneListGuia : Fragment() {
         var response = service.putPhone(viewModel.user.value!!.phones as ArrayList<Phone>, viewModel.token)
         Log.d("Phone", response.body().toString())
         viewModel.user.value = response.body()
+    }
+    override fun onPause() {
+        super.onPause()
+        viewModel.user.value!!.phones = adapter.getData()
+        fetcher()
     }
 
 
