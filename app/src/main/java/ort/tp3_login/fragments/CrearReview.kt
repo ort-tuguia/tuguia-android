@@ -58,12 +58,10 @@ class CrearReview : Fragment() {
         }
         buttonMandarValoración.setOnClickListener {
             review = CrearReview(
-                reviewText.toString(),
-                valoracion.toString().toDouble(),
-                viewModel.servicioItemSeleccionado.id,
-                viewModel.user.value?.username.toString()
+                reviewText.text.toString(),
+                valoracion.toString().toDouble()
             )
-            Log.d("review", review.toString())
+            Log.d("reviewCreate", review.comment)
             var statusCode : Boolean = fetcherCrearReview()
             if (statusCode) {
 
@@ -80,20 +78,21 @@ class CrearReview : Fragment() {
         val retService: ServicioService = RetrofitInstance
             .getRetrofitInstance()
             .create(ServicioService::class.java)
-        val response = retService.postReview(review, viewModel.token)
+
+        val response = retService.postReview(viewModel.reservaSeleccionado.id,review, viewModel.token)
         Log.d("reviewCrearReview", review.toString())
         if (response.isSuccessful) {
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())
-        Log.d("Error", jObjError.getString("errors"))
+        Log.d("Error", jObjError.getString("message"))
         Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
             .setBackgroundTint(Color.parseColor("#D72F27"))
             .show()
         return false
     }
 
-    fun fetcherCrearReview() = runBlocking(CoroutineName("fetcherCrearServicio")) {
+    fun fetcherCrearReview() = runBlocking(CoroutineName("fetcherCrearReserva")) {
         Log.d("reviewFetcher", review.toString())
         crearReview()
     }

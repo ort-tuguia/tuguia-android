@@ -24,6 +24,7 @@ class ViewModelHomeTurista : ViewModel() {
     var selectedCategorie: ArrayList<Boolean> = ArrayList<Boolean>()
 
     lateinit var servicioItemSeleccionado: ServicioItem
+    lateinit var reservaSeleccionado : Reserva
     var favoritos = MutableLiveData<MutableList<ServicioCard>>()
 
 

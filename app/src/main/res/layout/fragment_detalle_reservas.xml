@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:id="@+id/textViewValorar"
             android:background="@color/teal_700"
             android:gravity="center"
             android:text="5.0"
@@ -97,6 +98,7 @@
 
         <Button
             android:id="@+id/buttonValorar"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Valorar" />

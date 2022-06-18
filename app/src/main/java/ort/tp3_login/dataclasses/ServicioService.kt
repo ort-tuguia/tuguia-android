@@ -54,8 +54,8 @@ interface ServicioService {
     suspend fun postFavActivity(@Path("activityId") activityId: String, @Header("Authorization") token: String)
             : Response<List<ServicioItem>>
 
-    @POST("reviews")
-    suspend fun postReview(@Body x: CrearReview,@Header("Authorization") token: String)
+    @POST("bookings/{id}/review")
+    suspend fun postReview(@Path("id") activityId: String, @Body x: CrearReview,@Header("Authorization") token: String)
             : Response<Review>
 
     @DELETE("user/fav/activities/{activityId}")
@@ -70,7 +70,7 @@ interface ServicioService {
     suspend fun getReservas(@Header("Authorization") token: String) : Response<List<Reserva>>
 
     @GET("activities/{id}/reviews")
-    suspend fun getReviewsActividad(@Path("activityId") activityId: String, @Header("Authorization") token: String) : Response<List<Review>>
+    suspend fun getReviewsActividad(@Path("id") activityId: String, @Header("Authorization") token: String) : Response<List<Review>>
 
 
 }

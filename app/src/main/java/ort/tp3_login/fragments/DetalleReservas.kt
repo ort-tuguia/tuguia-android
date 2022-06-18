@@ -42,9 +42,12 @@ class DetalleReservas : Fragment() {
         telefono = view1.findViewById(R.id.reservasTelefono)
 
 
-        title.text = viewModel.servicioItemSeleccionado?.name
-        description.text = viewModel.servicioItemSeleccionado?.description
-        //nombreGuia.text = viewModel.servicioItemSeleccionado?.description
+        title.text = viewModel.reservaSeleccionado?.activity?.name
+        description.text = viewModel.reservaSeleccionado?.activity?.description
+
+
+        //TODO !!!!!
+        nombreGuia.text = viewModel.reservaSeleccionado?.activity?.guideUsername
         //email.text = viewModel.servicioItemSeleccionado?.description
         //telefono.text = viewModel.servicioItemSeleccionado?.
 

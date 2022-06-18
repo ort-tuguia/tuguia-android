@@ -80,7 +80,7 @@ class ReservaTurista : Fragment() {
     }
 
     private fun onItemClick(position: Int) : Boolean {
-        viewModel.servicioItemSeleccionado = viewModel.actividades.value?.get(position)!!
+        viewModel.reservaSeleccionado = viewModel.reservas.value?.get(position)!!
         view1.findNavController().navigate(R.id.action_reservaTurista_to_detalleReservas)
         return true
     }

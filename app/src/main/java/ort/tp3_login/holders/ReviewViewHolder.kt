@@ -11,7 +11,7 @@ class ReviewViewHolder(v:View):RecyclerView.ViewHolder(v) {
     init {
         this.view = v
     }
-    fun setNames(valoracion: Double,fecha:String, contenido: String){
+    fun setNames(valoracion: Double,contenido:String, fecha: String){
         var textViewValoracion : TextView = view.findViewById(R.id.textviewValoracion)
         var textViewFecha : TextView = view.findViewById(R.id.textviewFecha)
         var textViewContenido : TextView = view.findViewById(R.id.textviewReview)
