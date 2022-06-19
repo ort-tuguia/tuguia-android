@@ -19,7 +19,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Deje un review"
-        android:inputType="textLongMessage"
+        android:inputType="textMultiLine"
         />
 
     <RatingBar

@@ -5,4 +5,5 @@ data class Reserva(
     val tourist : UsuarioLogin,
     val activity : ServicioItem,
     val review : Review?,
-    val createdAt: String)
+    val createdAt: String,
+    val guide : UsuarioLogin,)

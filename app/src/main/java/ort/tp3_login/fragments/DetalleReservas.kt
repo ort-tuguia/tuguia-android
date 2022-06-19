@@ -47,6 +47,8 @@ class DetalleReservas : Fragment() {
         title.text = viewModel.reservaSeleccionado?.activity?.name
         description.text = viewModel.reservaSeleccionado?.activity?.description
         //score.text = viewModel.reservaSeleccionado.activity.reviews.avgScore.toString()
+        email.text = "Correo : ${viewModel.reservaSeleccionado.guide.email}"
+        telefono.text = "${viewModel.reservaSeleccionado.guide.phones[0].description} : ${viewModel.reservaSeleccionado.guide.phones[0].number}"
         score.visibility = View.GONE
 
         //TODO !!!!!

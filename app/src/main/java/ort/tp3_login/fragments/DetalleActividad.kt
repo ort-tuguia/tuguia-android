@@ -21,6 +21,7 @@ import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import ort.tp3_login.R
 import ort.tp3_login.dataclasses.CrearReserva
+import ort.tp3_login.dataclasses.Reserva
 import ort.tp3_login.dataclasses.ServicioService
 import ort.tp3_login.services.RetrofitInstance
 import ort.tp3_login.viewModels.ViewModelHomeTurista
@@ -76,21 +77,25 @@ class DetalleActividad : Fragment() {
             view1.findNavController().navigate(R.id.action_detalleActividad_to_reviews)
         }
         buttonReservar.setOnClickListener{
-            showDialog()
+            fetcherCrearReserva()
+
         }
     }
-    private fun showDialog(){
+    private fun showDialog(reserva: Reserva?){
         val dialog = AlertDialog.Builder(context)
-        dialog.setTitle("Contacto")
-        dialog.setMessage("Nombre del guia: "+viewModel.servicioItemSeleccionado.guideUsername
-                +"\n"+"Telefono: "+viewModel.servicioItemSeleccionado.price
-                +"\n"+"Correo: "+viewModel.servicioItemSeleccionado.name)
-        dialog.setPositiveButton("Aceptar") { dialog, which ->
-            fetcherCrearReserva()
-            view1.findNavController().navigate(R.id.action_detalleActividad_to_reservaTurista)
-        }
-        dialog.show()
+        if(reserva!= null) {
+            dialog.setTitle("Contacto")
+            dialog.setMessage(
+                "Nombre del guia: " + reserva.guide.username
+                        + "\n" + "Telefono: " + reserva.guide.phones[0].number
+                        + "\n" + "Correo: " + reserva.guide.email
+            )
+            dialog.setPositiveButton("Aceptar") { dialog, which ->
 
+                view1.findNavController().navigate(R.id.action_detalleActividad_to_reservaTurista)
+            }
+            dialog.show()
+        }
     }
 
     private suspend fun crearReserva(): Boolean {
@@ -100,10 +105,11 @@ class DetalleActividad : Fragment() {
         val response = retService.postReserva(crearReserva, viewModel.token)
         Log.d("postReserva", crearReserva.toString())
         if (response.isSuccessful) {
+            showDialog(response.body())
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())
-        Log.d("Error", jObjError.getString("errors"))
+        Log.d("Error", jObjError.getString("message"))
         Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
             .setBackgroundTint(Color.parseColor("#D72F27"))
             .show()
