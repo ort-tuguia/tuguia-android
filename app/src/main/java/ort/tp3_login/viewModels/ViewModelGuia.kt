@@ -7,10 +7,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ort.tp3_login.R
-import ort.tp3_login.dataclasses.Reserva
-import ort.tp3_login.dataclasses.Review
-import ort.tp3_login.dataclasses.ServicioItem
-import ort.tp3_login.dataclasses.UsuarioLogin
+import ort.tp3_login.dataclasses.*
 import ort.tp3_login.entities.ReservaCard
 import ort.tp3_login.entities.ReviewCard
 import ort.tp3_login.entities.ServicioCard
@@ -91,11 +88,17 @@ class ViewModelGuia: ViewModel() {
     fun loadReservas () {
         listaReservas.value = ArrayList<ReservaCard>()
         reservas.value?.forEach() {
+//            var miPhones: List<Phone> = listOf()
+//            if(it.tourist.phones.isNotEmpty()){
+//                 it.tourist.phones.jo
+//            }
             listaReservas.value?.add(
                 ReservaCard(
                     it.activity.name,
                     it.tourist.username,
-                    it.tourist.phones[0].number,
+                    it.tourist.phones.joinToString { phone->
+                        "${phone.number}\n"
+                    },
                     it.tourist.email
                 )
             )

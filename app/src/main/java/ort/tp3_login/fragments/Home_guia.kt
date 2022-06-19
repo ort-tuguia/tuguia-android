@@ -81,6 +81,7 @@ class home_guia : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        viewModel.loadActivities()
         botonAgregar.setOnClickListener {
             view1.findNavController().navigate(R.id.action_home_guia_to_fotoAgregarServicio)
         }

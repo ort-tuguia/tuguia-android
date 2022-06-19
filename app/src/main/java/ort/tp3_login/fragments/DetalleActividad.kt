@@ -84,6 +84,9 @@ class DetalleActividad : Fragment() {
     private fun showDialog(reserva: Reserva?){
         val dialog = AlertDialog.Builder(context)
         if(reserva!= null) {
+            if(reserva.guide.phones.isNotEmpty()){
+
+
             dialog.setTitle("Contacto")
             dialog.setMessage(
                 "Nombre del guia: " + reserva.guide.username
@@ -95,6 +98,7 @@ class DetalleActividad : Fragment() {
                 view1.findNavController().navigate(R.id.action_detalleActividad_to_reservaTurista)
             }
             dialog.show()
+            }
         }
     }
 
