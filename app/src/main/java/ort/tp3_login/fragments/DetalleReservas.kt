@@ -48,7 +48,12 @@ class DetalleReservas : Fragment() {
         description.text = viewModel.reservaSeleccionado?.activity?.description
         //score.text = viewModel.reservaSeleccionado.activity.reviews.avgScore.toString()
         email.text = "Correo : ${viewModel.reservaSeleccionado.guide.email}"
-        telefono.text = "${viewModel.reservaSeleccionado.guide.phones[0].description} : ${viewModel.reservaSeleccionado.guide.phones[0].number}"
+        if(viewModel.reservaSeleccionado.guide.phones.isNotEmpty()) {
+            telefono.text = "${viewModel.reservaSeleccionado.guide.phones[0].description} : ${viewModel.reservaSeleccionado.guide.phones[0].number}"
+        }else{
+            telefono.text = "No tiene telefono"
+        }
+
         score.visibility = View.GONE
 
         //TODO !!!!!

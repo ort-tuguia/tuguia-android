@@ -284,6 +284,7 @@ class AgregarServicio : Fragment() {
             .create(ServicioService::class.java)
         val response = retService.postCrearServicio(servicio, viewModel.token)
         if (response.isSuccessful) {
+            viewModel.actividades.value?.add(response.body()!!)
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())
@@ -305,6 +306,7 @@ class AgregarServicio : Fragment() {
         )
         Log.d("response", response.toString())
         if (response.isSuccessful) {
+            viewModel.actividades.value?.add(response.body()!!)
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())

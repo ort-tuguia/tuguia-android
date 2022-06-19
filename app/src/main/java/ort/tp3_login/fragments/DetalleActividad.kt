@@ -83,14 +83,18 @@ class DetalleActividad : Fragment() {
     }
     private fun showDialog(reserva: Reserva?){
         val dialog = AlertDialog.Builder(context)
+        var telefono = ""
         if(reserva!= null) {
-            if(reserva.guide.phones.isNotEmpty()){
-
+            if(reserva.guide.phones.isNotEmpty()) {
+                telefono = reserva.guide.phones[0].number
+            }else{
+                telefono = "No tiene telefono"
+            }
 
             dialog.setTitle("Contacto")
             dialog.setMessage(
                 "Nombre del guia: " + reserva.guide.username
-                        + "\n" + "Telefono: " + reserva.guide.phones[0].number
+                        + "\n" + "Telefono: " + telefono
                         + "\n" + "Correo: " + reserva.guide.email
             )
             dialog.setPositiveButton("Aceptar") { dialog, which ->
@@ -100,7 +104,7 @@ class DetalleActividad : Fragment() {
             dialog.show()
             }
         }
-    }
+
 
     private suspend fun crearReserva(): Boolean {
         val retService: ServicioService = RetrofitInstance
