@@ -18,9 +18,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
 import androidx.navigation.findNavController
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Status
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -81,8 +85,10 @@ class AgregarServicio : Fragment() {
             Places.initialize(context, "AIzaSyDcmuX27tGfel6OYDsBoZ65WavbgZylzfw")
         }
 
-        fetchCategories()
+
+
         val autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment?
+        autocompleteFragment?.setCountries("AR")
         autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 viewModel.servicioLocationlon = place.latLng.longitude
@@ -96,6 +102,7 @@ class AgregarServicio : Fragment() {
         })
 
 
+
         autocompleteFragment!!.setPlaceFields(
             Arrays.asList(
                 Place.Field.ID,
@@ -103,6 +110,8 @@ class AgregarServicio : Fragment() {
                 Place.Field.LAT_LNG
             )
         )
+
+
 
         if (viewModel.servicioItemSeleccionado != null) {
 

@@ -164,7 +164,6 @@ class activity_turista : AppCompatActivity() {
 
                 favoritas.forEach {
                     favoritasIds.add(it.id)
-
                 }
                 servicioSearch = ServiciosSearch(
                     myLatitude,
