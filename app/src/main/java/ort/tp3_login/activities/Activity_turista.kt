@@ -150,13 +150,30 @@ class activity_turista : AppCompatActivity() {
             .getRetrofitInstance()
             .create(ServicioService::class.java)
         val responseLiveData: LiveData<Response<Servicios>> = liveData {
-            val servicioSearch : ServiciosSearch = ServiciosSearch(
+            var servicioSearch : ServiciosSearch?
+            val favoritas = viewModel.user.value?.favCategories
+            if(favoritas == null){
+            servicioSearch  = ServiciosSearch(
                 myLatitude,
                 myLongitude,
                 DEFAULT_MAX_KM,
                 DEFAULT_MAX_RESULTS,
                 listOf()
-            )
+            )}else{
+                val favoritasIds = arrayListOf<String>()
+
+                favoritas.forEach {
+                    favoritasIds.add(it.id)
+
+                }
+                servicioSearch = ServiciosSearch(
+                    myLatitude,
+                    myLongitude,
+                    DEFAULT_MAX_KM,
+                    DEFAULT_MAX_RESULTS,
+                    favoritasIds
+                )
+            }
             viewModel.myLatitude = myLatitude
             viewModel.myLongitude = myLongitude
             Log.d("response -->ServiciosSearch", servicioSearch.toString())

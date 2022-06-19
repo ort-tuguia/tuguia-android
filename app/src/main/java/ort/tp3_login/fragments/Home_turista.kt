@@ -146,8 +146,7 @@ class home_turista : Fragment() {
     // funcion que vamos a usar para ir a la pantalla de detalles
     private fun onItemClick(position: Int) : Boolean {
        viewModel.servicioItemSeleccionado = viewModel.actividades.value?.get(position)!!
-        view1.findNavController().navigate(R.id.action_home_turista_to_detalleActividad) //TODO es correcto
-        //view1.findNavController().navigate(R.id.action_home_turista_to_detalleReservas)
+        view1.findNavController().navigate(R.id.action_home_turista_to_detalleActividad)
         return true
     }
 
