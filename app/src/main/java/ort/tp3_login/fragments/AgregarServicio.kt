@@ -23,6 +23,7 @@ import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
@@ -88,7 +89,13 @@ class AgregarServicio : Fragment() {
 
 
         val autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment?
-        autocompleteFragment?.setCountries("AR")
+        autocompleteFragment?.setLocationBias(
+            RectangularBounds.newInstance(
+                LatLng(-34.808339400691146, -58.737528166884935),
+                LatLng(-27.346900460718775, -55.96091144406094)
+            )
+        )
+
         autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 viewModel.servicioLocationlon = place.latLng.longitude
