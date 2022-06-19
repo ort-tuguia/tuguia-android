@@ -61,7 +61,11 @@ class PerfilGuia : Fragment() {
         v.findViewById<TextView>(R.id.user_name).text = viewModel.user.value?.firstName + " " + viewModel.user.value?.lastName
         v.findViewById<TextView>(R.id.user_email).text = viewModel.user.value?.email
         circleImageView = v.findViewById(R.id.circleImageViewGuia)
+
         loadImageInCircle()
+        if(circleImageView.drawable == null){
+            circleImageView.setImageResource(R.drawable.icon_profile)
+        }
         botonEdit = v.findViewById(R.id.botonEdit)
         servicioService = RetrofitInstance
             .getRetrofitInstance()

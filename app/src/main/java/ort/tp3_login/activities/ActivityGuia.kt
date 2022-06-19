@@ -59,6 +59,9 @@ class ActivityGuia : AppCompatActivity() {
             finish()
             true
         }
+        if(nav_view_guia.getHeaderView(0).findViewById<CircleImageView>(R.id.profile_image).drawable == null){
+            nav_view_guia.getHeaderView(0).findViewById<CircleImageView>(R.id.profile_image).setImageResource(R.drawable.icon_profile)
+        }
         fetchActivities()
     }
 

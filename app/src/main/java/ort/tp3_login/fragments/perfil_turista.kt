@@ -100,6 +100,10 @@ class perfil_turista : Fragment() {
         servicioService = RetrofitInstance
             .getRetrofitInstance()
             .create(ServicioService::class.java)
+
+        if(circleImageView.drawable == null){
+            circleImageView.setImageResource(R.drawable.icon_profile)
+        }
         return v
     }
 

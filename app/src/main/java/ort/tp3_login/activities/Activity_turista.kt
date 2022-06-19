@@ -72,7 +72,9 @@ class activity_turista : AppCompatActivity() {
         nav_view.getHeaderView(0).findViewById<TextView>(R.id.user_email).text =
             viewModel.user.value!!.email
         Picasso.get().load(viewModel.user.value?.photoUrl?.toUri()).into(nav_view.getHeaderView(0).findViewById<CircleImageView>(R.id.profile_image))
-
+        if(nav_view.getHeaderView(0).findViewById<CircleImageView>(R.id.profile_image).drawable == null){
+            nav_view.getHeaderView(0).findViewById<CircleImageView>(R.id.profile_image).setImageResource(R.drawable.icon_profile)
+        }
 
 
         nav_view.setupWithNavController(navController)
