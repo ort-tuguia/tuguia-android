@@ -95,6 +95,8 @@ class AgregarServicio : Fragment() {
                 LatLng(-27.346900460718775, -55.96091144406094)
             )
         )
+        fetchCategories()
+
 
         autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
@@ -106,6 +108,7 @@ class AgregarServicio : Fragment() {
             override fun onError(status: Status) {
                 Log.i(TAG, "An error occurred: $status")
             }
+
         })
 
 
@@ -133,7 +136,6 @@ class AgregarServicio : Fragment() {
 
         return view1
     }
-
 
 
 
