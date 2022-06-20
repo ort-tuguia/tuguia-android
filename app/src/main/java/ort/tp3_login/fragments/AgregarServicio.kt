@@ -141,13 +141,14 @@ class AgregarServicio : Fragment() {
 
     fun savePictureOnFirebase(){
         val progressDialog = ProgressDialog(context)
-        progressDialog.setMessage("Subiendo imagen...")
-        progressDialog.setCancelable(false)
-        progressDialog.show()
+
         val fileName = UUID.randomUUID().toString()
         var urlPhoto : String = ""
         storageReference = FirebaseStorage.getInstance().reference.child("images/activities/$fileName")
-        if(viewModel.servicioUrlFoto.toString()!=null){
+        if(viewModel.servicioUrlFoto!=null){
+            progressDialog.setMessage("Subiendo imagen...")
+            progressDialog.setCancelable(false)
+            progressDialog.show()
             storageReference.putFile(viewModel.servicioUrlFoto!!).addOnSuccessListener {
                 Toast.makeText(context, "Imagen subida correctamente", Toast.LENGTH_LONG).show()
                 it.storage.downloadUrl.addOnSuccessListener { task ->
@@ -167,6 +168,8 @@ class AgregarServicio : Fragment() {
             }
 
 
+        }else{
+            createServicio()
         }
 
     }
@@ -194,6 +197,11 @@ class AgregarServicio : Fragment() {
             )
 
         if (viewModel.servicioItemSeleccionado != null) {
+            //servicio.categoryId = viewModel.servicioItemSeleccionado!!.categoryId
+            if(viewModel.servicioUrlFoto ==null){
+                servicio.photos = viewModel.servicioItemSeleccionado!!.photos
+            }
+
             var statusCode: Boolean = fetcherPutServicio()
             if (statusCode) {
 
@@ -324,7 +332,7 @@ class AgregarServicio : Fragment() {
         )
         Log.d("response", response.toString())
         if (response.isSuccessful) {
-            viewModel.actividades.value?.add(response.body()!!)
+            //viewModel.actividades.value?.add(response.body()!!)
             return true
         }
         val jObjError = JSONObject(response.errorBody()!!.string())
@@ -335,6 +343,7 @@ class AgregarServicio : Fragment() {
         return false
 
     }
+
 }
 
 

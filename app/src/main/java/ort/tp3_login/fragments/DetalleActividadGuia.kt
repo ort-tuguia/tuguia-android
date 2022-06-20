@@ -75,7 +75,7 @@ class DetalleActividadGuia : Fragment() {
     private fun openDialogImagen() {
         var alertDialog = AlertDialog.Builder(this.context)
         alertDialog.setTitle("Imagen")
-            .setMessage("Querés cambiar el imagen de la actividad?")
+            .setMessage("Querés cambiar la imagen de la actividad?")
             .setPositiveButton("Si",
                 DialogInterface.OnClickListener{ dialog: DialogInterface?, which: Int ->
                     view1.findNavController().navigate(R.id.action_detalleActividadGuia_to_fotoAgregarServicio)
