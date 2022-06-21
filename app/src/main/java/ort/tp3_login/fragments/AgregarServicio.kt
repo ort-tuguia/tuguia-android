@@ -335,11 +335,18 @@ class AgregarServicio : Fragment() {
             //viewModel.actividades.value?.add(response.body()!!)
             return true
         }
-        val jObjError = JSONObject(response.errorBody()!!.string())
-        Log.d("Error", jObjError.getString("errors"))
-        Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
-            .setBackgroundTint(Color.parseColor("#D72F27"))
-            .show()
+        if (viewModel.servicioCategoriaId == "" && viewModel.servicioItemSeleccionado != null) {
+            Log.d("categoriaId",viewModel.servicioCategoriaId)
+            Snackbar.make(view1, "Agregue una categoria, por favor", Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(Color.parseColor("#D72F27"))
+                .show()
+        }else {
+            val jObjError = JSONObject(response.errorBody()!!.string())
+            Log.d("Error", jObjError.getString("errors"))
+            Snackbar.make(view1, jObjError.getString("message"), Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(Color.parseColor("#D72F27"))
+                .show()
+        }
         return false
 
     }
