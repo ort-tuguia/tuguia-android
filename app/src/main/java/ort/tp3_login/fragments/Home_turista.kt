@@ -151,6 +151,7 @@ class home_turista : Fragment() {
     }
 
     private fun createDialog(){
+        categoriesParaBackend.clear()
         val builder = AlertDialog.Builder(context)
         if(categoriesNombre.isEmpty()) {
             resultCategorie.forEach { categoria ->
@@ -186,6 +187,7 @@ class home_turista : Fragment() {
                 }
             }
 
+
             if (counter > 0) {
 
 
@@ -199,9 +201,9 @@ class home_turista : Fragment() {
         val dialog = builder.create()
         dialog.show()
 
-        if((selectedCategorie.filter { it }).size < 2){
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
-        }
+//        if((selectedCategorie.filter { it }).size < 2){
+//            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+//        }
         dialog.listView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val sparseBooleanArray = dialog.listView.checkedItemPositions
@@ -216,7 +218,7 @@ class home_turista : Fragment() {
                 }
 
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                    .isEnabled = checkedItems >=1
+                    .isEnabled = checkedItems >=0
             }
 
     }
@@ -251,6 +253,7 @@ class home_turista : Fragment() {
             if (serviciosList != null) {
                 Log.d("response -->Servicios", serviciosList.toString())
                 viewModel.actividades.value = serviciosList
+
 
             }
             viewModel.loadActivities()
