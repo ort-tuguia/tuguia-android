@@ -39,7 +39,7 @@ class ServicioGuiaViewHolder(v: View) : RecyclerView.ViewHolder(v) {
             textViewValoracion.text = valoracion.toString()
             textViewValoracion.visibility = View.VISIBLE
         } else {
-            textViewValoracion.visibility = View.GONE
+            textViewValoracion.text = ""
         }
 
 

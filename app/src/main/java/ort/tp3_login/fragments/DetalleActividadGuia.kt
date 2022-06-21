@@ -56,7 +56,7 @@ class DetalleActividadGuia : Fragment() {
             valoracion.text = viewModel.servicioItemSeleccionado?.reviews?.avgScore.toString()
         }
         else{
-            valoracion.visibility = View.GONE
+            valoracion.text =""
         }
         return view1
     }
